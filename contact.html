@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.googleapis.com; font-src 'self' data:; connect-src 'self' https:;" />
     <title>Contact - Urban Warrior Gym</title>
     <link rel="icon" type="image/png" href="img/logo.png" />
     <link rel="stylesheet" href="css/style.css" />
@@ -617,6 +618,27 @@
         transition: 0.3s;
       }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact Urban Warrior Gym",
+      "mainEntity": {
+        "@type": "SportsActivityLocation",
+        "name": "C.S. Urban Warrior Gym",
+        "telephone": ["+40748145453", "+40766621622"],
+        "email": "contact@urbanwarriorgym.ro",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Str. Transilvaniei 24-26",
+          "addressLocality": "Brăila",
+          "postalCode": "810249",
+          "addressCountry": "RO"
+        },
+        "openingHours": "Mo-Fr 15:45-20:00"
+      }
+    }
+    </script>
   </head>
 
   <body>
@@ -783,6 +805,10 @@
             <h3 class="form-title">Trimite-ne un mesaj</h3>
 
             <form id="contactForm" novalidate>
+              <div class="form-row full" style="position:absolute;left:-9999px;top:-9999px;visibility:hidden" aria-hidden="true">
+                <input type="text" name="website" id="hp-website" tabindex="-1" autocomplete="off" />
+              </div>
+
               <div class="form-row">
                 <div class="form-field" data-field="prenume">
                   <input id="prenume" name="prenume" type="text" autocomplete="given-name" required />
@@ -1083,6 +1109,15 @@
           allValid = false;
         } else {
           gdpr.parentElement.style.color = "";
+        }
+
+        const honeypot = document.getElementById("hp-website");
+        if (honeypot && honeypot.value.trim() !== "") {
+          successBox.classList.add("active");
+          successBox.querySelector("h4").textContent = "Mesaj primit ✓";
+          successBox.querySelector("p").textContent = "Mulțumim! Te vom contacta în curând.";
+          form.reset();
+          return;
         }
 
         if (!allValid) {

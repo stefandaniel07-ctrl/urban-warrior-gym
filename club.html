@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.googleapis.com; font-src 'self' data:; connect-src 'self' https:;" />
     <title>Clubul Nostru - Urban Warrior Gym</title>
     <link rel="icon" type="image/png" href="img/logo.png" />
 
@@ -27,7 +28,30 @@
     <script src="js/gsap.min.js"></script>
     <script src="js/ScrollTrigger.min.js" defer></script>
     <script src="js/lenis.min.js"></script>
-    <script src="js/tsparticles.slim.min.js" defer></script>  </head>
+    <script src="js/tsparticles.slim.min.js" defer></script>    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "Clubul Urban Warrior Gym",
+      "description": "Echipa de antrenori Urban Warrior Gym - Dan Căpățînă (fondator) și Roman Petrișor Daniel. Palmares competiții naționale și internaționale.",
+      "mainEntity": {
+        "@type": "SportsClub",
+        "name": "C.S. Urban Warrior Gym",
+        "foundingDate": "2014",
+        "founder": {
+          "@type": "Person",
+          "name": "Dan Căpățînă",
+          "jobTitle": "Fondator și Antrenor Coordonator"
+        },
+        "member": {
+          "@type": "Person",
+          "name": "Roman Petrișor Daniel",
+          "jobTitle": "Instructor Arte Marțiale"
+        }
+      }
+    }
+    </script>
+  </head>
 
   <body>
     <div id="tsparticles"></div>

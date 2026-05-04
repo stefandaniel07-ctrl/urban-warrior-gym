@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.googleapis.com; font-src 'self' data:; connect-src 'self' https:;" />
     <title>Galerie - Urban Warrior Gym</title>
     <link rel="icon" type="image/png" href="img/logo.png" />
     <link rel="stylesheet" href="css/style.css" />
@@ -190,6 +191,18 @@
         transform: translateY(-10px);
       }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Galerie foto Urban Warrior Gym",
+      "description": "Imagini din timpul antrenamentelor și competițiilor C.S. Urban Warrior Gym Brăila",
+      "about": {
+        "@type": "SportsClub",
+        "name": "C.S. Urban Warrior Gym"
+      }
+    }
+    </script>
   </head>
 
   <body>
@@ -617,3 +630,4 @@
     </script>
   </body>
 </html>
+                                                                               
