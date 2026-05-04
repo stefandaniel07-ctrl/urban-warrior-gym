@@ -2983,3 +2983,23 @@ main.galerie-page section.horizontal-gallery-section.swiper .swiper-wrapper > .s
   border: none;
   z-index: 2;
 }
+
+.swiper-slide.swiper-slide-spacer {
+  width: 16px !important;
+  flex: 0 0 16px !important;
+  min-width: 16px !important;
+  max-width: 16px !important;
+  height: 1px !important;
+  background: transparent !important;
+  pointer-events: none !important;
+  border: none !important;
+  margin: 0 !important;
+}
+@media (min-width: 769px) {
+  .swiper-slide.swiper-slide-spacer {
+    width: 30px !important;
+    flex: 0 0 30px !important;
+    min-width: 30px !important;
+    max-width: 30px !important;
+  }
+}

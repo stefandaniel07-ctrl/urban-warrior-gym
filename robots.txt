@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /private
+
+Sitemap: https://stefandaniel07-ctrl.github.io/urban-warrior-gym/sitemap.xml

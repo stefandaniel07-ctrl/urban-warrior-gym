@@ -237,6 +237,7 @@
 
       <section class="horizontal-gallery-section swiper">
         <div class="swiper-wrapper">
+          <div class="swiper-slide swiper-slide-spacer" aria-hidden="true"></div>
           <div class="swiper-slide h-card">
             <picture>
               <source type="image/avif" srcset="img/onoare.avif" />
@@ -277,6 +278,7 @@
             </picture>
             <span class="h-text">FOCUS</span>
           </div>
+          <div class="swiper-slide swiper-slide-spacer" aria-hidden="true"></div>
         </div>
       </section>
 
@@ -513,14 +515,7 @@
             grabCursor: true,
             resistance: true,
             resistanceRatio: 0.65,
-            slidesOffsetBefore: 16,
-            slidesOffsetAfter: 16,
-            breakpoints: {
-              769: {
-                slidesOffsetBefore: 30,
-                slidesOffsetAfter: 30,
-              },
-            },
+            
             mousewheel: {
               forceToAxis: true,
               sensitivity: 0.8,

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Pagină inexistentă | Urban Warrior Gym</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .err-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 100px 5% 60px 5%;
+        position: relative;
+        text-align: center;
+      }
+      .err-code {
+        font-size: clamp(120px, 25vw, 280px);
+        font-weight: 900;
+        line-height: 1;
+        background: linear-gradient(135deg, #ff0000, #fff 70%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 10px;
+        letter-spacing: -8px;
+      }
+      .err-tag {
+        color: #ff0000;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-family: "Courier New", monospace;
+        margin-bottom: 20px;
+      }
+      .err-title {
+        font-size: clamp(28px, 5vw, 44px);
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+        letter-spacing: 1px;
+      }
+      .err-desc {
+        color: #aaa;
+        font-size: 16px;
+        max-width: 500px;
+        margin: 0 auto 40px auto;
+        line-height: 1.6;
+      }
+      .err-actions {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .err-actions a {
+        text-decoration: none;
+      }
+      .err-quick-links {
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid #1a1a1a;
+        max-width: 500px;
+      }
+      .err-quick-links h4 {
+        color: #888;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+        font-family: "Courier New", monospace;
+      }
+      .err-quick-links ul {
+        display: flex;
+        gap: 14px;
+        list-style: none;
+        padding: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .err-quick-links a {
+        color: #ccc;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 8px 16px;
+        border: 1px solid #333;
+        transition: all 0.3s;
+      }
+      .err-quick-links a:hover {
+        border-color: #ff0000;
+        color: #ff0000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="global-grid-overlay"></div>
+    <main class="err-page">
+      <div class="err-code">404</div>
+      <span class="err-tag">// PAGINĂ INEXISTENTĂ</span>
+      <h1 class="err-title">K.O. înainte de runda 1</h1>
+      <p class="err-desc">
+        Pagina pe care o cauți nu mai există sau a fost mutată. Probabil un
+        adversar a rupt link-ul. Hai înapoi în ring.
+      </p>
+      <div class="err-actions">
+        <a href="index.html" class="btn-cta">ÎNAPOI ACASĂ</a>
+      </div>
+      <div class="err-quick-links">
+        <h4>SAU MERGI DIRECT LA</h4>
+        <ul>
+          <li><a href="index.html">Acasă</a></li>
+          <li><a href="club.html">Clubul Nostru</a></li>
+          <li><a href="galerie.html">Galerie</a></li>
+          <li><a href="abonamente.html">Abonamente</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>
