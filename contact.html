@@ -30,6 +30,7 @@
     <script src="js/ScrollTrigger.min.js" defer></script>
     <script src="js/lenis.min.js"></script>
     <script src="js/admin-access.js" defer></script>
+    <script src="js/i18n.js" defer></script>
     <script src="js/tsparticles.slim.min.js" defer></script>
     <style>
 
@@ -655,18 +656,22 @@
         </a>
       </div>
       <ul class="nav-links">
-        <li><a href="index.html">ACASĂ</a></li>
-        <li><a href="club.html">CLUBUL NOSTRU</a></li>
-        <li><a href="galerie.html">GALERIE</a></li>
-        <li><a href="abonamente.html">ABONAMENTE</a></li>
-        <li><a href="contact.html" class="active">CONTACT</a></li>
+        <li><a href="index.html" data-i18n="nav.home">ACASĂ</a></li>
+        <li><a href="club.html" data-i18n="nav.club">CLUBUL NOSTRU</a></li>
+        <li><a href="program.html" data-i18n="nav.schedule">PROGRAM</a></li>
+        <li><a href="galerie.html" data-i18n="nav.gallery">GALERIE</a></li>
+        <li><a href="abonamente.html" data-i18n="nav.plans">ABONAMENTE</a></li>
+        <li><a href="contact.html" class="active" data-i18n="nav.contact">CONTACT</a></li>
       </ul>
+      <button class="lang-toggle" type="button" aria-label="Schimbă limba" data-lang-toggle>
+        <span class="lang-flag" data-lang-current>RO</span>
+      </button>
       <button class="hamburger" aria-label="Meniu" type="button">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      <a href="contact.html" class="btn-cta">HAI LA SALĂ!</a>
+      <a href="contact.html" class="btn-cta" data-i18n="nav.cta">HAI LA SALĂ!</a>
     </nav>
 
     <main class="page-content">
@@ -995,11 +1000,12 @@
         <div class="footer-col menu-col">
           <h3 class="footer-title">MENIU</h3>
           <ul class="footer-links">
-            <li><a href="index.html">Acasă</a></li>
-            <li><a href="club.html">Clubul Nostru</a></li>
-            <li><a href="galerie.html">Galerie</a></li>
-            <li><a href="abonamente.html">Abonamente</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.html" data-i18n="nav.home.lower">Acasă</a></li>
+            <li><a href="club.html" data-i18n="nav.club.lower">Clubul Nostru</a></li>
+            <li><a href="program.html" data-i18n="nav.schedule.lower">Program</a></li>
+            <li><a href="galerie.html" data-i18n="nav.gallery.lower">Galerie</a></li>
+            <li><a href="abonamente.html" data-i18n="nav.plans.lower">Abonamente</a></li>
+            <li><a href="contact.html" data-i18n="nav.contact.lower">Contact</a></li>
           </ul>
         </div>
       </div>
