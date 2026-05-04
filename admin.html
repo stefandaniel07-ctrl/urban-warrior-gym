@@ -525,19 +525,14 @@
         <div class="login-error" id="loginError">Credențiale incorecte</div>
 
         <div class="login-field">
-          <label>USERNAME</label>
-          <input type="text" id="loginUser" autocomplete="off" value="admin" />
-        </div>
-        <div class="login-field">
-          <label>PAROLĂ</label>
-          <input type="password" id="loginPass" autocomplete="off" oncopy="return false" oncut="return false" onpaste="return false" />
+          <label>PAROLĂ ADMIN</label>
+          <input type="password" id="loginPass" autocomplete="off" oncopy="return false" oncut="return false" onpaste="return false" autofocus />
         </div>
         <button class="login-btn" id="loginBtn" type="button">AUTENTIFICARE</button>
 
         <div class="login-meta">
-          <strong style="color:#888">// FIRST RUN</strong><br />
-          User: <code>admin</code><br />
-          Pass: <code>warrior2026</code><br />
+          <strong style="color:#888">// PRIMUL RUN</strong><br />
+          Parolă default: <code>warrior2026</code><br />
           (Schimbă imediat din Securitate după login)
         </div>
       </div>
@@ -575,7 +570,7 @@
             <h1 id="sectionTitle">Statistici</h1>
           </div>
           <div class="admin-header-meta">
-            <div>Bun venit, <strong style="color:#fff">admin</strong></div>
+            <div>Bun venit, <strong style="color:#fff">Admin</strong></div>
             <div id="lastLogin">Ultimul login: -</div>
           </div>
         </div>
@@ -841,7 +836,6 @@
       const loginBtn = document.getElementById("loginBtn");
       const loginErr = document.getElementById("loginError");
       const loginPass = document.getElementById("loginPass");
-      const loginUser = document.getElementById("loginUser");
 
       async function attemptLogin() {
         if (isLockedOut()) {
@@ -850,10 +844,9 @@
           return;
         }
 
-        const u = loginUser.value.trim();
         const p = loginPass.value;
-        if (u !== "admin") {
-          fail("Username invalid");
+        if (!p) {
+          fail("Introdu parola");
           return;
         }
         const hash = await sha256(p);
@@ -893,19 +886,10 @@
       function showAdmin() {
         const login = document.getElementById("loginScreen");
         const shell = document.getElementById("adminShell");
-        login.style.transition = "opacity 0.3s ease";
-        login.style.opacity = "0";
-        setTimeout(function () {
-          login.classList.remove("active");
-          login.style.opacity = "";
-          shell.classList.add("active");
-          window.scrollTo({ top: 0, behavior: "instant" });
-          shell.style.opacity = "0";
-          requestAnimationFrame(function () {
-            shell.style.transition = "opacity 0.4s ease";
-            shell.style.opacity = "1";
-          });
-        }, 300);
+        login.classList.remove("active");
+        login.style.display = "none";
+        shell.classList.add("active");
+        window.scrollTo(0, 0);
         const session = JSON.parse(localStorage.getItem(STORAGE_KEYS.loggedIn) || "null");
         if (session) {
           document.getElementById("lastLogin").textContent =
