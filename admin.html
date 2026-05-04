@@ -888,6 +888,9 @@
         const shell = document.getElementById("adminShell");
         login.classList.remove("active");
         login.style.display = "none";
+        // IMPORTANT: clear inline display:none set la incarcare,
+        // ca sa permita clasei .active sa afiseze shell-ul
+        shell.style.display = "";
         shell.classList.add("active");
         window.scrollTo(0, 0);
         const session = JSON.parse(localStorage.getItem(STORAGE_KEYS.loggedIn) || "null");
@@ -924,10 +927,12 @@
       // Asta forteaza login-ul fresh la fiecare incarcare a paginii.
       localStorage.removeItem(STORAGE_KEYS.loggedIn);
       // Asigura ca login screen-ul e vizibil si admin shell-ul e ascuns.
+      // (Folosesc doar clasele CSS, nu style.display inline,
+      //  ca sa nu interfereze cu showAdmin() ulterior.)
       const _login = document.getElementById("loginScreen");
       const _shell = document.getElementById("adminShell");
       if (_login) { _login.classList.add("active"); _login.style.display = ""; }
-      if (_shell) { _shell.classList.remove("active"); _shell.style.display = "none"; }
+      if (_shell) { _shell.classList.remove("active"); _shell.style.display = ""; }
       // Reset focus pe campul de parola
       if (loginPass) { loginPass.value = ""; setTimeout(() => loginPass.focus(), 100); }
 
