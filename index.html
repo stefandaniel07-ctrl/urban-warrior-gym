@@ -15,7 +15,28 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0a0a0a" />
     <link rel="icon" type="image/png" href="img/logo.png" />
-    <link rel="stylesheet" href="css/style.css" />
+        <style>
+      *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+      html,body{scrollbar-width:none;-ms-overflow-style:none}
+      html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0;height:0}
+      body{background-color:#0a0a0a;color:#fff;line-height:1.6;overflow-x:hidden;position:relative;-webkit-font-smoothing:antialiased;user-select:none}
+      .preloader{position:fixed;top:0;left:0;width:100%;height:100%;background-color:#0a0a0a;z-index:9999;display:flex;justify-content:center;align-items:center;overflow:hidden}
+      .preloader-header{position:absolute;top:60px;left:50%;transform:translateX(-50%);z-index:10}
+      .loader-logo{width:100px;height:auto;display:block}
+      .navbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background-color:rgba(10,10,10,0.8);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);position:fixed;width:100%;z-index:1000;height:100px;border-bottom:1px solid rgba(255,255,255,0.05);padding:0}
+      .logo-container{display:flex;justify-content:center;align-items:center;height:100%}
+      .logo-img{height:80px;width:auto;display:block}
+      .hero-split{display:flex;height:85vh;padding-top:100px;position:relative;overflow:hidden}
+      .hero-content{flex:1;display:flex;flex-direction:column;justify-content:center;padding-left:10%;z-index:10}
+      .hero-content h1{font-size:70px;font-weight:900;line-height:1;margin-bottom:25px;text-transform:uppercase}
+      .red-text{color:#ff0000}
+      .hero-image-container{flex:1.3;position:relative;height:100%;margin-left:-100px;z-index:2;overflow:hidden;isolation:isolate}
+      .hero-img-actual{width:125%;height:100%;object-fit:cover;object-position:25% center;display:block}
+      .global-grid-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+      #tsparticles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-2}
+    </style>
+    <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="css/style.css" /></noscript>
     <link rel="preload" as="image" href="img/luptatori-k1-mobile.avif" type="image/avif" media="(max-width: 768px)" fetchpriority="high" />
     <link rel="preload" as="image" href="img/luptatori-k1.avif" type="image/avif" media="(min-width: 769px)" fetchpriority="high" />
     <link rel="preload" as="image" href="img/logo.png" fetchpriority="high" />
@@ -455,9 +476,13 @@
     <script>
 
       const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        duration: 0.9,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
         smooth: true,
+        smoothTouch: false,
+        syncTouch: false,
+        wheelMultiplier: 1,
+        lerp: 0.1,
       });
 
       lenis.stop();
@@ -727,16 +752,14 @@
         <div class="footer-col map-col">
           <h3 class="footer-title">LOCALIZARE</h3>
           <div class="map-frame">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2823.963868846358!2d27.95478437666248!3d45.26388897107147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b729be60b62d2b%3A0x6a0c0e0b6b6b6b6b!2sStrada%20Transilvaniei%2024%2C%20Br%C4%83ila!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro"
-              width="100%"
-              height="250"
-              style="border: 0"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            >
-            </iframe>
+            <div class="map-placeholder" data-mapsrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2823.963868846358!2d27.95478437666248!3d45.26388897107147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b729be60b62d2b%3A0x6a0c0e0b6b6b6b6b!2sStrada%20Transilvaniei%2024%2C%20Br%C4%83ila!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro" data-loaded="false">
+              <div class="map-placeholder-inner">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="map-pin-icon"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                <strong>Str. Transilvaniei 24-26</strong>
+                <span class="map-place">Brăila, 810249</span>
+                <span class="map-load-hint">Apasă pentru harta interactivă</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -801,6 +824,27 @@
             document.body.classList.remove("menu-open");
           });
         });
+      })();
+    </script>
+  
+    <script>
+      (function () {
+        document.addEventListener("click", function (e) {
+          const ph = e.target.closest(".map-placeholder");
+          if (!ph || ph.dataset.loaded === "true") return;
+          const src = ph.dataset.mapsrc;
+          if (!src) return;
+          const iframe = document.createElement("iframe");
+          iframe.src = src;
+          iframe.allowFullscreen = true;
+          iframe.loading = "lazy";
+          iframe.referrerPolicy = "no-referrer-when-downgrade";
+          iframe.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2";
+          iframe.title = "Hartă C.S. Urban Warrior Gym";
+          ph.appendChild(iframe);
+          ph.dataset.loaded = "true";
+          ph.style.cursor = "default";
+        }, { passive: true });
       })();
     </script>
   </body>
