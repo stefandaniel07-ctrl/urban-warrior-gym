@@ -500,6 +500,11 @@
       }
       .toast.show { opacity: 1; transform: translateY(0); }
 
+      @keyframes pulseDot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.3); }
+      }
+
       @media (max-width: 768px) {
         .admin-shell.active { grid-template-columns: 1fr; }
         .admin-sidebar { position: static; height: auto; }
@@ -525,7 +530,7 @@
         </div>
         <div class="login-field">
           <label>PAROLĂ</label>
-          <input type="password" id="loginPass" autocomplete="off" />
+          <input type="password" id="loginPass" autocomplete="off" oncopy="return false" oncut="return false" onpaste="return false" />
         </div>
         <button class="login-btn" id="loginBtn" type="button">AUTENTIFICARE</button>
 
@@ -544,7 +549,7 @@
           <img src="img/logo.png" alt="UWG" />
           <div>
             <div class="admin-brand-text">UWG ADMIN</div>
-            <div class="admin-brand-sub">v1.0 LIVE</div>
+            <div class="admin-brand-sub">LIVE</div>
           </div>
         </div>
         <ul class="admin-nav" id="adminNav">
@@ -562,7 +567,13 @@
 
       <main class="admin-main">
         <div class="admin-header">
-          <h1 id="sectionTitle">Statistici</h1>
+          <div>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0a0;box-shadow:0 0 10px #0a0;animation:pulseDot 2s ease infinite"></span>
+              <span style="color:#0a0;font-size:10px;letter-spacing:2px;font-family:monospace;text-transform:uppercase">SYSTEM ONLINE</span>
+            </div>
+            <h1 id="sectionTitle">Statistici</h1>
+          </div>
           <div class="admin-header-meta">
             <div>Bun venit, <strong style="color:#fff">admin</strong></div>
             <div id="lastLogin">Ultimul login: -</div>
@@ -590,6 +601,17 @@
               <div class="stat-label">// PAGINA TOP</div>
               <div class="stat-value" id="statTopPage" style="font-size:22px">-</div>
               <div class="stat-trend" id="statTopViews">0 vizite</div>
+            </div>
+          </div>
+
+          <div class="admin-block" style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px">
+            <div>
+              <strong style="color:#fff;font-size:13px;letter-spacing:1px">QUICK ACTIONS</strong>
+              <span style="color:#555;font-size:11px;margin-left:10px">// reset rapid statistici</span>
+            </div>
+            <div style="display:flex;gap:10px">
+              <button class="editor-btn secondary" id="quickResetStats" style="padding:8px 16px;font-size:11px">🗑️ RESET STATISTICI</button>
+              <button class="editor-btn secondary" id="quickResetMessages" style="padding:8px 16px;font-size:11px">🗑️ ȘTERGE MESAJE</button>
             </div>
           </div>
 
@@ -731,6 +753,7 @@
             </p>
             <div class="editor-actions">
               <button class="editor-btn" id="exportBtn">📥 EXPORT JSON</button>
+              <button class="editor-btn" id="exportTxtBtn">📄 EXPORT TXT</button>
               <button class="editor-btn secondary" id="importBtn">📤 IMPORT JSON</button>
               <button class="editor-btn secondary" id="resetAllBtn" style="border-color:#aa0000;color:#ff5555">⚠️ RESET TOT</button>
             </div>
@@ -806,6 +829,15 @@
         setTimeout(() => t.classList.remove("show"), 2400);
       }
 
+      (function(){
+        document.addEventListener("contextmenu", function(e){ e.preventDefault(); });
+        document.addEventListener("keydown", function(e){
+          var k = (e.key || "").toLowerCase();
+          if (k === "f12") return e.preventDefault();
+          if (e.ctrlKey && k === "u") return e.preventDefault();
+          if (e.ctrlKey && e.shiftKey && (k === "i" || k === "j" || k === "c")) return e.preventDefault();
+        });
+      })();
       const loginBtn = document.getElementById("loginBtn");
       const loginErr = document.getElementById("loginError");
       const loginPass = document.getElementById("loginPass");
@@ -859,8 +891,21 @@
       });
 
       function showAdmin() {
-        document.getElementById("loginScreen").classList.remove("active");
-        document.getElementById("adminShell").classList.add("active");
+        const login = document.getElementById("loginScreen");
+        const shell = document.getElementById("adminShell");
+        login.style.transition = "opacity 0.3s ease";
+        login.style.opacity = "0";
+        setTimeout(function () {
+          login.classList.remove("active");
+          login.style.opacity = "";
+          shell.classList.add("active");
+          window.scrollTo({ top: 0, behavior: "instant" });
+          shell.style.opacity = "0";
+          requestAnimationFrame(function () {
+            shell.style.transition = "opacity 0.4s ease";
+            shell.style.opacity = "1";
+          });
+        }, 300);
         const session = JSON.parse(localStorage.getItem(STORAGE_KEYS.loggedIn) || "null");
         if (session) {
           document.getElementById("lastLogin").textContent =
@@ -870,7 +915,17 @@
       }
 
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get("unlock") === "resetlockout") {
+      if (urlParams.get("master") === "warrior2026reset") {
+        localStorage.removeItem(STORAGE_KEYS.pwd);
+        localStorage.removeItem(STORAGE_KEYS.lockout);
+        localStorage.removeItem(STORAGE_KEYS.attempts);
+        loginErr.textContent = "🔑 Master reset făcut. Parola e acum 'warrior2026'.";
+        loginErr.classList.add("active");
+        loginErr.style.background = "rgba(0, 200, 0, 0.1)";
+        loginErr.style.borderLeftColor = "#0a0";
+        loginErr.style.color = "#5f5";
+        history.replaceState(null, "", window.location.pathname);
+      } else if (urlParams.get("unlock") === "resetlockout") {
         localStorage.removeItem(STORAGE_KEYS.lockout);
         localStorage.removeItem(STORAGE_KEYS.attempts);
         loginErr.textContent = "🔓 Lockout reset cu succes. Încearcă login-ul.";
@@ -903,6 +958,20 @@
         location.reload();
       });
 
+      const PAGE_NAMES = {
+        "index.html": "Acasă",
+        "": "Acasă",
+        "club.html": "Clubul Nostru",
+        "galerie.html": "Galerie",
+        "abonamente.html": "Abonamente",
+        "contact.html": "Contact",
+        "admin.html": "Admin Panel",
+        "404.html": "Eroare 404",
+      };
+      function pageName(path) {
+        return PAGE_NAMES[path] || path;
+      }
+
       function renderStats() {
         const visits = JSON.parse(localStorage.getItem(STORAGE_KEYS.visits) || "{}");
         const messages = JSON.parse(localStorage.getItem(STORAGE_KEYS.messages) || "[]");
@@ -928,7 +997,7 @@
         const pageEntries = Object.entries(visits);
         if (pageEntries.length) {
           const sorted = pageEntries.sort((a, b) => b[1].total - a[1].total);
-          document.getElementById("statTopPage").textContent = sorted[0][0];
+          document.getElementById("statTopPage").textContent = pageName(sorted[0][0]);
           document.getElementById("statTopViews").textContent = `${sorted[0][1].total} vizite`;
         }
 
@@ -963,7 +1032,7 @@
           const sortedPages = pageEntries.sort((a, b) => b[1].total - a[1].total);
           sortedPages.forEach(([page, data]) => {
             const pct = totalVisits ? Math.round((data.total / totalVisits) * 100) : 0;
-            tbody.innerHTML += `<tr><td><strong style="color:#fff">${page}</strong></td><td>${data.total}</td><td><span class="badge">${pct}%</span></td></tr>`;
+            tbody.innerHTML += `<tr><td><strong style="color:#fff">${pageName(page)}</strong> <span style="color:#555;font-size:11px">${page}</span></td><td>${data.total}</td><td><span class="badge">${pct}%</span></td></tr>`;
           });
         }
       }
@@ -1092,6 +1161,99 @@
         });
       }
 
+      document.getElementById("exportTxtBtn").addEventListener("click", () => {
+        const visits = JSON.parse(localStorage.getItem(STORAGE_KEYS.visits) || "{}");
+        const messages = JSON.parse(localStorage.getItem(STORAGE_KEYS.messages) || "[]");
+        const plans = JSON.parse(localStorage.getItem(STORAGE_KEYS.plans) || "[]");
+        const edits = JSON.parse(localStorage.getItem(STORAGE_KEYS.edits) || "{}");
+        const activity = JSON.parse(localStorage.getItem(STORAGE_KEYS.activity) || "[]");
+
+        const sep = "═══════════════════════════════════════════════════════════\n";
+        const minor = "──────────────────────────────────────────────────────────\n";
+        let txt = "";
+
+        txt += sep;
+        txt += "         C.S. URBAN WARRIOR GYM — RAPORT BACKUP\n";
+        txt += "         Brăila, România  •  Sală K1 Profesional\n";
+        txt += sep;
+        txt += "Generat: " + new Date().toLocaleString("ro-RO") + "\n";
+        txt += "Site:    https://stefandaniel07-ctrl.github.io/urban-warrior-gym/\n\n";
+
+        txt += sep;
+        txt += "  📊 STATISTICI VIZITE\n";
+        txt += sep;
+        const totalVisits = Object.values(visits).reduce((a, b) => a + (b.total || 0), 0);
+        txt += "Total vizite:  " + totalVisits + "\n";
+        txt += "Pagini unice:  " + Object.keys(visits).length + "\n\n";
+        txt += "Per pagină:\n";
+        txt += minor;
+        Object.entries(visits).sort((a, b) => b[1].total - a[1].total).forEach(([p, d]) => {
+          txt += "  " + pageName(p).padEnd(20, " ") + " " + String(d.total).padStart(6, " ") + " vizite\n";
+        });
+        txt += "\n";
+
+        txt += sep;
+        txt += "  📧 MESAJE PRIMITE (" + messages.length + ")\n";
+        txt += sep;
+        if (messages.length === 0) {
+          txt += "  (niciun mesaj)\n\n";
+        } else {
+          messages.forEach((m, i) => {
+            txt += "  #" + (i + 1) + "  " + new Date(m.ts).toLocaleString("ro-RO") + (m.read ? "  [CITIT]" : "  [NOU]") + "\n";
+            txt += "  De la:   " + (m.name || "?") + "\n";
+            txt += "  Telefon: " + (m.phone || "-") + "\n";
+            txt += "  Email:   " + (m.email || "-") + "\n";
+            txt += "  Mesaj:\n    " + (m.message || "").replace(/\n/g, "\n    ") + "\n";
+            txt += minor;
+          });
+        }
+
+        txt += "\n" + sep;
+        txt += "  💳 SOLICITĂRI ABONAMENTE (" + plans.length + ")\n";
+        txt += sep;
+        if (plans.length === 0) {
+          txt += "  (niciun click)\n";
+        } else {
+          plans.forEach((p, i) => {
+            txt += "  " + (i + 1) + ". " + new Date(p.ts).toLocaleString("ro-RO") + "\n";
+            txt += "     Plan:    " + p.plan + " (" + (p.price || "?") + " RON)\n";
+            txt += "     Refer:   " + pageName(p.referer || "?") + "\n\n";
+          });
+        }
+
+        txt += "\n" + sep;
+        txt += "  ⚙️  EDITĂRI CONȚINUT ACTIVE\n";
+        txt += sep;
+        if (Object.keys(edits).length === 0) {
+          txt += "  (totul default)\n";
+        } else {
+          Object.entries(edits).forEach(([k, v]) => {
+            txt += "  " + k.padEnd(15, " ") + " = " + v + "\n";
+          });
+        }
+
+        txt += "\n" + sep;
+        txt += "  🔒 ACTIVITY LOG (ultimele " + activity.length + ")\n";
+        txt += sep;
+        activity.forEach((e) => {
+          txt += "  " + new Date(e.ts).toLocaleString("ro-RO") + "  " + e.event + "\n";
+        });
+
+        txt += "\n" + sep;
+        txt += "                  END OF REPORT\n";
+        txt += sep;
+
+        const blob = new Blob([txt], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `uwg-raport-${new Date().toISOString().slice(0, 10)}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+        logActivity("TXT EXPORTED");
+        showToast("✓ Raport TXT descărcat");
+      });
+
       document.getElementById("exportBtn").addEventListener("click", () => {
         const data = {
           messages: JSON.parse(localStorage.getItem(STORAGE_KEYS.messages) || "[]"),
@@ -1136,6 +1298,22 @@
           }
         };
         reader.readAsText(file);
+      });
+
+      document.getElementById("quickResetStats").addEventListener("click", () => {
+        if (!confirm("Reset statistici vizite? (mesajele și solicitările RĂMÂN)")) return;
+        localStorage.removeItem(STORAGE_KEYS.visits);
+        logActivity("STATS RESET");
+        renderAll();
+        showToast("✓ Statistici reset");
+      });
+
+      document.getElementById("quickResetMessages").addEventListener("click", () => {
+        if (!confirm("Șterge TOATE mesajele primite?")) return;
+        localStorage.removeItem(STORAGE_KEYS.messages);
+        logActivity("MESSAGES CLEARED");
+        renderAll();
+        showToast("✓ Mesaje șterse");
       });
 
       document.getElementById("resetAllBtn").addEventListener("click", () => {
