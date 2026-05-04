@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galerie - Urban Warrior Gym</title>
     <link rel="icon" type="image/png" href="img/logo.png" />
-    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/style.css" />
 
         <script>
@@ -26,7 +25,6 @@
     </script>
     <script src="js/gsap.min.js"></script>
     <script src="js/ScrollTrigger.min.js" defer></script>
-    <script src="js/swiper-bundle.min.js"></script>
     <script src="js/lenis.min.js"></script>
     <script src="js/tsparticles.slim.min.js" defer></script>
     <style>
@@ -164,9 +162,6 @@
         width: max-content;
       }
 
-      .horizontal-gallery-section .swiper-wrapper {
-        gap: 24px;
-      }
       .h-card {
         flex: 0 0 auto;
         width: 400px;
@@ -235,50 +230,48 @@
         </p>
       </div>
 
-      <section class="horizontal-gallery-section swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slide-spacer" aria-hidden="true"></div>
-          <div class="swiper-slide h-card">
+            <section class="gstrip" id="galleryStrip" aria-label="Galerie foto orizontală">
+        <div class="gstrip-track">
+          <article class="gstrip-card">
             <picture>
               <source type="image/avif" srcset="img/onoare.avif" />
               <source type="image/webp" srcset="img/onoare.webp" />
               <img src="img/onoare.jpg" alt="Onoare" decoding="async" />
             </picture>
-            <span class="h-text">ONOARE</span>
-          </div>
-          <div class="swiper-slide h-card">
+            <span class="gstrip-text">ONOARE</span>
+          </article>
+          <article class="gstrip-card">
             <picture>
               <source type="image/avif" srcset="img/disciplina.avif" />
               <source type="image/webp" srcset="img/disciplina.webp" />
-              <img src="img/disciplina.jpg" decoding="async" alt="Disciplina" />
+              <img src="img/disciplina.jpg" alt="Disciplină" decoding="async" />
             </picture>
-            <span class="h-text">DISCIPLINĂ</span>
-          </div>
-          <div class="swiper-slide h-card">
+            <span class="gstrip-text">DISCIPLINĂ</span>
+          </article>
+          <article class="gstrip-card">
             <picture>
               <source type="image/avif" srcset="img/respect.avif" />
               <source type="image/webp" srcset="img/respect.webp" />
-              <img src="img/respect.jpg" decoding="async" alt="Respect" />
+              <img src="img/respect.jpg" alt="Respect" decoding="async" />
             </picture>
-            <span class="h-text">RESPECT</span>
-          </div>
-          <div class="swiper-slide h-card">
+            <span class="gstrip-text">RESPECT</span>
+          </article>
+          <article class="gstrip-card">
             <picture>
               <source type="image/avif" srcset="img/victorie.avif" />
               <source type="image/webp" srcset="img/victorie.webp" />
-              <img src="img/victorie.jpg" decoding="async" alt="Victorie" />
+              <img src="img/victorie.jpg" alt="Victorie" decoding="async" />
             </picture>
-            <span class="h-text">VICTORIE</span>
-          </div>
-          <div class="swiper-slide h-card">
+            <span class="gstrip-text">VICTORIE</span>
+          </article>
+          <article class="gstrip-card">
             <picture>
               <source type="image/avif" srcset="img/focus.avif" />
               <source type="image/webp" srcset="img/focus.webp" />
-              <img src="img/focus.jpg" decoding="async" alt="Focus" />
+              <img src="img/focus.jpg" alt="Focus" decoding="async" />
             </picture>
-            <span class="h-text">FOCUS</span>
-          </div>
-          <div class="swiper-slide swiper-slide-spacer" aria-hidden="true"></div>
+            <span class="gstrip-text">FOCUS</span>
+          </article>
         </div>
       </section>
 
@@ -487,6 +480,58 @@
         </p>
       </div>
     </footer>
+    <script>
+      window.addEventListener("load", function () {
+        if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.to(".gallery-container", {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ".gallery-container",
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        }
+      });
+
+      (function () {
+        var strip = document.getElementById("galleryStrip");
+        if (!strip) return;
+        var isDragging = false;
+        var startX = 0;
+        var startScroll = 0;
+
+        strip.addEventListener("mousedown", function (e) {
+          if (e.button !== 0) return;
+          isDragging = true;
+          startX = e.pageX;
+          startScroll = strip.scrollLeft;
+          strip.classList.add("dragging");
+          e.preventDefault();
+        });
+
+        document.addEventListener("mousemove", function (e) {
+          if (!isDragging) return;
+          e.preventDefault();
+          var dx = e.pageX - startX;
+          strip.scrollLeft = startScroll - dx;
+        });
+
+        function endDrag() {
+          if (!isDragging) return;
+          isDragging = false;
+          strip.classList.remove("dragging");
+        }
+
+        document.addEventListener("mouseup", endDrag);
+        document.addEventListener("mouseleave", endDrag);
+
+      })();
+    </script>
 
     <script>
 
@@ -505,46 +550,7 @@
       }
       requestAnimationFrame(raf);
 
-      window.addEventListener("load", () => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        if (typeof Swiper !== "undefined") {
-          new Swiper(".horizontal-gallery-section", {
-            slidesPerView: "auto",
-            freeMode: true,
-            grabCursor: true,
-            resistance: true,
-            resistanceRatio: 0.65,
-            
-            mousewheel: {
-              forceToAxis: true,
-              sensitivity: 0.8,
-            },
-            keyboard: { enabled: true },
-          });
-        }
-
-        if (window.innerWidth > 768) {
-          gsap.to(".gallery-container", {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ".gallery-container",
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          });
-        } else {
-          const gc = document.querySelector(".gallery-container");
-          if (gc) {
-            gc.style.opacity = "1";
-            gc.style.visibility = "visible";
-            gc.style.transform = "none";
-          }
-        }
-      });
+      
     </script>
       <script>
       if (typeof tsParticles !== "undefined") {
