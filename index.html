@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Urban Warrior Gym</title>
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preload" as="image" href="img/luptatori-k1-mobile.avif" type="image/avif" media="(max-width: 768px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="img/luptatori-k1.avif" type="image/avif" media="(min-width: 769px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="img/logo.png" fetchpriority="high" />
+    <script>
+      if (history.scrollRestoration) {
+        history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+    </script>
+        <script>
+      (function () {
+        document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+        document.addEventListener("keydown", function (e) {
+          var k = (e.key || "").toLowerCase();
+          if (k === "f12") return e.preventDefault();
+          if (e.ctrlKey && k === "u") return e.preventDefault();
+          if (e.ctrlKey && k === "s") return e.preventDefault();
+          if (e.ctrlKey && e.shiftKey && (k === "i" || k === "j" || k === "c")) return e.preventDefault();
+          if (e.metaKey && e.altKey && (k === "i" || k === "j" || k === "c")) return e.preventDefault();
+        });
+        document.addEventListener("dragstart", function (e) {
+          if (e.target && e.target.tagName === "IMG") e.preventDefault();
+        });
+      })();
+    </script>
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js" defer></script>
+    <script src="js/lenis.min.js"></script>
+    <script src="js/tsparticles.slim.min.js" defer></script>  </head>
+  <body>
+    <div id="tsparticles"></div>
+    <div class="global-grid-overlay"></div>
+
+    <div class="preloader">
+      <div class="loading-group">
+        <div class="preloader-header">
+          <img src="img/logo.png" alt="Urban Warrior Gym" class="loader-logo" />
+        </div>
+        <div class="loader-track">
+          <div class="line-bg"></div>
+          <div class="line-progress"></div>
+          <div class="counter-wrap">
+            <div class="counter">0%</div>
+          </div>
+        </div>
+        <div class="preloader-footer">2026</div>
+      </div>
+      <div class="final-text-container">
+        <div class="final-text left">URBAN</div>
+        <div class="final-text right">WARRIOR</div>
+      </div>
+    </div>
+
+    <nav class="navbar">
+      <div class="logo-container">
+        <img
+          src="img/logo.png"
+          alt="C.S. Urban Warrior K1 Logo"
+          class="logo-img"
+        />
+      </div>
+      <ul class="nav-links">
+        <li><a href="#" class="active">ACASĂ</a></li>
+        <li><a href="club.html">CLUBUL NOSTRU</a></li>
+        <li><a href="galerie.html">GALERIE</a></li>
+        <li><a href="abonamente.html">ABONAMENTE</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Meniu" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a href="contact.html" class="btn-cta">HAI LA SALĂ!</a>
+    </nav>
+
+    <section class="hero-split">
+      <div class="hero-content">
+        <h5 class="hero-subtitle">Bine ai venit!</h5>
+        <h1>
+          URBAN <span class="red-text">WARRIOR</span> <br />
+          GYM
+        </h1>
+        <p class="hero-description">
+          Urban Warrior Gym nu este doar o sală de antrenament, ci o comunitate
+          dedicată pasionaților de sporturi de contact și performanță. Aici,
+          fiecare antrenament înseamnă mai mult decât exercițiu fizic este o
+          oportunitate de a evolua, de a depăși limitele și de a face parte
+          dintr-un colectiv care te motivează să atingi noi performanțe.
+        </p>
+      </div>
+
+      <div class="hero-image-container tech-frame">
+        <div class="crosshair-corner corner-tl"></div>
+        <div class="crosshair-corner corner-br"></div>
+        <picture>
+          <source type="image/avif" media="(max-width: 768px)" srcset="img/luptatori-k1-mobile.avif" />
+          <source type="image/webp" media="(max-width: 768px)" srcset="img/luptatori-k1-mobile.webp" />
+          <source media="(max-width: 768px)" srcset="img/luptatori-k1-mobile.jpg" />
+          <source type="image/avif" srcset="img/luptatori-k1.avif" />
+          <source type="image/webp" srcset="img/luptatori-k1.webp" />
+          <img
+            src="img/luptatori-k1.jpg"
+            alt="Luptători Urban Warrior"
+            class="hero-img-actual"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
+      </div>
+    </section>
+
+    <div class="marquee-wrapper">
+      <div class="marquee-content">
+        <span>KICKBOXING</span> <span class="dot">•</span> <span>MMA</span>
+        <span class="dot">•</span> <span>FITNESS</span>
+        <span class="dot">•</span> <span>BOX</span> <span class="dot">•</span>
+        <span>CARDIO</span> <span class="dot">•</span> <span>MUAY THAI</span>
+        <span class="dot">•</span> <span>KICKBOXING</span>
+        <span class="dot">•</span> <span>MMA</span> <span class="dot">•</span>
+        <span>FITNESS</span> <span class="dot">•</span> <span>BOX</span>
+        <span class="dot">•</span> <span>CARDIO</span>
+        <span class="dot">•</span> <span>MUAY THAI</span>
+        <span class="dot">•</span>
+      </div>
+      <div class="marquee-content">
+        <span>KICKBOXING</span> <span class="dot">•</span> <span>MMA</span>
+        <span class="dot">•</span> <span>FITNESS</span>
+        <span class="dot">•</span> <span>BOX</span> <span class="dot">•</span>
+        <span>CARDIO</span> <span class="dot">•</span> <span>MUAY THAI</span>
+        <span class="dot">•</span> <span>KICKBOXING</span>
+        <span class="dot">•</span> <span>MMA</span> <span class="dot">•</span>
+        <span>FITNESS</span> <span class="dot">•</span> <span>BOX</span>
+        <span class="dot">•</span> <span>CARDIO</span>
+        <span class="dot">•</span> <span>MUAY THAI</span>
+        <span class="dot">•</span>
+      </div>
+    </div>
+
+    <section class="about-section">
+      <div class="about-container">
+        <div class="about-image-wrapper">
+          <div class="tech-corner top-left"></div>
+          <div class="tech-corner bottom-right"></div>
+          <picture>
+              <source type="image/avif" srcset="img/antrenori-k1.avif" />
+              <source type="image/webp" srcset="img/antrenori-k1.webp" />
+              <img loading="lazy" decoding="async"
+            src="img/antrenori-k1.jpg"
+            alt="Antrenori Urban Warrior Gym"
+            class="about-img" />
+            </picture>
+        </div>
+
+        <div class="about-content">
+          <h5 class="tech-subtitle">DESPRE URBAN WARRIOR GYM</h5>
+          <h2 class="section-title text-left">
+            PERFORMANȚĂ ÎN <span class="red-text">K1</span>
+          </h2>
+
+          <p class="about-description">
+            Kickboxing-ul este o disciplină complexă ce îmbină tehnici din
+            karate, Muay Thai și boxul clasic. Fie că este practicat pentru
+            autoapărare, condiție fizică sau competiție, acest sport contribuie
+            la dezvoltarea forței, disciplinei și încrederii în sine.
+          </p>
+
+          <div class="about-features-grid">
+            <div class="feature-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="feature-icon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div class="feature-text">
+                <h3>Antrenamente</h3>
+                <p>Programe personalizate pentru fiecare nivel.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="feature-icon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div class="feature-text">
+                <h3>Prețuri avantajoase</h3>
+                <p>Abonamente accesibile și flexibile.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="feature-icon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div class="feature-text">
+                <h3>Antrenori calificați</h3>
+                <p>Certificați cu ani de experiență în ring.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="feature-icon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div class="feature-text">
+                <h3>Grupe Kickboxing</h3>
+                <p>Pregătire fizică pentru toate vârstele.</p>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="#"
+            class="btn-cta"
+            style="display: inline-flex; margin-top: 30px"
+            >DESCOPERĂ</a
+          >
+        </div>
+      </div>
+    </section>
+    <section class="benefits-section">
+      <div class="benefits-container">
+        <div class="benefit-item">
+          <div class="benefit-icon-wrapper">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="benefit-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"
+              ></path>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              <path d="M9 14h6"></path>
+              <path d="M9 18h6"></path>
+              <path d="M9 10h6"></path>
+            </svg>
+          </div>
+          <h3>
+            DIVERSE <br />
+            ACTIVITĂȚI SPORTIVE
+          </h3>
+          <p>
+            Centrul de antrenament oferă o gamă largă de oportunități sportive,
+            inclusiv arte marțiale, cursuri de fitness și antrenamente
+            funcționale.
+          </p>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-icon-wrapper">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="benefit-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="8" r="7"></circle>
+              <polyline
+                points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"
+              ></polyline>
+            </svg>
+          </div>
+          <h3>
+            ANTRENORI <br />
+            EXPERIMENTAȚI
+          </h3>
+          <p>
+            Antrenorii noștri au o vastă experiență și expertiză în
+            <strong>arte marțiale</strong> și <strong>fitness</strong> pentru a
+            asigura un suport de înaltă calitate și siguranță.
+          </p>
+        </div>
+
+        <div class="benefit-item">
+          <div class="benefit-icon-wrapper">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="benefit-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3>
+            MEDIU <br />
+            INCLUZIV
+          </h3>
+          <p>
+            Creăm un mediu deschis pentru
+            <strong>femei, copii, adolescenți și seniori</strong>, oferind
+            cursuri special adaptate nevoilor fiecărei categorii.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="services">
+      <div class="services-header">
+        <h2 class="section-title">SERVICIILE NOASTRE</h2>
+      </div>
+
+      <div class="services-container">
+        <div class="service-card">
+          <div class="card-header">
+            <h3>ARTE MARȚIALE <span class="red-text">></span></h3>
+            <p class="card-subtitle">Descoperă-ți puterea</p>
+            <div class="red-line"></div>
+          </div>
+
+          <div class="card-img">
+            <picture>
+              <source type="image/avif" srcset="img/martial-arts.avif" />
+              <source type="image/webp" srcset="img/martial-arts.webp" />
+              <img loading="lazy" decoding="async"
+              src="img/martial-arts.jpg"
+              alt="Martial Arts"
+              class="img-fix"
+              z />
+            </picture>
+          </div>
+
+          <ul class="tech-list">
+            <li>Kickboxing</li>
+            <li>Box</li>
+            <li>MMA (Mixed Martial Arts)</li>
+            <li>Muay Thai</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <div class="card-header">
+            <h3>FITNESS <span class="red-text">></span></h3>
+            <p class="card-subtitle">Depășește-ți limitele</p>
+            <div class="red-line"></div>
+          </div>
+
+          <div class="card-img">
+            <picture>
+              <source type="image/avif" srcset="img/fitness.avif" />
+              <source type="image/webp" srcset="img/fitness.webp" />
+              <img loading="lazy" decoding="async" src="img/fitness.jpg" alt="Fitness" class="img-fix" />
+            </picture>
+          </div>
+
+          <ul class="tech-list">
+            <li>Fitness & Cardio</li>
+            <li>Functional Training</li>
+            <li>Antrenament Personal</li>
+            <li>Strength & Conditioning</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <div id="imageModal" class="modal">
+      <span class="close-modal">&times;</span>
+      <img class="modal-content" id="imgExpanded" />
+      <div id="caption"></div>
+    </div>
+
+    <script>
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true,
+      });
+
+      lenis.stop();
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const preloader = document.querySelector(".preloader");
+
+
+
+        const prefetchList = [
+          "img/dan_capatana.jpg",
+          "img/petrica_roman.jpg",
+          "img/onoare.jpg",
+          "img/disciplina.jpg",
+          "img/respect.jpg",
+          "img/victorie.jpg",
+          "img/focus.jpg",
+          "img/foto1.jpg",
+          "img/foto2.jpg",
+          "img/foto3.jpg",
+          "img/foto4.jpg",
+          "img/foto5.jpg",
+          "img/foto6.jpg",
+        ];
+        if ("requestIdleCallback" in window) {
+          requestIdleCallback(() => {
+            prefetchList.forEach((src) => {
+              const img = new Image();
+              img.decoding = "async";
+              img.src = src;
+            });
+          });
+        } else {
+
+          setTimeout(() => {
+            prefetchList.forEach((src) => {
+              const img = new Image();
+              img.src = src;
+            });
+          }, 500);
+        }
+
+
+        const navEntry = performance.getEntriesByType("navigation")[0];
+        if (navEntry && navEntry.type === "reload") {
+
+          sessionStorage.removeItem("introVazut");
+        }
+
+
+        if (sessionStorage.getItem("introVazut") === "true") {
+
+          preloader.style.display = "none";
+          lenis.start();
+
+          if (typeof ScrollTrigger !== "undefined") {
+            ScrollTrigger.refresh();
+          }
+        } else {
+
+          const counterElement = document.querySelector(".counter");
+          const lineProgress = document.querySelector(".line-progress");
+          const counterWrap = document.querySelector(".counter-wrap");
+          const loadingGroup = document.querySelector(".loading-group");
+          const finalTextContainer = document.querySelector(
+            ".final-text-container",
+          );
+          const finalTexts = document.querySelectorAll(".final-text");
+
+          let progress = { value: 0 };
+          const tl = gsap.timeline();
+
+          tl.to(progress, {
+            value: 100,
+            duration: 2.2,
+            ease: "power2.inOut",
+            onUpdate: function () {
+              let percentage = Math.round(progress.value);
+              counterElement.textContent = percentage + "%";
+              lineProgress.style.height = percentage + "%";
+              counterWrap.style.top = percentage + "%";
+            },
+          })
+            .to(loadingGroup, { autoAlpha: 0, duration: 0.3 })
+            .to(finalTextContainer, { autoAlpha: 1, duration: 0.01 }, "-=0.1")
+            .to(finalTexts, {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: 0.5,
+              ease: "back.out(1.2)",
+              stagger: 0.1,
+            })
+            .to({}, { duration: 0.8 })
+            .to(preloader, {
+              scale: 0.95,
+              borderRadius: "30px",
+              duration: 0.8,
+              ease: "power3.inOut",
+              boxShadow: "0px 20px 50px rgba(0,0,0,0.5)",
+            })
+            .to(
+              finalTextContainer,
+              { opacity: 0, scale: 0.9, duration: 0.4 },
+              "<+=0.2",
+            )
+            .to(
+              preloader,
+              {
+                y: "-120%",
+                duration: 0.8,
+                ease: "power4.in",
+                onComplete: () => {
+
+                  sessionStorage.setItem("introVazut", "true");
+                  lenis.start();
+                },
+              },
+              ">-0.2",
+            );
+        }
+      });
+    </script>
+
+    <script>
+      var modal = document.getElementById("imageModal");
+      var img = document.querySelector(".about-img");
+      var modalImg = document.getElementById("imgExpanded");
+      var closeBtn = document.querySelector(".close-modal");
+
+      img.onclick = function () {
+        modal.style.display = "flex";
+        modal.style.alignItems = "center";
+        modal.style.justifyContent = "center";
+        modalImg.src = this.src;
+      };
+
+      closeBtn.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      modal.onclick = function (e) {
+        if (e.target !== modalImg) {
+          modal.style.display = "none";
+        }
+      };
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          modal.style.display = "none";
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+
+        if (typeof ScrollTrigger !== "undefined") {
+          gsap.registerPlugin(ScrollTrigger);
+
+          gsap.from(".about-img", {
+            scrollTrigger: {
+              trigger: ".about-section",
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+            x: -100,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+          });
+
+
+          const elementeText = gsap.utils.toArray([
+            ".about-content h5",
+            ".about-content h2",
+            ".about-description",
+            ".feature-item",
+            ".about-content .btn-cta",
+          ]);
+
+          gsap.from(elementeText, {
+            scrollTrigger: {
+              trigger: ".about-content",
+              start: "top 80%",
+            },
+            x: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power3.out",
+          });
+        }
+      });
+    </script>
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-col contact-col">
+          <img
+            src="img/logo.png"
+            alt="Urban Warrior Logo"
+            class="footer-logo"
+          />
+
+          <ul class="contact-details">
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                />
+              </svg>
+              <span>Str. Transilvaniei 24 - 26, Brăila, România, 810249</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                />
+              </svg>
+              <span>contact@urbanwarriorgym.ro</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.28 1.12.27 2.33.41 3.57.41.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 .25 1.13.41 2.5.68 3.7.09.42-.04.83-.41 1.17l-1.99 2.14z"
+                />
+              </svg>
+              <div class="phones">
+                <span>0748145453</span>
+                <span>0766621622</span>
+              </div>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+                />
+              </svg>
+              <span>Luni - Vineri: 15:45 - 20:00</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col contact-col"></div>
+
+        <div class="footer-col map-col">
+          <h3 class="footer-title">LOCALIZARE</h3>
+          <div class="map-frame">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2823.963868846358!2d27.95478437666248!3d45.26388897107147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b729be60b62d2b%3A0x6a0c0e0b6b6b6b6b!2sStrada%20Transilvaniei%2024%2C%20Br%C4%83ila!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro"
+              width="100%"
+              height="250"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
+          </div>
+        </div>
+
+        <div class="footer-col menu-col"></div>
+
+        <div class="footer-col menu-col">
+          <h3 class="footer-title">MENIU</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="club.html">Clubul Nostru</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="abonamente.html">Abonamente</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          Site creat și administrat de
+          <span class="admin-name">Stoian Daniel-Stefan</span>
+        </p>
+      </div>
+    </footer>
+      <script>
+      if (typeof tsParticles !== "undefined") {
+        tsParticles.load({
+          id: "tsparticles",
+          options: {
+            fpsLimit: 60,
+            particles: {
+              number: { value: 35, density: { enable: true, area: 1200 } },
+              color: { value: ["#ff0000", "#ffffff"] },
+              opacity: { value: { min: 0.08, max: 0.4 } },
+              size: { value: { min: 0.5, max: 2 } },
+              move: {
+                enable: true,
+                speed: 0.5,
+                direction: "none",
+                random: true,
+                straight: false,
+                outModes: { default: "out" }
+              },
+              links: { enable: false }
+            },
+            background: { color: "transparent" },
+            interactivity: { events: { onHover: { enable: false } } },
+            detectRetina: true
+          }
+        });
+      }
+    </script>
+      <script>
+      (function () {
+        var burger = document.querySelector(".hamburger");
+        if (!burger) return;
+        burger.addEventListener("click", function () {
+          document.body.classList.toggle("menu-open");
+        });
+        document.querySelectorAll(".nav-links a").forEach(function (a) {
+          a.addEventListener("click", function () {
+            document.body.classList.remove("menu-open");
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

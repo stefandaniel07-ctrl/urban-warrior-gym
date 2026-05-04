@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galerie - Urban Warrior Gym</title>
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+        <script>
+      (function () {
+        document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+        document.addEventListener("keydown", function (e) {
+          var k = (e.key || "").toLowerCase();
+          if (k === "f12") return e.preventDefault();
+          if (e.ctrlKey && k === "u") return e.preventDefault();
+          if (e.ctrlKey && k === "s") return e.preventDefault();
+          if (e.ctrlKey && e.shiftKey && (k === "i" || k === "j" || k === "c")) return e.preventDefault();
+          if (e.metaKey && e.altKey && (k === "i" || k === "j" || k === "c")) return e.preventDefault();
+        });
+        document.addEventListener("dragstart", function (e) {
+          if (e.target && e.target.tagName === "IMG") e.preventDefault();
+        });
+      })();
+    </script>
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js" defer></script>
+    <script src="js/swiper-bundle.min.js"></script>
+    <script src="js/lenis.min.js"></script>
+    <script src="js/tsparticles.slim.min.js" defer></script>
+    <style>
+
+      .h-card,
+      .h-card img,
+      .gallery-item,
+      .gallery-img {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+      }
+
+      .global-grid-overlay {
+        mask-image: linear-gradient(
+          to right,
+          transparent,
+          black 20px,
+          black calc(100% - 20px),
+          transparent
+        );
+        -webkit-mask-image: linear-gradient(
+          to right,
+          transparent,
+          black 20px,
+          black calc(100% - 20px),
+          transparent
+        );
+      }
+
+
+      .h-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+        transition:
+          transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          filter 0.6s ease;
+        filter: grayscale(0%) !important;
+        -webkit-filter: grayscale(0%) !important;
+        filter: none !important;
+      }
+
+      .h-card:hover img {
+
+        transform: scale(1.05);
+
+        filter: brightness(1.1) contrast(1.05);
+      }
+
+      .gallery-item {
+        position: relative;
+        overflow: hidden;
+        background: #000;
+      }
+
+      .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+        transition:
+          transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          filter 0.6s ease;
+      }
+
+      .gallery-item:hover .gallery-img {
+
+        transform: scale(1.03);
+
+        filter: brightness(1.08);
+      }
+
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+        grid-auto-flow: dense;
+
+        padding-left: 5%;
+        padding-right: 5%;
+        width: 100%;
+      }
+
+      .gallery-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 50px 0 120px 0 !important;
+        margin: 0 !important;
+        opacity: 0;
+        visibility: hidden;
+
+        transform: translateY(50px);
+      }
+
+      .horizontal-gallery-section {
+        height: 680px;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        margin: 20px 0 80px 0 !important;
+        padding: 0 !important;
+        cursor: grab;
+        scroll-behavior: smooth;
+      }
+      .horizontal-gallery-section::-webkit-scrollbar {
+        display: none;
+      }
+      .horizontal-gallery-section.dragging {
+        cursor: grabbing;
+        scroll-behavior: auto;
+      }
+
+      .horizontal-wrapper {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        width: max-content;
+      }
+
+      .horizontal-container {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 50px;
+        padding: 0 5vw;
+        height: 600px;
+        align-items: center;
+        width: max-content;
+      }
+
+      .horizontal-gallery-section .swiper-wrapper {
+        gap: 24px;
+      }
+      .h-card {
+        flex: 0 0 auto;
+        width: 400px;
+        height: 600px;
+        position: relative;
+        background: #000;
+        overflow: hidden;
+      }
+
+      .h-text {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 50px;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.28);
+        pointer-events: none;
+        transition: 0.3s;
+        z-index: 2;
+      }
+
+      .h-card:hover .h-text {
+        color: #ff0000;
+        transform: translateY(-10px);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="tsparticles"></div>
+    <div class="global-grid-overlay"></div>
+
+    <nav class="navbar">
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="img/logo.png" alt="Urban Warrior Logo" class="logo-img" />
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">ACASĂ</a></li>
+        <li><a href="club.html">CLUBUL NOSTRU</a></li>
+        <li><a href="#" class="active">GALERIE</a></li>
+        <li><a href="abonamente.html">ABONAMENTE</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Meniu" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a href="contact.html" class="btn-cta">HAI LA SALĂ!</a>
+    </nav>
+
+    <main class="page-content galerie-page">
+      <div
+        class="services-header"
+        style="text-align: center"
+      >
+        <h2 class="section-title">
+          GALERIE <span class="red-text">FOTO</span>
+        </h2>
+        <p style="color: #888; margin-top: 10px; font-size: 16px">
+          Imagini din timpul antrenamentelor și competițiilor.
+        </p>
+      </div>
+
+      <section class="horizontal-gallery-section swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide h-card">
+            <picture>
+              <source type="image/avif" srcset="img/onoare.avif" />
+              <source type="image/webp" srcset="img/onoare.webp" />
+              <img src="img/onoare.jpg" alt="Onoare" decoding="async" />
+            </picture>
+            <span class="h-text">ONOARE</span>
+          </div>
+          <div class="swiper-slide h-card">
+            <picture>
+              <source type="image/avif" srcset="img/disciplina.avif" />
+              <source type="image/webp" srcset="img/disciplina.webp" />
+              <img src="img/disciplina.jpg" decoding="async" alt="Disciplina" />
+            </picture>
+            <span class="h-text">DISCIPLINĂ</span>
+          </div>
+          <div class="swiper-slide h-card">
+            <picture>
+              <source type="image/avif" srcset="img/respect.avif" />
+              <source type="image/webp" srcset="img/respect.webp" />
+              <img src="img/respect.jpg" decoding="async" alt="Respect" />
+            </picture>
+            <span class="h-text">RESPECT</span>
+          </div>
+          <div class="swiper-slide h-card">
+            <picture>
+              <source type="image/avif" srcset="img/victorie.avif" />
+              <source type="image/webp" srcset="img/victorie.webp" />
+              <img src="img/victorie.jpg" decoding="async" alt="Victorie" />
+            </picture>
+            <span class="h-text">VICTORIE</span>
+          </div>
+          <div class="swiper-slide h-card">
+            <picture>
+              <source type="image/avif" srcset="img/focus.avif" />
+              <source type="image/webp" srcset="img/focus.webp" />
+              <img src="img/focus.jpg" decoding="async" alt="Focus" />
+            </picture>
+            <span class="h-text">FOCUS</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="gallery-container" style="padding-top: 50px">
+        <div class="gallery-grid">
+          <div class="gallery-item item-wide">
+            <picture>
+              <source type="image/avif" srcset="img/foto1.avif" />
+              <source type="image/webp" srcset="img/foto1.webp" />
+              <img src="img/foto1.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+          <div class="gallery-item">
+            <picture>
+              <source type="image/avif" srcset="img/foto2.avif" />
+              <source type="image/webp" srcset="img/foto2.webp" />
+              <img
+              src="img/foto2.jpg"
+              class="gallery-img"
+              style="object-position: 25% 0%" />
+            </picture>
+          </div>
+          <div class="gallery-item">
+            <picture>
+              <source type="image/avif" srcset="img/foto3.avif" />
+              <source type="image/webp" srcset="img/foto3.webp" />
+              <img src="img/foto3.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+
+          <div class="gallery-item">
+            <picture>
+              <source type="image/avif" srcset="img/foto4.avif" />
+              <source type="image/webp" srcset="img/foto4.webp" />
+              <img src="img/foto4.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+          <div class="gallery-item item-wide">
+            <picture>
+              <source type="image/avif" srcset="img/foto5.avif" />
+              <source type="image/webp" srcset="img/foto5.webp" />
+              <img src="img/foto5.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+          <div class="gallery-item">
+            <picture>
+              <source type="image/avif" srcset="img/foto6.avif" />
+              <source type="image/webp" srcset="img/foto6.webp" />
+              <img src="img/foto6.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+
+          <div class="gallery-item item-wide">
+            <picture>
+              <source type="image/avif" srcset="img/foto7.avif" />
+              <source type="image/webp" srcset="img/foto7.webp" />
+              <img src="img/foto7.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+          <div class="gallery-item item-wide">
+            <picture>
+              <source type="image/avif" srcset="img/foto8.avif" />
+              <source type="image/webp" srcset="img/foto8.webp" />
+              <img src="img/foto8.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+
+          <div class="gallery-item">
+            <picture>
+              <source type="image/avif" srcset="img/foto9.avif" />
+              <source type="image/webp" srcset="img/foto9.webp" />
+              <img src="img/foto9.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+          <div class="gallery-item">
+            <picture>
+              <source type="image/avif" srcset="img/foto10.avif" />
+              <source type="image/webp" srcset="img/foto10.webp" />
+              <img src="img/foto10.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+          <div class="gallery-item item-wide">
+            <picture>
+              <source type="image/avif" srcset="img/foto11.avif" />
+              <source type="image/webp" srcset="img/foto11.webp" />
+              <img src="img/foto11.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+
+          <div class="gallery-item item-wide">
+            <picture>
+              <source type="image/avif" srcset="img/foto12.avif" />
+              <source type="image/webp" srcset="img/foto12.webp" />
+              <img src="img/foto12.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+          <div class="gallery-item item-wide">
+            <picture>
+              <source type="image/avif" srcset="img/foto13.avif" />
+              <source type="image/webp" srcset="img/foto13.webp" />
+              <img src="img/foto13.jpg" class="gallery-img" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-col contact-col">
+          <img
+            src="img/logo.png"
+            alt="Urban Warrior Logo"
+            class="footer-logo"
+          />
+
+          <ul class="contact-details">
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                />
+              </svg>
+              <span>Str. Transilvaniei 24 - 26, Brăila, România, 810249</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                />
+              </svg>
+              <span>contact@urbanwarriorgym.ro</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.28 1.12.27 2.33.41 3.57.41.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 .25 1.13.41 2.5.68 3.7.09.42-.04.83-.41 1.17l-1.99 2.14z"
+                />
+              </svg>
+              <div class="phones">
+                <span>0748145453</span>
+                <span>0766621622</span>
+              </div>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+                />
+              </svg>
+              <span>Luni - Vineri: 15:45 - 20:00</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col contact-col"></div>
+
+        <div class="footer-col map-col">
+          <h3 class="footer-title">LOCALIZARE</h3>
+          <div class="map-frame">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2823.963868846358!2d27.95478437666248!3d45.26388897107147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b729be60b62d2b%3A0x6a0c0e0b6b6b6b6b!2sStrada%20Transilvaniei%2024%2C%20Br%C4%83ila!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro"
+              width="100%"
+              height="250"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
+          </div>
+        </div>
+
+        <div class="footer-col menu-col"></div>
+
+        <div class="footer-col menu-col">
+          <h3 class="footer-title">MENIU</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="club.html">Clubul Nostru</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="abonamente.html">Abonamente</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          Site creat și administrat de
+          <span class="admin-name">Stoian Daniel-Stefan</span>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true,
+        smoothTouch: false,
+        syncTouch: false,
+      });
+      window.lenis = lenis;
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      window.addEventListener("load", () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        if (typeof Swiper !== "undefined") {
+          new Swiper(".horizontal-gallery-section", {
+            slidesPerView: "auto",
+            freeMode: true,
+            grabCursor: true,
+            resistance: true,
+            resistanceRatio: 0.65,
+            slidesOffsetBefore: 16,
+            slidesOffsetAfter: 16,
+            breakpoints: {
+              769: {
+                slidesOffsetBefore: 30,
+                slidesOffsetAfter: 30,
+              },
+            },
+            mousewheel: {
+              forceToAxis: true,
+              sensitivity: 0.8,
+            },
+            keyboard: { enabled: true },
+          });
+        }
+
+        if (window.innerWidth > 768) {
+          gsap.to(".gallery-container", {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ".gallery-container",
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        } else {
+          const gc = document.querySelector(".gallery-container");
+          if (gc) {
+            gc.style.opacity = "1";
+            gc.style.visibility = "visible";
+            gc.style.transform = "none";
+          }
+        }
+      });
+    </script>
+      <script>
+      if (typeof tsParticles !== "undefined") {
+        tsParticles.load({
+          id: "tsparticles",
+          options: {
+            fpsLimit: 60,
+            particles: {
+              number: { value: 35, density: { enable: true, area: 1200 } },
+              color: { value: ["#ff0000", "#ffffff"] },
+              opacity: { value: { min: 0.08, max: 0.4 } },
+              size: { value: { min: 0.5, max: 2 } },
+              move: {
+                enable: true,
+                speed: 0.5,
+                direction: "none",
+                random: true,
+                straight: false,
+                outModes: { default: "out" }
+              },
+              links: { enable: false }
+            },
+            background: { color: "transparent" },
+            interactivity: { events: { onHover: { enable: false } } },
+            detectRetina: true
+          }
+        });
+      }
+    </script>
+      <script>
+      (function () {
+        var burger = document.querySelector(".hamburger");
+        if (!burger) return;
+        burger.addEventListener("click", function () {
+          document.body.classList.toggle("menu-open");
+        });
+        document.querySelectorAll(".nav-links a").forEach(function (a) {
+          a.addEventListener("click", function () {
+            document.body.classList.remove("menu-open");
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

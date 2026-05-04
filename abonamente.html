@@ -1,0 +1,2237 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abonamente - Urban Warrior Gym</title>
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+
+        <script>
+      (function () {
+        document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+        document.addEventListener("keydown", function (e) {
+          var k = (e.key || "").toLowerCase();
+          if (k === "f12") return e.preventDefault();
+          if (e.ctrlKey && k === "u") return e.preventDefault();
+          if (e.ctrlKey && k === "s") return e.preventDefault();
+          if (e.ctrlKey && e.shiftKey && (k === "i" || k === "j" || k === "c")) return e.preventDefault();
+          if (e.metaKey && e.altKey && (k === "i" || k === "j" || k === "c")) return e.preventDefault();
+        });
+        document.addEventListener("dragstart", function (e) {
+          if (e.target && e.target.tagName === "IMG") e.preventDefault();
+        });
+      })();
+    </script>
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js" defer></script>
+    <script src="js/lenis.min.js"></script>
+    <script src="js/tsparticles.slim.min.js" defer></script>
+    <style>
+
+      .page-content {
+        padding-top: 150px;
+      }
+
+      .abo-hero {
+        text-align: center;
+        padding: 30px 5% 60px 5%;
+      }
+      .abo-hero p {
+        color: #888;
+        margin-top: 12px;
+        font-size: 16px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+      }
+
+      .wizard-section {
+        padding: 60px 5% 100px 5%;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .wizard-shell {
+        position: relative;
+        background: linear-gradient(145deg, #111, #0a0a0a);
+        border: 1px solid #222;
+        padding: 50px 40px 40px 40px;
+        min-height: 580px;
+        overflow: hidden;
+      }
+
+      .wizard-shell::before,
+      .wizard-shell::after {
+        content: "";
+        position: absolute;
+        background: rgba(255, 0, 0, 0.4);
+      }
+      .wizard-shell::before {
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 2px;
+      }
+      .wizard-shell::after {
+        bottom: 0;
+        right: 0;
+        width: 60px;
+        height: 2px;
+      }
+
+      .wizard-tag {
+        color: #ff0000;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .wizard-title {
+        font-size: 32px;
+        font-weight: 900;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+      }
+
+      .wizard-sub {
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 35px;
+      }
+
+      .wizard-progress {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 35px;
+      }
+      .progress-dot {
+        flex: 1;
+        height: 3px;
+        background: #222;
+        position: relative;
+        transition: 0.4s ease;
+      }
+      .progress-dot.done {
+        background: #ff0000;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      }
+      .progress-dot.current {
+        background: #222;
+      }
+      .progress-label {
+        font-size: 11px;
+        color: #888;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .wizard-step {
+        display: none;
+      }
+      .wizard-step.active {
+        display: block;
+      }
+
+      .step-question {
+        font-size: 24px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+      .step-hint {
+        color: #777;
+        font-size: 13px;
+        margin-bottom: 28px;
+      }
+
+      .options-grid {
+        display: grid;
+        gap: 14px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .options-grid.three {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .option-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid #2a2a2a;
+        padding: 22px 20px;
+        cursor: pointer;
+        transition: 0.25s ease;
+        text-align: left;
+        color: #fff;
+        font-family: inherit;
+        position: relative;
+        overflow: hidden;
+      }
+      .option-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          rgba(255, 0, 0, 0.06),
+          transparent
+        );
+        transition: width 0.35s ease;
+        z-index: 0;
+      }
+      .option-card:hover::before {
+        width: 100%;
+      }
+      .option-card:hover {
+        border-color: #ff0000;
+        transform: translateY(-2px);
+      }
+      .option-card.selected {
+        border-color: #ff0000;
+        background: rgba(255, 0, 0, 0.08);
+        box-shadow: 0 5px 25px rgba(255, 0, 0, 0.15);
+      }
+      .option-card .opt-title {
+        display: block;
+        font-size: 16px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+        position: relative;
+        z-index: 1;
+      }
+      .option-card .opt-detail {
+        display: block;
+        font-size: 13px;
+        color: #888;
+        position: relative;
+        z-index: 1;
+      }
+
+      .wizard-nav {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #1a1a1a;
+        padding-top: 20px;
+      }
+      .btn-back {
+        background: transparent;
+        border: 1px solid #333;
+        color: #888;
+        padding: 10px 22px;
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .btn-back:hover {
+        border-color: #ff0000;
+        color: #fff;
+      }
+      .btn-back:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+      .step-counter {
+        color: #555;
+        font-size: 12px;
+        letter-spacing: 2px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .wizard-result {
+        display: none;
+      }
+      .wizard-result.active {
+        display: block;
+      }
+
+      .result-top {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 30px;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .result-tag {
+        color: #ff0000;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+      }
+      .result-name {
+        font-size: 48px;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        line-height: 1;
+        margin: 8px 0 12px 0;
+      }
+      .result-desc {
+        color: #ccc;
+        font-size: 15px;
+        max-width: 500px;
+      }
+
+      .score-ring-wrap {
+        width: 130px;
+        height: 130px;
+        position: relative;
+      }
+      .score-ring {
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+      }
+      .score-ring circle {
+        fill: none;
+        stroke-width: 6;
+      }
+      .score-ring .ring-bg {
+        stroke: #2e2e2e;
+      }
+      .score-ring .ring-fg {
+        stroke: #ff0000;
+        stroke-linecap: round;
+        stroke-dasharray: 277;
+        stroke-dashoffset: 277;
+        transition: stroke-dashoffset 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.5));
+      }
+      .score-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+      .score-num {
+        display: block;
+        font-size: 30px;
+        font-weight: 900;
+        color: #fff;
+        font-variant-numeric: tabular-nums;
+      }
+      .score-label {
+        display: block;
+        font-size: 10px;
+        color: #ff0000;
+        letter-spacing: 2px;
+        font-weight: 700;
+      }
+
+      .result-body {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 30px;
+      }
+
+      .result-features {
+        background: rgba(255, 255, 255, 0.02);
+        border-left: 3px solid #ff0000;
+        padding: 22px;
+      }
+      .result-features h4 {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+      }
+      .result-features ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .result-features li {
+        color: #ccc;
+        font-size: 14px;
+        padding: 7px 0;
+        padding-left: 22px;
+        position: relative;
+      }
+      .result-features li::before {
+        content: "›";
+        position: absolute;
+        left: 0;
+        color: #ff0000;
+        font-weight: 900;
+        font-size: 16px;
+      }
+
+      .result-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .price-block {
+        background: linear-gradient(
+          to right,
+          rgba(255, 0, 0, 0.08),
+          transparent
+        );
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        padding: 22px;
+      }
+      .price-amount {
+        font-size: 44px;
+        font-weight: 900;
+        color: #fff;
+        line-height: 1;
+      }
+      .price-amount .currency {
+        font-size: 18px;
+        color: #ff0000;
+        margin-left: 4px;
+      }
+      .price-period {
+        font-size: 13px;
+        color: #888;
+        margin-top: 4px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .reasons-block h5 {
+        color: #ff0000;
+        font-size: 11px;
+        letter-spacing: 2px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+      .reasons-block p {
+        color: #aaa;
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 6px;
+      }
+      .reasons-block p::before {
+        content: "▸ ";
+        color: #ff0000;
+      }
+
+      .result-actions {
+        margin-top: 25px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      .btn-restart {
+        background: transparent;
+        border: 1px solid #333;
+        color: #ccc;
+        padding: 0 28px;
+        height: 50px;
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 0.3s;
+        clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .btn-restart:hover {
+        border-color: #ff0000;
+        color: #ff0000;
+      }
+
+      .alternatives {
+        margin-top: 35px;
+        padding-top: 25px;
+        border-top: 1px solid #1a1a1a;
+      }
+      .alternatives h5 {
+        color: #888;
+        font-size: 11px;
+        letter-spacing: 3px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+      .alt-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .alt-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid #222;
+        padding: 16px 18px;
+        transition: 0.3s;
+      }
+      .alt-card:hover {
+        border-color: #444;
+        transform: translateY(-2px);
+      }
+      .alt-card .alt-name {
+        color: #fff;
+        font-weight: 800;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .alt-card .alt-score {
+        color: #ff0000;
+        font-size: 12px;
+        margin-left: 8px;
+      }
+      .alt-card .alt-price {
+        color: #aaa;
+        font-size: 13px;
+        margin-top: 4px;
+      }
+
+      .plans-section {
+        padding: 60px 5% 80px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .plans-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 50px;
+      }
+
+      .plan-card {
+        background: #000;
+        border: 1px solid #222;
+        padding: 30px 22px;
+        position: relative;
+        transition: 0.35s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .plan-card:hover {
+        border-color: #ff0000;
+        transform: translateY(-5px);
+      }
+      .plan-card.featured {
+        border-color: rgba(255, 0, 0, 0.5);
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 0, 0, 0.06),
+          transparent 60%
+        );
+      }
+      .plan-card.featured::after {
+        content: "POPULAR";
+        position: absolute;
+        top: -12px;
+        left: 22px;
+        background: #ff0000;
+        color: #fff;
+        padding: 4px 12px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 2px;
+      }
+
+      .plan-tag {
+        color: #ff0000;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 3px;
+      }
+      .plan-name {
+        font-size: 22px;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        margin: 6px 0 12px 0;
+        line-height: 1;
+      }
+      .plan-desc {
+        color: #888;
+        font-size: 13px;
+        line-height: 1.5;
+        min-height: 40px;
+      }
+
+      .plan-price {
+        margin: 18px 0;
+        padding: 18px 0;
+        border-top: 1px solid #1a1a1a;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .plan-price .pp-amount {
+        font-size: 36px;
+        font-weight: 900;
+        color: #fff;
+        line-height: 1;
+      }
+      .plan-price .pp-currency {
+        color: #ff0000;
+        font-size: 14px;
+        margin-left: 3px;
+      }
+      .plan-price .pp-period {
+        color: #888;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-top: 5px;
+      }
+
+      .plan-features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 25px 0;
+        flex: 1;
+      }
+      .plan-features li {
+        color: #ccc;
+        font-size: 13px;
+        padding: 6px 0 6px 18px;
+        position: relative;
+        line-height: 1.4;
+      }
+      .plan-features li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #ff0000;
+        font-weight: 900;
+      }
+
+      .plan-cta {
+        display: block;
+        text-align: center;
+        background: transparent;
+        border: 1px solid #333;
+        color: #fff;
+        padding: 14px 0;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: 0.3s;
+      }
+      .plan-cta:hover {
+        background: #ff0000;
+        border-color: #ff0000;
+        color: #fff;
+      }
+      .plan-card.featured .plan-cta {
+        background: #ff0000;
+        border-color: #ff0000;
+      }
+      .plan-card.featured .plan-cta:hover {
+        background: #fff;
+        color: #ff0000;
+      }
+
+      .extras-section {
+        padding: 60px 5% 80px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .extras-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin-top: 50px;
+      }
+
+      .extra-card {
+        background: linear-gradient(145deg, #0f0f0f, #050505);
+        border: 1px solid #222;
+        padding: 35px 28px;
+        position: relative;
+        overflow: hidden;
+        transition: 0.3s;
+      }
+      .extra-card:hover {
+        border-color: #ff0000;
+        transform: translateY(-4px);
+      }
+      .extra-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(
+          135deg,
+          transparent 50%,
+          rgba(255, 0, 0, 0.1) 50%
+        );
+      }
+      .extra-card.gold {
+        border-color: rgba(255, 215, 0, 0.3);
+      }
+      .extra-card.gold::before {
+        background: linear-gradient(
+          135deg,
+          transparent 50%,
+          rgba(255, 215, 0, 0.15) 50%
+        );
+      }
+
+      .extra-num {
+        font-size: 80px;
+        font-weight: 900;
+        color: rgba(255, 0, 0, 0.15);
+        line-height: 1;
+        position: absolute;
+        top: 18px;
+        right: 18px;
+      }
+      .extra-card.gold .extra-num {
+        color: rgba(255, 215, 0, 0.2);
+      }
+
+      .extra-tag {
+        color: #ff0000;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .extra-card.gold .extra-tag {
+        color: #ffd700;
+      }
+      .extra-title {
+        font-size: 26px;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .extra-sub {
+        color: #888;
+        font-size: 13px;
+        margin-bottom: 22px;
+      }
+      .extra-price-line {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 5px;
+      }
+      .extra-price {
+        font-size: 38px;
+        font-weight: 900;
+        color: #fff;
+        line-height: 1;
+      }
+      .extra-price-old {
+        font-size: 16px;
+        color: #555;
+        text-decoration: line-through;
+      }
+      .extra-savings {
+        background: rgba(255, 0, 0, 0.15);
+        color: #ff0000;
+        font-size: 11px;
+        font-weight: 800;
+        padding: 3px 8px;
+        letter-spacing: 1px;
+      }
+      .extra-card.gold .extra-savings {
+        background: rgba(255, 215, 0, 0.15);
+        color: #ffd700;
+      }
+      .extra-bullets {
+        list-style: none;
+        padding: 0;
+        margin: 22px 0;
+      }
+      .extra-bullets li {
+        font-size: 13px;
+        color: #ccc;
+        padding: 5px 0 5px 20px;
+        position: relative;
+      }
+      .extra-bullets li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: #ff0000;
+      }
+      .extra-card.gold .extra-bullets li::before {
+        color: #ffd700;
+      }
+
+      .faq-section {
+        padding: 60px 5% 100px 5%;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .faq-list {
+        margin-top: 50px;
+      }
+      .faq-item {
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .faq-question {
+        padding: 22px 0;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        font-size: 17px;
+        font-weight: 700;
+        transition: 0.3s;
+      }
+      .faq-question:hover {
+        color: #ff0000;
+      }
+      .faq-toggle {
+        width: 24px;
+        height: 24px;
+        position: relative;
+        flex-shrink: 0;
+        margin-left: 20px;
+      }
+      .faq-toggle::before,
+      .faq-toggle::after {
+        content: "";
+        position: absolute;
+        background: #ff0000;
+        transition: 0.3s;
+      }
+      .faq-toggle::before {
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        transform: translateY(-50%);
+      }
+      .faq-toggle::after {
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        transform: translateX(-50%);
+      }
+      .faq-item.open .faq-toggle::after {
+        transform: translateX(-50%) rotate(90deg);
+        opacity: 0;
+      }
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+      .faq-answer-inner {
+        padding: 0 0 22px 0;
+        color: #aaa;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      .faq-item.open .faq-answer {
+        max-height: 200px;
+      }
+
+      @media (max-width: 1024px) {
+        .plans-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .extras-grid {
+          grid-template-columns: 1fr;
+        }
+        .result-body {
+          grid-template-columns: 1fr;
+        }
+        .result-top {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .score-ring-wrap {
+          margin: 0 auto;
+        }
+      }
+      @media (max-width: 640px) {
+        .wizard-shell {
+          padding: 30px 22px;
+        }
+        .options-grid,
+        .options-grid.three {
+          grid-template-columns: 1fr;
+        }
+        .plans-grid {
+          grid-template-columns: 1fr;
+        }
+        .alt-grid {
+          grid-template-columns: 1fr;
+        }
+        .result-name {
+          font-size: 36px;
+        }
+        .wizard-title {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="tsparticles"></div>
+    <div class="global-grid-overlay"></div>
+
+    <nav class="navbar">
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="img/logo.png" alt="Urban Warrior Logo" class="logo-img" />
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">ACASĂ</a></li>
+        <li><a href="club.html">CLUBUL NOSTRU</a></li>
+        <li><a href="galerie.html">GALERIE</a></li>
+        <li><a href="abonamente.html" class="active">ABONAMENTE</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Meniu" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a href="contact.html" class="btn-cta">HAI LA SALĂ!</a>
+    </nav>
+
+    <main class="page-content">
+
+      <section class="abo-hero">
+        <div class="services-header">
+          <h2 class="section-title">
+            ABONAMENTE <span class="red-text">&amp;</span> PLANURI
+          </h2>
+        </div>
+        <p>
+          Alege ce ți se potrivește sau lasă sistemul nostru inteligent să-ți
+          recomande planul perfect pe baza obiectivelor tale.
+        </p>
+      </section>
+
+      <div class="premium-separator"></div>
+
+      <section class="wizard-section" id="wizard">
+        <div class="wizard-shell">
+          <span class="wizard-tag">SISTEM EXPERT</span>
+          <h2 class="wizard-title">GĂSEȘTE-ȚI PLANUL PERFECT</h2>
+          <p class="wizard-sub">
+            Răspunde la 6 întrebări scurte. Algoritmul calculează scorul de
+            potrivire pe 7 planuri și îți recomandă optim.
+          </p>
+
+          <div class="wizard-progress" id="progressBar">
+            <div class="progress-dot current"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <span class="progress-label" id="progressLabel">01 / 06</span>
+          </div>
+
+          <div class="wizard-step active" data-step="varsta">
+            <h3 class="step-question">Care este vârsta ta?</h3>
+            <p class="step-hint">
+              Ne ajută să recomandăm grupa potrivită și intensitatea
+              antrenamentului.
+            </p>
+            <div class="options-grid">
+              <button class="option-card" data-key="varsta" data-value="copil">
+                <span class="opt-title">Copil</span>
+                <span class="opt-detail">Între 6 și 14 ani</span>
+              </button>
+              <button class="option-card" data-key="varsta" data-value="tanar">
+                <span class="opt-title">Tânăr</span>
+                <span class="opt-detail">Între 14 și 18 ani</span>
+              </button>
+              <button class="option-card" data-key="varsta" data-value="adult">
+                <span class="opt-title">Adult</span>
+                <span class="opt-detail">Între 18 și 50 ani</span>
+              </button>
+              <button class="option-card" data-key="varsta" data-value="senior">
+                <span class="opt-title">Senior</span>
+                <span class="opt-detail">Peste 50 ani</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step="obiectiv">
+            <h3 class="step-question">Care este obiectivul tău principal?</h3>
+            <p class="step-hint">
+              Alege ce te aduce la sală — definește planul ideal.
+            </p>
+            <div class="options-grid three">
+              <button
+                class="option-card"
+                data-key="obiectiv"
+                data-value="slabit"
+              >
+                <span class="opt-title">Slăbire</span>
+                <span class="opt-detail">Pierdere în greutate</span>
+              </button>
+              <button class="option-card" data-key="obiectiv" data-value="masa">
+                <span class="opt-title">Masă musculară</span>
+                <span class="opt-detail">Forță și volum</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="obiectiv"
+                data-value="competitie"
+              >
+                <span class="opt-title">Competiție</span>
+                <span class="opt-detail">Pregătire pentru ring</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="obiectiv"
+                data-value="autoaparare"
+              >
+                <span class="opt-title">Autoapărare</span>
+                <span class="opt-detail">Tehnici reale de luptă</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="obiectiv"
+                data-value="fitness"
+              >
+                <span class="opt-title">Fitness general</span>
+                <span class="opt-detail">Condiție fizică</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="obiectiv"
+                data-value="distractie"
+              >
+                <span class="opt-title">Distracție</span>
+                <span class="opt-detail">Hobby și energie</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step="experienta">
+            <h3 class="step-question">Ce nivel de experiență ai?</h3>
+            <p class="step-hint">Sincer — fiecare începe de undeva.</p>
+            <div class="options-grid">
+              <button
+                class="option-card"
+                data-key="experienta"
+                data-value="incepator"
+              >
+                <span class="opt-title">Începător</span>
+                <span class="opt-detail">Niciodată sport de contact</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="experienta"
+                data-value="intermediar"
+              >
+                <span class="opt-title">Intermediar</span>
+                <span class="opt-detail">Câteva luni de practică</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="experienta"
+                data-value="avansat"
+              >
+                <span class="opt-title">Avansat</span>
+                <span class="opt-detail">Peste 1 an de antrenament</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="experienta"
+                data-value="competitional"
+              >
+                <span class="opt-title">Competițional</span>
+                <span class="opt-detail">Concurez activ</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step="frecventa">
+            <h3 class="step-question">Cât de des poți să vii?</h3>
+            <p class="step-hint">Fii realist — consistența bate intensitatea.</p>
+            <div class="options-grid three">
+              <button class="option-card" data-key="frecventa" data-value="f12">
+                <span class="opt-title">1 - 2 ori</span>
+                <span class="opt-detail">Pe săptămână</span>
+              </button>
+              <button class="option-card" data-key="frecventa" data-value="f34">
+                <span class="opt-title">3 - 4 ori</span>
+                <span class="opt-detail">Pe săptămână</span>
+              </button>
+              <button class="option-card" data-key="frecventa" data-value="f5">
+                <span class="opt-title">5+ ori</span>
+                <span class="opt-detail">Aproape zilnic</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step="buget">
+            <h3 class="step-question">Care este bugetul tău lunar?</h3>
+            <p class="step-hint">Recomandăm doar planuri în limita bugetului tău.</p>
+            <div class="options-grid">
+              <button
+                class="option-card"
+                data-key="buget"
+                data-value="sub150"
+              >
+                <span class="opt-title">Sub 150 RON</span>
+                <span class="opt-detail">Buget restrâns</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="buget"
+                data-value="b150_300"
+              >
+                <span class="opt-title">150 - 300 RON</span>
+                <span class="opt-detail">Plan standard</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="buget"
+                data-value="b300_500"
+              >
+                <span class="opt-title">300 - 500 RON</span>
+                <span class="opt-detail">Plan extins</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="buget"
+                data-value="b500plus"
+              >
+                <span class="opt-title">Peste 500 RON</span>
+                <span class="opt-detail">Plan premium</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="wizard-step" data-step="preferinta">
+            <h3 class="step-question">Cum preferi să te antrenezi?</h3>
+            <p class="step-hint">Ultima întrebare — apoi vezi rezultatul.</p>
+            <div class="options-grid three">
+              <button
+                class="option-card"
+                data-key="preferinta"
+                data-value="grup"
+              >
+                <span class="opt-title">În grup</span>
+                <span class="opt-detail">Energie colectivă</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="preferinta"
+                data-value="privat"
+              >
+                <span class="opt-title">Privat</span>
+                <span class="opt-detail">Atenție 1 la 1</span>
+              </button>
+              <button
+                class="option-card"
+                data-key="preferinta"
+                data-value="mixt"
+              >
+                <span class="opt-title">Mixt</span>
+                <span class="opt-detail">Și grup, și privat</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="wizard-result" id="wizardResult">
+            <div class="result-top">
+              <div>
+                <span class="result-tag">RECOMANDAREA TA</span>
+                <h2 class="result-name" id="resultName">—</h2>
+                <p class="result-desc" id="resultDesc">—</p>
+              </div>
+              <div class="score-ring-wrap">
+                <svg class="score-ring" viewBox="0 0 100 100">
+                  <circle class="ring-bg" cx="50" cy="50" r="44"></circle>
+                  <circle
+                    class="ring-fg"
+                    id="ringFg"
+                    cx="50"
+                    cy="50"
+                    r="44"
+                  ></circle>
+                </svg>
+                <div class="score-text">
+                  <span class="score-num" id="scoreNum">0%</span>
+                  <span class="score-label">Potrivire</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-body">
+              <div class="result-features">
+                <h4>Ce include planul</h4>
+                <ul id="resultFeatures"></ul>
+              </div>
+              <div class="result-meta">
+                <div class="price-block">
+                  <div>
+                    <span class="price-amount" id="resultPrice">0</span
+                    ><span class="currency">RON</span>
+                  </div>
+                  <div class="price-period" id="resultPeriod">/ lună</div>
+                </div>
+                <div class="reasons-block">
+                  <h5>De ce acest plan</h5>
+                  <div id="resultReasons"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-actions">
+              <a href="contact.html" class="btn-cta">REZERVĂ ANTRENAMENT GRATUIT</a>
+              <button class="btn-restart" id="btnRestart">REIA TESTUL</button>
+            </div>
+
+            <div class="alternatives">
+              <h5>ALTE OPȚIUNI POTRIVITE</h5>
+              <div class="alt-grid" id="altGrid"></div>
+            </div>
+          </div>
+
+          <div class="wizard-nav" id="wizardNav">
+            <button class="btn-back" id="btnBack" disabled>← ÎNAPOI</button>
+            <span class="step-counter" id="stepCounter">PASUL 01 / 06</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="premium-separator"></div>
+
+      <section class="plans-section">
+        <div class="services-header">
+          <h2 class="section-title">
+            TOATE <span class="red-text">PLANURILE</span>
+          </h2>
+        </div>
+        <div class="plans-grid">
+
+          <div class="plan-card">
+            <span class="plan-tag">COPII 6-14 ANI</span>
+            <h3 class="plan-name">JUNIOR</h3>
+            <p class="plan-desc">Pentru micii războinici care încep drumul.</p>
+            <div class="plan-price">
+              <div>
+                <span class="pp-amount">100</span
+                ><span class="pp-currency">RON</span>
+              </div>
+              <div class="pp-period">PE LUNĂ</div>
+            </div>
+            <ul class="plan-features">
+              <li>8 antrenamente / lună</li>
+              <li>Antrenori specializați copii</li>
+              <li>Grupe pe vârstă</li>
+              <li>Echipament adaptat</li>
+              <li>Disciplină + dezvoltare</li>
+            </ul>
+            <a href="#" data-plan="junior" class="plan-cta">Înscrie copilul</a>
+          </div>
+
+          <div class="plan-card">
+            <span class="plan-tag">PLAN DE BAZĂ</span>
+            <h3 class="plan-name">STARTER</h3>
+            <p class="plan-desc">Acces nelimitat la toate grupele de adulți.</p>
+            <div class="plan-price">
+              <div>
+                <span class="pp-amount">150</span
+                ><span class="pp-currency">RON</span>
+              </div>
+              <div class="pp-period">PE LUNĂ</div>
+            </div>
+            <ul class="plan-features">
+              <li>Acces nelimitat grupe</li>
+              <li>Kickboxing, MMA, Box</li>
+              <li>Programe pentru toate nivelele</li>
+              <li>Acces sală fitness</li>
+              <li>Vestiar &amp; dușuri</li>
+            </ul>
+            <a href="#" data-plan="starter" class="plan-cta">Începe acum</a>
+          </div>
+
+          <div class="plan-card featured">
+            <span class="plan-tag">CEL MAI ALES</span>
+            <h3 class="plan-name">STANDARD</h3>
+            <p class="plan-desc">Echilibru perfect între grup și privat.</p>
+            <div class="plan-price">
+              <div>
+                <span class="pp-amount">380</span
+                ><span class="pp-currency">RON</span>
+              </div>
+              <div class="pp-period">PE LUNĂ</div>
+            </div>
+            <ul class="plan-features">
+              <li>Tot ce e la STARTER</li>
+              <li>4 ședințe private / lună</li>
+              <li>Plan personalizat</li>
+              <li>Evaluare progres lunară</li>
+              <li>Recomandări nutriționale</li>
+            </ul>
+            <a href="#" data-plan="standard" class="plan-cta">Alege Standard</a>
+          </div>
+
+          <div class="plan-card">
+            <span class="plan-tag">COMPETIȚIE</span>
+            <h3 class="plan-name">PRO</h3>
+            <p class="plan-desc">Pentru sportivii care vor să câștige.</p>
+            <div class="plan-price">
+              <div>
+                <span class="pp-amount">600</span
+                ><span class="pp-currency">RON</span>
+              </div>
+              <div class="pp-period">PE LUNĂ</div>
+            </div>
+            <ul class="plan-features">
+              <li>Tot ce e la STANDARD</li>
+              <li>8 ședințe private / lună</li>
+              <li>Pregătire competiții</li>
+              <li>Echipa de competiție</li>
+              <li>Sparring &amp; analiză video</li>
+            </ul>
+            <a href="#" data-plan="pro" class="plan-cta">Treci la PRO</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="premium-separator"></div>
+
+      <section class="extras-section">
+        <div class="services-header">
+          <h2 class="section-title">
+            PACHETE <span class="red-text">SPECIALE</span>
+          </h2>
+        </div>
+        <div class="extras-grid">
+
+          <div class="extra-card">
+            <div class="extra-num">08</div>
+            <span class="extra-tag">ANTRENAMENT 1 LA 1</span>
+            <h3 class="extra-title">8 Private</h3>
+            <p class="extra-sub">Ședințe private cu antrenor coordonator.</p>
+            <div class="extra-price-line">
+              <span class="extra-price">600</span>
+              <span class="extra-price-old">640</span>
+              <span class="extra-savings">-40 RON</span>
+            </div>
+            <p style="color: #777; font-size: 12px">
+              75 RON / ședință (vs 80 standard)
+            </p>
+            <ul class="extra-bullets">
+              <li>8 ședințe private</li>
+              <li>Programare flexibilă</li>
+              <li>Valabil 3 luni</li>
+              <li>Plan personalizat inclus</li>
+            </ul>
+            <a href="#" data-plan="private8" class="plan-cta">Cumpără pachet</a>
+          </div>
+
+          <div class="extra-card">
+            <div class="extra-num">12</div>
+            <span class="extra-tag">CEL MAI AVANTAJOS</span>
+            <h3 class="extra-title">12 Private</h3>
+            <p class="extra-sub">Pentru cei care vor progres rapid.</p>
+            <div class="extra-price-line">
+              <span class="extra-price">840</span>
+              <span class="extra-price-old">960</span>
+              <span class="extra-savings">-120 RON</span>
+            </div>
+            <p style="color: #777; font-size: 12px">
+              70 RON / ședință (vs 80 standard)
+            </p>
+            <ul class="extra-bullets">
+              <li>12 ședințe private</li>
+              <li>Programare flexibilă</li>
+              <li>Valabil 4 luni</li>
+              <li>Evaluare progres video</li>
+              <li>Plan complet personalizat</li>
+            </ul>
+            <a href="#" data-plan="private12" class="plan-cta">Cumpără pachet</a>
+          </div>
+
+          <div class="extra-card gold">
+            <div class="extra-num">365</div>
+            <span class="extra-tag">PE TERMEN LUNG</span>
+            <h3 class="extra-title">Anual Standard</h3>
+            <p class="extra-sub">12 luni de Standard, plătite o dată.</p>
+            <div class="extra-price-line">
+              <span class="extra-price">1500</span>
+              <span class="extra-price-old">1800</span>
+              <span class="extra-savings">-300 RON</span>
+            </div>
+            <p style="color: #777; font-size: 12px">
+              Echivalent 125 RON / lună
+            </p>
+            <ul class="extra-bullets">
+              <li>Acces nelimitat 365 zile</li>
+              <li>Înghețare 30 zile/an</li>
+              <li>Tricou Urban Warrior cadou</li>
+              <li>Sesiune nutriție personalizată</li>
+              <li>Reducere 10% echipament</li>
+            </ul>
+            <a href="#" data-plan="anual" class="plan-cta">Plătește anual</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="premium-separator"></div>
+
+      <section class="faq-section">
+        <div class="services-header">
+          <h2 class="section-title">
+            ÎNTREBĂRI <span class="red-text">FRECVENTE</span>
+          </h2>
+        </div>
+        <div class="faq-list" id="faqList">
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Pot încerca o ședință gratuit?</span>
+              <span class="faq-toggle"></span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Da. Prima ședință este gratuită pentru toți membrii noi —
+                trebuie doar să suni înainte la 0748145453 sau 0766621622 ca să
+                rezervi locul.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Ce echipament îmi trebuie la început?</span>
+              <span class="faq-toggle"></span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Pentru prima lună, echipament sportiv normal este suficient.
+                Mănușile, banderolele și protecția se cumpără ulterior — îți
+                recomandăm noi modelul potrivit nivelului tău.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Cum se plătește abonamentul?</span>
+              <span class="faq-toggle"></span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Plata se face direct la sală — cash sau card. Pentru
+                abonamentele anuale acceptăm și transfer bancar (cu factură). Nu
+                avem comisioane ascunse.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Pot îngheța abonamentul dacă plec o perioadă?</span>
+              <span class="faq-toggle"></span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Membrii cu abonament Anual au dreptul la 30 de zile de înghețare
+                pe an. Pentru abonamentele lunare, nu se aplică reportare — dar
+                poți cumpăra direct un pachet de Private dacă mergi neregulat.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>De ce vârstă pot începe copiii?</span>
+              <span class="faq-toggle"></span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Acceptăm copii de la 6 ani în grupa JUNIOR. Antrenorii sunt
+                specializați în lucru cu copii, iar accentul cade pe disciplină,
+                coordonare și încredere în sine — nu pe contact dur.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Pachetele de Private expiră?</span>
+              <span class="faq-toggle"></span>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Pachetul de 8 are valabilitate 3 luni, cel de 12 are 4 luni.
+                După expirare, ședințele neefectuate nu se mai pot folosi — așa
+                că alege un pachet pe care chiar îl poți consuma.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+    <div class="plan-modal" id="planModal" aria-hidden="true">
+      <div class="plan-modal-backdrop"></div>
+      <div class="plan-modal-card" role="dialog" aria-modal="true">
+        <button class="plan-modal-close" type="button" aria-label="Închide">&times;</button>
+        <span class="plan-modal-tag" id="modalTag"></span>
+        <h3 class="plan-modal-name" id="modalName"></h3>
+        <div class="plan-modal-price">
+          <span class="plan-modal-amount" id="modalPrice"></span>
+          <span class="plan-modal-currency">RON</span>
+          <span class="plan-modal-period" id="modalPeriod"></span>
+        </div>
+        <p class="plan-modal-desc" id="modalDesc"></p>
+        <div class="plan-modal-section">
+          <h4>CE INCLUDE</h4>
+          <ul id="modalFeatures"></ul>
+        </div>
+        <div class="plan-modal-section">
+          <h4>PAȘII URMĂTORI</h4>
+          <ol class="plan-modal-steps">
+            <li>Sună sau trimite mesaj prin formular</li>
+            <li>Stabilim împreună programul potrivit</li>
+            <li>Plata la sală — cash sau card</li>
+            <li>Începi antrenamentele</li>
+          </ol>
+        </div>
+        <div class="plan-modal-actions">
+          <a href="tel:0748145453" class="plan-modal-btn primary">
+            <span>📞 SUNĂ ACUM</span>
+            <small>0748 145 453</small>
+          </a>
+          <a href="contact.html" id="modalMailLink" class="plan-modal-btn secondary">
+            <span>✉ TRIMITE MESAJ</span>
+            <small>răspuns în 24h</small>
+          </a>
+        </div>
+        <p class="plan-modal-hint">Plata se face direct la sală. Nu există comisioane ascunse.</p>
+      </div>
+    </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-col contact-col">
+          <img
+            src="img/logo.png"
+            alt="Urban Warrior Logo"
+            class="footer-logo"
+          />
+          <ul class="contact-details">
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                />
+              </svg>
+              <span>Str. Transilvaniei 24 - 26, Brăila, România, 810249</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                />
+              </svg>
+              <span>contact@urbanwarriorgym.ro</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.28 1.12.27 2.33.41 3.57.41.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 .25 1.13.41 2.5.68 3.7.09.42-.04.83-.41 1.17l-1.99 2.14z"
+                />
+              </svg>
+              <div class="phones">
+                <span>0748145453</span>
+                <span>0766621622</span>
+              </div>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+                />
+              </svg>
+              <span>Luni - Vineri: 15:45 - 20:00</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col contact-col"></div>
+
+        <div class="footer-col map-col">
+          <h3 class="footer-title">LOCALIZARE</h3>
+          <div class="map-frame">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2823.963868846358!2d27.95478437666248!3d45.26388897107147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b729be60b62d2b%3A0x6a0c0e0b6b6b6b6b!2sStrada%20Transilvaniei%2024%2C%20Br%C4%83ila!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro"
+              width="100%"
+              height="250"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
+          </div>
+        </div>
+
+        <div class="footer-col menu-col"></div>
+
+        <div class="footer-col menu-col">
+          <h3 class="footer-title">MENIU</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="club.html">Clubul Nostru</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="abonamente.html">Abonamente</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          Site creat și administrat de
+          <span class="admin-name">Stoian Daniel-Stefan</span>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true,
+      });
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    </script>
+
+    <script>
+
+
+      const PLANS = {
+        junior: {
+          name: "JUNIOR",
+          tag: "COPII 6-14 ANI",
+          description:
+            "Plan special pentru copii — antrenori specializați, grupe pe vârstă, accent pe disciplină și dezvoltare.",
+          price: 100,
+          period: "/ lună",
+          features: [
+            "8 antrenamente / lună",
+            "Antrenori specializați copii",
+            "Grupe împărțite pe vârstă",
+            "Echipament adaptat",
+            "Disciplină &amp; coordonare",
+          ],
+        },
+        starter: {
+          name: "STARTER",
+          tag: "PLAN DE BAZĂ",
+          description:
+            "Acces nelimitat la toate grupele pentru adulți — perfect pentru cine începe sau menține forma.",
+          price: 150,
+          period: "/ lună",
+          features: [
+            "Acces nelimitat la grupe",
+            "Kickboxing, MMA, Box",
+            "Programe pentru toate nivelele",
+            "Acces sală fitness",
+            "Vestiar &amp; dușuri incluse",
+          ],
+        },
+        standard: {
+          name: "STANDARD",
+          tag: "CEL MAI ALES",
+          description:
+            "Combinația optimă: grupe nelimitate plus 4 ședințe private cu antrenor pe lună.",
+          price: 380,
+          period: "/ lună",
+          features: [
+            "Tot ce e la STARTER",
+            "4 ședințe private / lună",
+            "Plan de antrenament personalizat",
+            "Evaluare progres lunară",
+            "Recomandări nutriționale",
+          ],
+        },
+        pro: {
+          name: "PRO",
+          tag: "COMPETIȚIE",
+          description:
+            "Plan complet pentru sportivi care vor să concureze — cea mai mare densitate de antrenamente private și sparring.",
+          price: 600,
+          period: "/ lună",
+          features: [
+            "Tot ce e la STANDARD",
+            "8 ședințe private / lună",
+            "Pregătire specifică competiții",
+            "Acces echipa de competiție",
+            "Sparring &amp; analiză video",
+          ],
+        },
+        private8: {
+          name: "PACHET 8 PRIVATE",
+          tag: "ANTRENAMENT 1 LA 1",
+          description:
+            "8 ședințe private la 75 RON fiecare — economisești 40 RON. Ideal pentru cine merge neregulat.",
+          price: 600,
+          period: "one-time",
+          features: [
+            "8 ședințe private",
+            "75 RON / ședință (vs 80)",
+            "Programare flexibilă",
+            "Valabil 3 luni",
+            "Plan personalizat inclus",
+          ],
+        },
+        private12: {
+          name: "PACHET 12 PRIVATE",
+          tag: "CEL MAI AVANTAJOS",
+          description:
+            "12 ședințe private la 70 RON fiecare — economisești 120 RON. Pentru progres serios fără abonament lunar.",
+          price: 840,
+          period: "one-time",
+          features: [
+            "12 ședințe private",
+            "70 RON / ședință (vs 80)",
+            "Valabil 4 luni",
+            "Evaluare progres video",
+            "Plan complet personalizat",
+          ],
+        },
+        anual: {
+          name: "ANUAL STANDARD",
+          tag: "PE TERMEN LUNG",
+          description:
+            "12 luni de Standard plătite o dată — economisești 300 RON și primești bonusuri exclusive.",
+          price: 1500,
+          period: "/ an",
+          features: [
+            "Echivalent 125 RON / lună",
+            "Acces nelimitat 365 zile",
+            "Înghețare 30 zile / an",
+            "Tricou Urban Warrior cadou",
+            "Reducere 10% echipament",
+          ],
+        },
+      };
+
+
+      const SCORING = {
+        varsta: {
+          copil: { junior: 100, starter: 0, standard: 0, pro: 0, private8: 0, private12: 0, anual: 0 },
+          tanar: { junior: 0, starter: 35, standard: 25, pro: 15, private8: 15, private12: 10, anual: 15 },
+          adult: { junior: 0, starter: 25, standard: 35, pro: 30, private8: 25, private12: 25, anual: 30 },
+          senior: { junior: 0, starter: 30, standard: 25, pro: 5, private8: 30, private12: 25, anual: 15 },
+        },
+        obiectiv: {
+          slabit: { junior: 5, starter: 30, standard: 35, pro: 25, private8: 25, private12: 25, anual: 30 },
+          masa: { junior: 0, starter: 25, standard: 30, pro: 35, private8: 25, private12: 30, anual: 25 },
+          competitie: { junior: 5, starter: 5, standard: 25, pro: 50, private8: 20, private12: 30, anual: 35 },
+          autoaparare: { junior: 15, starter: 35, standard: 25, pro: 20, private8: 30, private12: 25, anual: 25 },
+          fitness: { junior: 10, starter: 40, standard: 25, pro: 15, private8: 15, private12: 15, anual: 30 },
+          distractie: { junior: 25, starter: 35, standard: 15, pro: 5, private8: 20, private12: 15, anual: 15 },
+        },
+        experienta: {
+          incepator: { junior: 30, starter: 40, standard: 25, pro: 5, private8: 35, private12: 30, anual: 20 },
+          intermediar: { junior: 5, starter: 25, standard: 35, pro: 25, private8: 20, private12: 25, anual: 30 },
+          avansat: { junior: 0, starter: 15, standard: 30, pro: 40, private8: 15, private12: 25, anual: 35 },
+          competitional: { junior: 0, starter: 5, standard: 20, pro: 50, private8: 10, private12: 20, anual: 40 },
+        },
+        frecventa: {
+          f12: { junior: 30, starter: 25, standard: 15, pro: 5, private8: 35, private12: 25, anual: 10 },
+          f34: { junior: 25, starter: 35, standard: 30, pro: 20, private8: 20, private12: 25, anual: 30 },
+          f5: { junior: 15, starter: 25, standard: 30, pro: 40, private8: 5, private12: 15, anual: 35 },
+        },
+        buget: {
+          sub150: { junior: 40, starter: 30, standard: 0, pro: 0, private8: 0, private12: 0, anual: 0 },
+          b150_300: { junior: 25, starter: 40, standard: 5, pro: 0, private8: 5, private12: 0, anual: 0 },
+          b300_500: { junior: 5, starter: 25, standard: 35, pro: 10, private8: 30, private12: 5, anual: 25 },
+          b500plus: { junior: 0, starter: 15, standard: 25, pro: 35, private8: 15, private12: 30, anual: 35 },
+        },
+        preferinta: {
+          grup: { junior: 35, starter: 35, standard: 20, pro: 10, private8: 0, private12: 0, anual: 25 },
+          privat: { junior: 5, starter: 0, standard: 25, pro: 30, private8: 40, private12: 40, anual: 25 },
+          mixt: { junior: 15, starter: 20, standard: 35, pro: 30, private8: 25, private12: 30, anual: 30 },
+        },
+      };
+
+      const REASON_TEXTS = {
+        obiectiv: {
+          slabit: "obiectivul de slăbire necesită cardio + grupe intense",
+          masa: "obiectivul de masă musculară cere ședințe dirijate",
+          competitie: "vrei să concurezi — ai nevoie de pregătire avansată",
+          autoaparare: "autoapărarea cere tehnici reale, nu doar fitness",
+          fitness: "fitness-ul general se construiește în grupă",
+          distractie: "distracția în grupă este motorul motivației",
+        },
+        experienta: {
+          incepator: "ești la început — ai nevoie de structură și ghidare",
+          intermediar: "ai nivelul perfect pentru progresie tehnică",
+          avansat: "nivelul tău cere intensitate și complexitate",
+          competitional: "tu concurezi — planul reflectă acest ritm",
+        },
+        frecventa: {
+          f12: "frecvența mică se potrivește cu antrenamente eficiente",
+          f34: "frecvența medie permite progres constant",
+          f5: "antrenamentele dese cer un plan dens",
+        },
+        preferinta: {
+          grup: "preferi energia colectivă — grupele te motivează",
+          privat: "atenția 1 la 1 accelerează evoluția ta",
+          mixt: "combinația grup + privat e cea mai eficientă",
+        },
+      };
+
+      const QUESTIONS = ["varsta", "obiectiv", "experienta", "frecventa", "buget", "preferinta"];
+      let currentStepIdx = 0;
+      const answers = {};
+
+      const stepsEls = document.querySelectorAll(".wizard-step");
+      const progressDots = document.querySelectorAll(".progress-dot");
+      const progressLabel = document.getElementById("progressLabel");
+      const stepCounter = document.getElementById("stepCounter");
+      const btnBack = document.getElementById("btnBack");
+      const wizardNav = document.getElementById("wizardNav");
+      const wizardResult = document.getElementById("wizardResult");
+
+      function showStep(idx) {
+        stepsEls.forEach((s) => s.classList.remove("active"));
+        wizardResult.classList.remove("active");
+
+        if (idx >= QUESTIONS.length) {
+
+          showResult();
+          return;
+        }
+
+        const target = document.querySelector(
+          `.wizard-step[data-step="${QUESTIONS[idx]}"]`
+        );
+        if (target) {
+          target.classList.add("active");
+          gsap.fromTo(
+            target,
+            { opacity: 0, x: 30 },
+            { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }
+          );
+        }
+
+        progressDots.forEach((dot, i) => {
+          dot.classList.remove("done", "current");
+          if (i < idx) dot.classList.add("done");
+          else if (i === idx) dot.classList.add("current");
+        });
+        const num = String(idx + 1).padStart(2, "0");
+        progressLabel.textContent = `${num} / 06`;
+        stepCounter.textContent = `PASUL ${num} / 06`;
+
+        btnBack.disabled = idx === 0;
+        wizardNav.style.display = "flex";
+      }
+
+      function selectOption(btn) {
+        const key = btn.dataset.key;
+        const value = btn.dataset.value;
+        answers[key] = value;
+
+        const siblings = btn.parentElement.querySelectorAll(".option-card");
+        siblings.forEach((s) => s.classList.remove("selected"));
+        btn.classList.add("selected");
+
+        setTimeout(() => {
+          currentStepIdx++;
+          showStep(currentStepIdx);
+        }, 350);
+      }
+
+
+      function getEligiblePlans(ans) {
+        if (ans.varsta === "copil") return ["junior"];
+        return ["starter", "standard", "pro", "private8", "private12", "anual"];
+      }
+
+      function calculateScores(ans) {
+        const eligible = getEligiblePlans(ans);
+        const scores = {};
+        eligible.forEach((p) => (scores[p] = 0));
+
+        for (const key of Object.keys(ans)) {
+          const matrix = SCORING[key]?.[ans[key]];
+          if (!matrix) continue;
+          for (const planKey of eligible) {
+            if (typeof matrix[planKey] === "number") {
+              scores[planKey] += matrix[planKey];
+            }
+          }
+        }
+        return scores;
+      }
+
+      function pickTopPlans(scores, ans) {
+
+
+        const eligible = getEligiblePlans(ans);
+        let userMax = 0;
+        for (const key of Object.keys(ans)) {
+          const matrix = SCORING[key]?.[ans[key]];
+          if (!matrix) continue;
+          const candidates = eligible.map((p) => matrix[p] || 0);
+          userMax += Math.max(...candidates);
+        }
+
+        const entries = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        const topScore = entries[0]?.[1] || 0;
+
+        return entries.map(([key, score], idx) => {
+          const ratio = userMax > 0 ? score / userMax : 0;
+
+
+          let pct = Math.round(20 + ratio * 80);
+
+          if (idx === 0 && entries.length > 1) {
+            const gap = (score - entries[1][1]) / Math.max(1, score);
+            pct += Math.round(gap * 10);
+          } else if (idx > 0) {
+            pct -= Math.round((idx - 0.5) * 4);
+          }
+
+          pct = Math.max(35, Math.min(99, pct));
+          return { key, score, percentage: pct };
+        });
+      }
+
+      function buildReasons(ans, planKey) {
+        const reasons = [];
+        if (REASON_TEXTS.obiectiv[ans.obiectiv])
+          reasons.push("Obiectivul tău: " + REASON_TEXTS.obiectiv[ans.obiectiv] + ".");
+        if (REASON_TEXTS.experienta[ans.experienta])
+          reasons.push("Nivelul tău: " + REASON_TEXTS.experienta[ans.experienta] + ".");
+        if (REASON_TEXTS.frecventa[ans.frecventa])
+          reasons.push("Frecvență: " + REASON_TEXTS.frecventa[ans.frecventa] + ".");
+        return reasons;
+      }
+
+      function showResult() {
+        const scores = calculateScores(answers);
+        const ranked = pickTopPlans(scores, answers);
+        const top = ranked[0];
+        const plan = PLANS[top.key];
+
+        wizardNav.style.display = "none";
+        progressDots.forEach((d) => {
+          d.classList.remove("current");
+          d.classList.add("done");
+        });
+        progressLabel.textContent = "✓ COMPLET";
+
+        document.getElementById("resultName").textContent = plan.name;
+        document.getElementById("resultDesc").textContent = plan.description;
+        document.getElementById("resultPrice").textContent = plan.price;
+        document.getElementById("resultPeriod").textContent = plan.period === "one-time" ? "PLATĂ UNICĂ" : plan.period.toUpperCase();
+
+        const featuresEl = document.getElementById("resultFeatures");
+        featuresEl.innerHTML = "";
+        plan.features.forEach((f) => {
+          const li = document.createElement("li");
+          li.innerHTML = f;
+          featuresEl.appendChild(li);
+        });
+
+        const reasonsEl = document.getElementById("resultReasons");
+        reasonsEl.innerHTML = "";
+        buildReasons(answers, top.key).forEach((r) => {
+          const p = document.createElement("p");
+          p.textContent = r;
+          reasonsEl.appendChild(p);
+        });
+
+        const scoreNumEl = document.getElementById("scoreNum");
+        const ringFg = document.getElementById("ringFg");
+        const RING_CIRC = 277;
+        const targetPct = top.percentage;
+
+        ringFg.style.strokeDashoffset = RING_CIRC;
+
+        requestAnimationFrame(() => {
+          ringFg.style.strokeDashoffset = RING_CIRC * (1 - targetPct / 100);
+        });
+
+        let counter = { val: 0 };
+        gsap.to(counter, {
+          val: targetPct,
+          duration: 1.4,
+          ease: "power2.out",
+          onUpdate: () => {
+            scoreNumEl.textContent = Math.round(counter.val) + "%";
+          },
+        });
+
+        const altGrid = document.getElementById("altGrid");
+        altGrid.innerHTML = "";
+        ranked.slice(1, 3).forEach((alt) => {
+          const altPlan = PLANS[alt.key];
+          if (!altPlan) return;
+          const card = document.createElement("div");
+          card.className = "alt-card";
+          card.innerHTML = `
+            <div>
+              <span class="alt-name">${altPlan.name}</span>
+              <span class="alt-score">${alt.percentage}% match</span>
+            </div>
+            <div class="alt-price">${altPlan.price} RON ${altPlan.period === "one-time" ? "(plată unică)" : altPlan.period}</div>
+          `;
+          altGrid.appendChild(card);
+        });
+
+        wizardResult.classList.add("active");
+        gsap.fromTo(
+          wizardResult,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }
+        );
+
+        setTimeout(() => {
+          document.getElementById("wizard").scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }, 200);
+      }
+
+      document.querySelectorAll(".option-card").forEach((btn) => {
+        btn.addEventListener("click", () => selectOption(btn));
+      });
+
+      btnBack.addEventListener("click", () => {
+        if (currentStepIdx > 0) {
+          currentStepIdx--;
+          showStep(currentStepIdx);
+        }
+      });
+
+      document.getElementById("btnRestart").addEventListener("click", () => {
+        currentStepIdx = 0;
+        for (const k of Object.keys(answers)) delete answers[k];
+        document.querySelectorAll(".option-card.selected").forEach((c) =>
+          c.classList.remove("selected")
+        );
+        wizardResult.classList.remove("active");
+        document.getElementById("ringFg").style.strokeDashoffset = "277";
+        showStep(0);
+      });
+
+      showStep(0);
+    </script>
+
+    <script>
+
+      document.querySelectorAll(".faq-item").forEach((item) => {
+        const q = item.querySelector(".faq-question");
+        q.addEventListener("click", () => {
+
+          document.querySelectorAll(".faq-item.open").forEach((other) => {
+            if (other !== item) other.classList.remove("open");
+          });
+          item.classList.toggle("open");
+        });
+      });
+    </script>
+
+    <script>
+
+      window.addEventListener("load", () => {
+        if (typeof ScrollTrigger !== "undefined") {
+          gsap.registerPlugin(ScrollTrigger);
+
+          gsap.utils.toArray(".plan-card").forEach((card, i) => {
+            gsap.from(card, {
+              y: 40,
+              opacity: 0,
+              duration: 0.7,
+              delay: i * 0.08,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 88%",
+              },
+            });
+          });
+
+          gsap.utils.toArray(".extra-card").forEach((card, i) => {
+            gsap.from(card, {
+              y: 40,
+              opacity: 0,
+              duration: 0.7,
+              delay: i * 0.1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 88%",
+              },
+            });
+          });
+
+          gsap.from(".faq-item", {
+            y: 20,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ".faq-list",
+              start: "top 85%",
+            },
+          });
+        }
+      });
+    </script>
+      <script>
+      if (typeof tsParticles !== "undefined") {
+        tsParticles.load({
+          id: "tsparticles",
+          options: {
+            fpsLimit: 60,
+            particles: {
+              number: { value: 35, density: { enable: true, area: 1200 } },
+              color: { value: ["#ff0000", "#ffffff"] },
+              opacity: { value: { min: 0.08, max: 0.4 } },
+              size: { value: { min: 0.5, max: 2 } },
+              move: {
+                enable: true,
+                speed: 0.5,
+                direction: "none",
+                random: true,
+                straight: false,
+                outModes: { default: "out" }
+              },
+              links: { enable: false }
+            },
+            background: { color: "transparent" },
+            interactivity: { events: { onHover: { enable: false } } },
+            detectRetina: true
+          }
+        });
+      }
+    </script>
+      <script>
+      (function () {
+        var burger = document.querySelector(".hamburger");
+        if (!burger) return;
+        burger.addEventListener("click", function () {
+          document.body.classList.toggle("menu-open");
+        });
+        document.querySelectorAll(".nav-links a").forEach(function (a) {
+          a.addEventListener("click", function () {
+            document.body.classList.remove("menu-open");
+          });
+        });
+      })();
+    </script>
+  
+    <script>
+      (function () {
+        const modal = document.getElementById("planModal");
+        if (!modal || typeof PLANS === "undefined") return;
+        const tag = document.getElementById("modalTag");
+        const name = document.getElementById("modalName");
+        const price = document.getElementById("modalPrice");
+        const period = document.getElementById("modalPeriod");
+        const desc = document.getElementById("modalDesc");
+        const features = document.getElementById("modalFeatures");
+        const mailLink = document.getElementById("modalMailLink");
+        const closeBtn = modal.querySelector(".plan-modal-close");
+        const backdrop = modal.querySelector(".plan-modal-backdrop");
+
+        function openPlan(planKey) {
+          const plan = PLANS[planKey];
+          if (!plan) return;
+          tag.textContent = plan.tag;
+          name.textContent = plan.name;
+          price.textContent = plan.price;
+          period.textContent = plan.period === "one-time" ? "PLATĂ UNICĂ" : plan.period.toUpperCase();
+          desc.textContent = plan.description;
+          features.innerHTML = "";
+          plan.features.forEach(function (f) {
+            const li = document.createElement("li");
+            li.innerHTML = f;
+            features.appendChild(li);
+          });
+          mailLink.href = "contact.html?plan=" + encodeURIComponent(planKey);
+          modal.classList.add("open");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.classList.add("modal-open");
+        }
+        function closePlan() {
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("modal-open");
+        }
+
+        document.querySelectorAll("[data-plan]").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            openPlan(btn.dataset.plan);
+          });
+        });
+        closeBtn.addEventListener("click", closePlan);
+        backdrop.addEventListener("click", closePlan);
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && modal.classList.contains("open")) closePlan();
+        });
+      })();
+    </script>
+  </body>
+</html>

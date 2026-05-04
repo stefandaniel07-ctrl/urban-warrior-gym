@@ -1,0 +1,1283 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact - Urban Warrior Gym</title>
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+
+        <script>
+      (function () {
+        document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+        document.addEventListener("keydown", function (e) {
+          var k = (e.key || "").toLowerCase();
+          if (k === "f12") return e.preventDefault();
+          if (e.ctrlKey && k === "u") return e.preventDefault();
+          if (e.ctrlKey && k === "s") return e.preventDefault();
+          if (e.ctrlKey && e.shiftKey && (k === "i" || k === "j" || k === "c")) return e.preventDefault();
+          if (e.metaKey && e.altKey && (k === "i" || k === "j" || k === "c")) return e.preventDefault();
+        });
+        document.addEventListener("dragstart", function (e) {
+          if (e.target && e.target.tagName === "IMG") e.preventDefault();
+        });
+      })();
+    </script>
+    <script src="js/gsap.min.js"></script>
+    <script src="js/ScrollTrigger.min.js" defer></script>
+    <script src="js/lenis.min.js"></script>
+    <script src="js/tsparticles.slim.min.js" defer></script>
+    <style>
+
+      .page-content {
+        padding-top: 150px;
+      }
+
+      .info-kicker,
+      .info-heading,
+      .info-sub,
+      .info-line,
+      .info-block,
+      .form-shell,
+      .map-shell,
+      .quick-cta-inner {
+        opacity: 0;
+      }
+
+
+      .contact-hero {
+        text-align: center;
+        padding: 30px 5% 20px 5%;
+      }
+      .contact-hero p {
+        color: #888;
+        margin-top: 12px;
+        font-size: 16px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+      }
+
+      .contact-section {
+        padding: 60px 5% 60px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+
+      .info-kicker {
+        display: inline-block;
+        color: #ff0000;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-family: "Courier New", monospace;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(255, 0, 0, 0.4);
+        margin-bottom: 25px;
+      }
+      .info-heading {
+        font-size: 44px;
+        font-weight: 900;
+        color: #fff;
+        line-height: 1.05;
+        text-transform: none;
+        margin-bottom: 18px;
+      }
+      .info-heading .red-text {
+        color: #ff0000;
+      }
+      .info-sub {
+        color: #aaa;
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 35px;
+        max-width: 460px;
+      }
+      .info-line {
+        width: 60px;
+        height: 3px;
+        background: #ff0000;
+        margin-bottom: 50px;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px 40px;
+      }
+      .info-block {
+        position: relative;
+      }
+      .info-icon-wrap {
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 0, 0, 0.08);
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        margin-bottom: 16px;
+        transition: 0.3s;
+      }
+      .info-block:hover .info-icon-wrap {
+        background: #ff0000;
+        border-color: #ff0000;
+        transform: translateY(-2px);
+      }
+      .info-icon {
+        width: 20px;
+        height: 20px;
+        color: #ff0000;
+        fill: currentColor;
+        transition: 0.3s;
+      }
+      .info-block:hover .info-icon {
+        color: #fff;
+      }
+      .info-label {
+        font-family: "Courier New", monospace;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .info-value {
+        color: #bbb;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      .info-value strong {
+        color: #fff;
+        font-weight: 700;
+      }
+      .info-value a {
+        color: #bbb;
+        text-decoration: none;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+      .info-value a:hover {
+        color: #ff0000;
+      }
+      .info-value .small-note {
+        color: #777;
+        font-size: 12px;
+        font-style: italic;
+        margin-top: 4px;
+      }
+
+      .form-shell {
+        background: linear-gradient(145deg, #0e0e0e, #050505);
+        border: 1px solid #1a1a1a;
+        padding: 45px 40px;
+        position: relative;
+        overflow: hidden;
+      }
+      .form-shell::before,
+      .form-shell::after {
+        content: "";
+        position: absolute;
+        background: rgba(255, 0, 0, 0.4);
+      }
+      .form-shell::before {
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 2px;
+      }
+      .form-shell::after {
+        bottom: 0;
+        right: 0;
+        width: 60px;
+        height: 2px;
+      }
+
+      .form-tag {
+        display: block;
+        color: #ff0000;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-family: "Courier New", monospace;
+        margin-bottom: 8px;
+      }
+      .form-title {
+        font-size: 28px;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 30px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin-bottom: 28px;
+      }
+      .form-row.full {
+        grid-template-columns: 1fr;
+      }
+
+      .form-field {
+        position: relative;
+      }
+      .form-field input,
+      .form-field textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #2a2a2a;
+        color: #fff;
+        font-family: "Poppins", sans-serif;
+        font-size: 15px;
+        padding: 24px 0 10px 0;
+        outline: none;
+        transition: border-color 0.3s ease;
+        resize: none;
+      }
+      .form-field textarea {
+        min-height: 110px;
+        line-height: 1.6;
+      }
+
+      .form-field::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #ff0000;
+        transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .form-field.focused::after,
+      .form-field.has-value::after {
+        width: 100%;
+      }
+
+      .form-field label {
+        position: absolute;
+        top: 22px;
+        left: 0;
+        color: #888;
+        font-size: 14px;
+        font-family: "Courier New", monospace;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        pointer-events: none;
+        transition:
+          top 0.3s ease,
+          font-size 0.3s ease,
+          color 0.3s ease;
+      }
+      .form-field.focused label,
+      .form-field.has-value label {
+        top: 0;
+        font-size: 10px;
+        color: #ff0000;
+        letter-spacing: 2px;
+      }
+
+      .form-field .field-error {
+        position: absolute;
+        bottom: -20px;
+        left: 0;
+        font-size: 11px;
+        color: #ff0000;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      .form-field.error .field-error {
+        opacity: 1;
+      }
+      .form-field.error::after {
+        background: #ff0000;
+        width: 100%;
+      }
+
+      .char-counter {
+        position: absolute;
+        bottom: 6px;
+        right: 0;
+        font-size: 11px;
+        color: #555;
+        font-family: "Courier New", monospace;
+        letter-spacing: 1px;
+      }
+      .char-counter.warn {
+        color: #ff0000;
+      }
+
+      .form-gdpr {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin: 30px 0 25px 0;
+        cursor: pointer;
+      }
+      .form-gdpr input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 1px solid #444;
+        background: transparent;
+        cursor: pointer;
+        position: relative;
+        margin: 0;
+        flex-shrink: 0;
+        margin-top: 2px;
+        transition: 0.2s;
+      }
+      .form-gdpr input[type="checkbox"]:checked {
+        background: #ff0000;
+        border-color: #ff0000;
+      }
+      .form-gdpr input[type="checkbox"]:checked::after {
+        content: "✓";
+        color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 13px;
+        font-weight: 900;
+      }
+      .form-gdpr label {
+        color: #888;
+        font-size: 12px;
+        line-height: 1.6;
+        cursor: pointer;
+      }
+      .form-gdpr label strong {
+        color: #ccc;
+        font-weight: 600;
+      }
+
+      .form-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: #ff0000;
+        color: #fff;
+        border: none;
+        padding: 0 50px;
+        height: 56px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 900;
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+        transition: 0.3s;
+        margin-top: 5px;
+      }
+      .form-submit:hover {
+        background: #fff;
+        color: #ff0000;
+      }
+      .form-submit:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .form-submit-arrow {
+        display: inline-block;
+        transition: transform 0.3s ease;
+      }
+      .form-submit:hover .form-submit-arrow {
+        transform: translateX(4px);
+      }
+
+      .form-success {
+        display: none;
+        background: linear-gradient(
+          to right,
+          rgba(255, 0, 0, 0.08),
+          transparent
+        );
+        border-left: 3px solid #ff0000;
+        padding: 25px;
+        margin-top: 25px;
+      }
+      .form-success.active {
+        display: block;
+      }
+      .form-success h4 {
+        color: #fff;
+        font-size: 16px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .form-success p {
+        color: #aaa;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .map-section {
+        padding: 0 5% 80px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .map-shell {
+        position: relative;
+        border: 1px solid #222;
+        height: 480px;
+        overflow: hidden;
+        margin-top: 50px;
+      }
+      .map-shell::before,
+      .map-shell::after {
+        content: "";
+        position: absolute;
+        z-index: 5;
+        pointer-events: none;
+      }
+      .map-shell::before {
+        top: -1px;
+        left: -1px;
+        width: 60px;
+        height: 60px;
+        border-top: 3px solid #ff0000;
+        border-left: 3px solid #ff0000;
+      }
+      .map-shell::after {
+        bottom: -1px;
+        right: -1px;
+        width: 60px;
+        height: 60px;
+        border-bottom: 3px solid #ff0000;
+        border-right: 3px solid #ff0000;
+      }
+      .map-shell iframe {
+        width: 100%;
+        height: 100%;
+        display: block;
+        filter: grayscale(100%) invert(92%) contrast(83%);
+        transition: filter 0.5s ease;
+      }
+      .map-shell:hover iframe {
+        filter: grayscale(0%) invert(0%);
+      }
+      .map-floating-card {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        background: linear-gradient(145deg, #0e0e0e, #050505);
+        border-left: 3px solid #ff0000;
+        padding: 22px 28px;
+        max-width: 320px;
+        z-index: 4;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      }
+      .map-floating-card h4 {
+        color: #ff0000;
+        font-size: 11px;
+        letter-spacing: 3px;
+        font-family: "Courier New", monospace;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .map-floating-card p {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .quick-cta {
+        padding: 0 5% 100px 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .quick-cta-inner {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 0, 0, 0.1),
+          transparent 60%
+        );
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        padding: 40px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+      .quick-cta-inner h3 {
+        color: #fff;
+        font-size: 22px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .quick-cta-inner p {
+        color: #aaa;
+        font-size: 14px;
+        margin-top: 6px;
+      }
+
+      @media (max-width: 1024px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 60px;
+        }
+        .info-heading {
+          font-size: 36px;
+        }
+      }
+      @media (max-width: 640px) {
+        .contact-section {
+          padding: 40px 5%;
+        }
+        .form-shell {
+          padding: 30px 22px;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+          gap: 22px;
+        }
+        .info-grid {
+          grid-template-columns: 1fr;
+        }
+        .info-heading {
+          font-size: 28px;
+        }
+        .map-shell {
+          height: 360px;
+        }
+        .map-floating-card {
+          left: 15px;
+          right: 15px;
+          bottom: 15px;
+          max-width: none;
+        }
+        .quick-cta-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 30px 25px;
+        }
+      }
+      .info-social {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px solid #1a1a1a;
+      }
+      .info-social-label {
+        display: block;
+        color: #ff0000;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-family: "Courier New", monospace;
+        margin-bottom: 16px;
+      }
+      .info-social-icons {
+        display: flex;
+        gap: 14px;
+      }
+      .info-social-icons a {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 0, 0, 0.06);
+        border: 1px solid rgba(255, 0, 0, 0.25);
+        color: #ff0000;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+      .info-social-icons a:hover {
+        background: #ff0000;
+        border-color: #ff0000;
+        color: #fff;
+        transform: translateY(-3px);
+      }
+      .info-social-icons svg {
+        width: 22px;
+        height: 22px;
+        transition: 0.3s;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="tsparticles"></div>
+    <div class="global-grid-overlay"></div>
+
+    <nav class="navbar">
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="img/logo.png" alt="Urban Warrior Logo" class="logo-img" />
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">ACASĂ</a></li>
+        <li><a href="club.html">CLUBUL NOSTRU</a></li>
+        <li><a href="galerie.html">GALERIE</a></li>
+        <li><a href="abonamente.html">ABONAMENTE</a></li>
+        <li><a href="contact.html" class="active">CONTACT</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Meniu" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a href="contact.html" class="btn-cta">HAI LA SALĂ!</a>
+    </nav>
+
+    <main class="page-content">
+
+      <section class="contact-hero">
+        <div class="services-header">
+          <h2 class="section-title">
+            CONTACT
+          </h2>
+        </div>
+        <p>
+          Suntem la un mesaj distanță. Răspundem rapid la orice întrebare despre
+          abonamente, antrenori sau programe.
+        </p>
+      </section>
+
+      <div class="premium-separator"></div>
+
+      <section class="contact-section">
+        <div class="contact-grid">
+
+          <div class="contact-info">
+            <span class="info-kicker">// LEGĂTURA DIRECTĂ</span>
+            <h3 class="info-heading">
+              Ne poți contacta <span class="red-text">oricând.</span>
+            </h3>
+            <p class="info-sub">
+              Fie că vrei să afli prețuri, să rezervi un antrenament gratuit
+              sau pur și simplu să întrebi ceva — suntem aici pentru tine. Răspundem
+              de luni până vineri, în programul de antrenament.
+            </p>
+            <div class="info-line"></div>
+
+            <div class="info-grid">
+
+              <div class="info-block">
+                <div class="info-icon-wrap">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="info-icon"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.28 1.12.27 2.33.41 3.57.41.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 .25 1.13.41 2.5.68 3.7.09.42-.04.83-.41 1.17l-1.99 2.14z"
+                    />
+                  </svg>
+                </div>
+                <div class="info-label">Telefon</div>
+                <div class="info-value">
+                  <a href="tel:0748145453"><strong>0748 145 453</strong></a><br />
+                  <a href="tel:0766621622">0766 621 622</a>
+                  <div class="small-note">Apel direct sau SMS</div>
+                </div>
+              </div>
+
+              <div class="info-block">
+                <div class="info-icon-wrap">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="info-icon"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                    />
+                  </svg>
+                </div>
+                <div class="info-label">E-Mail</div>
+                <div class="info-value">
+                  <a href="mailto:contact@urbanwarriorgym.ro"
+                    ><strong>contact@urbanwarriorgym.ro</strong></a
+                  >
+                  <div class="small-note">Răspundem în maxim 24h</div>
+                </div>
+              </div>
+
+              <div class="info-block">
+                <div class="info-icon-wrap">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="info-icon"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+                    />
+                  </svg>
+                </div>
+                <div class="info-label">Program</div>
+                <div class="info-value">
+                  <strong>Luni - Vineri</strong><br />
+                  15:45 — 20:00
+                  <div class="small-note">Sâmbăta închis &nbsp;·&nbsp; Duminică închis</div>
+                </div>
+              </div>
+
+              <div class="info-block">
+                <div class="info-icon-wrap">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="info-icon"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                </div>
+                <div class="info-label">Adresa</div>
+                <div class="info-value">
+                  <strong>Str. Transilvaniei 24-26</strong><br />
+                  Brăila, România, 810249
+                  <div class="small-note">Acces direct, parcare disponibilă</div>
+                </div>
+              </div>
+            </div>
+            <div class="info-social">
+              <span class="info-social-label">URMĂREȘTE-NE</span>
+              <div class="info-social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100063555311388" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/club_sportiv_urban_warrior_gym/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="https://www.youtube.com/@urbanwarriorgymbraila1560" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-shell">
+            <span class="form-tag">// FORMULAR</span>
+            <h3 class="form-title">Trimite-ne un mesaj</h3>
+
+            <form id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-field" data-field="prenume">
+                  <input id="prenume" name="prenume" type="text" autocomplete="given-name" required />
+                  <label for="prenume">Prenume *</label>
+                  <span class="field-error">Te rugăm să completezi prenumele.</span>
+                </div>
+                <div class="form-field" data-field="nume">
+                  <input id="nume" name="nume" type="text" autocomplete="family-name" required />
+                  <label for="nume">Nume *</label>
+                  <span class="field-error">Te rugăm să completezi numele.</span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-field" data-field="telefon">
+                  <input id="telefon" name="telefon" type="tel" autocomplete="tel" required />
+                  <label for="telefon">Număr de telefon *</label>
+                  <span class="field-error">Numărul nu pare corect.</span>
+                </div>
+                <div class="form-field" data-field="email">
+                  <input id="email" name="email" type="email" autocomplete="email" required />
+                  <label for="email">E-Mail *</label>
+                  <span class="field-error">Adresa de email nu e validă.</span>
+                </div>
+              </div>
+
+              <div class="form-row full">
+                <div class="form-field" data-field="mesaj">
+                  <textarea id="mesaj" name="mesaj" rows="5" maxlength="500" required></textarea>
+                  <label for="mesaj">Mesajul tău *</label>
+                  <span class="char-counter" id="charCounter">0 / 500</span>
+                  <span class="field-error">Te rugăm să scrii un mesaj.</span>
+                </div>
+              </div>
+
+              <div class="form-gdpr">
+                <input id="gdpr" name="gdpr" type="checkbox" required />
+                <label for="gdpr">
+                  Sunt de acord ca datele mele să fie folosite pentru
+                  procesarea solicitării. <strong>Nu trimitem spam.</strong>
+                </label>
+              </div>
+
+              <button type="submit" class="form-submit">
+                Trimite mesajul
+                <span class="form-submit-arrow">→</span>
+              </button>
+
+              <div class="form-success" id="formSuccess">
+                <h4>Mesaj pregătit ✓</h4>
+                <p>
+                  Se va deschide aplicația ta de email cu mesajul precompletat
+                  către <strong>contact@urbanwarriorgym.ro</strong>. Trimite-l
+                  de acolo și îți răspundem rapid.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <div class="premium-separator"></div>
+
+      <section class="map-section">
+        <div class="services-header">
+          <h2 class="section-title">
+            UNDE NE <span class="red-text">GĂSEȘTI</span>
+          </h2>
+        </div>
+        <div class="map-shell">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2823.963868846358!2d27.95478437666248!3d45.26388897107147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b729be60b62d2b%3A0x6a0c0e0b6b6b6b6b!2sStrada%20Transilvaniei%2024%2C%20Br%C4%83ila!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <div class="map-floating-card">
+            <h4>// LOCAȚIA NOASTRĂ</h4>
+            <p>
+              Str. Transilvaniei 24-26<br />
+              Brăila, 810249
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="quick-cta">
+        <div class="quick-cta-inner">
+          <div>
+            <h3>Vrei să ne cunoști în persoană?</h3>
+            <p>Rezervă o ședință de probă — gratuită pentru toți noii membri.</p>
+          </div>
+          <a href="abonamente.html" class="btn-cta">VEZI ABONAMENTE</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-col contact-col">
+          <img src="img/logo.png" alt="Urban Warrior Logo" class="footer-logo" />
+          <ul class="contact-details">
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                />
+              </svg>
+              <span>Str. Transilvaniei 24 - 26, Brăila, România, 810249</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                />
+              </svg>
+              <span>contact@urbanwarriorgym.ro</span>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.28 1.12.27 2.33.41 3.57.41.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 .25 1.13.41 2.5.68 3.7.09.42-.04.83-.41 1.17l-1.99 2.14z"
+                />
+              </svg>
+              <div class="phones">
+                <span>0748145453</span>
+                <span>0766621622</span>
+              </div>
+            </li>
+            <li>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="footer-icon"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+                />
+              </svg>
+              <span>Luni - Vineri: 15:45 - 20:00</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col contact-col"></div>
+
+        <div class="footer-col map-col">
+          <h3 class="footer-title">LOCALIZARE</h3>
+          <div class="map-frame">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2823.963868846358!2d27.95478437666248!3d45.26388897107147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b729be60b62d2b%3A0x6a0c0e0b6b6b6b6b!2sStrada%20Transilvaniei%2024%2C%20Br%C4%83ila!5e0!3m2!1sen!2sro!4v1700000000000!5m2!1sen!2sro"
+              width="100%"
+              height="250"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="footer-col menu-col"></div>
+
+        <div class="footer-col menu-col">
+          <h3 class="footer-title">MENIU</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="club.html">Clubul Nostru</a></li>
+            <li><a href="galerie.html">Galerie</a></li>
+            <li><a href="abonamente.html">Abonamente</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          Site creat și administrat de
+          <span class="admin-name">Stoian Daniel-Stefan</span>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true,
+      });
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    </script>
+
+    <script>
+
+      document.querySelectorAll(".form-field input, .form-field textarea").forEach((input) => {
+        const wrapper = input.closest(".form-field");
+
+        input.addEventListener("focus", () => {
+          wrapper.classList.add("focused");
+          wrapper.classList.remove("error");
+        });
+        input.addEventListener("blur", () => {
+          wrapper.classList.remove("focused");
+          if (input.value.trim() !== "") {
+            wrapper.classList.add("has-value");
+          } else {
+            wrapper.classList.remove("has-value");
+          }
+        });
+        input.addEventListener("input", () => {
+          if (input.value.trim() !== "") {
+            wrapper.classList.add("has-value");
+          } else {
+            wrapper.classList.remove("has-value");
+          }
+        });
+      });
+
+      const mesajEl = document.getElementById("mesaj");
+      const counterEl = document.getElementById("charCounter");
+      const MAX_CHARS = 500;
+      mesajEl.addEventListener("input", () => {
+        const len = mesajEl.value.length;
+        counterEl.textContent = `${len} / ${MAX_CHARS}`;
+        counterEl.classList.toggle("warn", len > MAX_CHARS * 0.9);
+      });
+
+      const form = document.getElementById("contactForm");
+      const successBox = document.getElementById("formSuccess");
+
+      function validateField(field) {
+        const wrapper = document.querySelector(
+          `.form-field[data-field="${field.name}"]`
+        );
+        if (!wrapper) return field.checkValidity();
+
+        let valid = true;
+        const val = field.value.trim();
+
+        if (field.required && val === "") {
+          valid = false;
+        } else if (field.type === "email" && val !== "") {
+          valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+        } else if (field.type === "tel" && val !== "") {
+
+          valid = /^[+\d\s().-]{7,}$/.test(val);
+        }
+
+        wrapper.classList.toggle("error", !valid);
+        return valid;
+      }
+
+      form.querySelectorAll("input[required], textarea[required]").forEach((f) => {
+        f.addEventListener("blur", () => {
+          if (f.value.trim() !== "") validateField(f);
+        });
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let allValid = true;
+        form.querySelectorAll("input[required], textarea[required]").forEach((f) => {
+          if (f.type !== "checkbox") {
+            if (!validateField(f)) allValid = false;
+          }
+        });
+
+        const gdpr = document.getElementById("gdpr");
+        if (!gdpr.checked) {
+          gdpr.parentElement.style.color = "#ff0000";
+          allValid = false;
+        } else {
+          gdpr.parentElement.style.color = "";
+        }
+
+        if (!allValid) {
+
+          const firstError = form.querySelector(".form-field.error");
+          if (firstError) {
+            firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          return;
+        }
+
+        const prenume = document.getElementById("prenume").value.trim();
+        const nume = document.getElementById("nume").value.trim();
+        const telefon = document.getElementById("telefon").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const mesaj = document.getElementById("mesaj").value.trim();
+
+        const subject = encodeURIComponent(
+          `Mesaj de pe site — ${prenume} ${nume}`
+        );
+        const body = encodeURIComponent(
+          `Salut!\n\n` +
+            `Numele: ${prenume} ${nume}\n` +
+            `Telefon: ${telefon}\n` +
+            `Email: ${email}\n\n` +
+            `Mesaj:\n${mesaj}\n\n` +
+            `— Trimis prin formularul urbanwarriorgym.ro`
+        );
+
+        successBox.classList.add("active");
+        gsap.from(successBox, {
+          y: 20,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.out",
+        });
+
+        setTimeout(() => {
+          window.location.href = `mailto:contact@urbanwarriorgym.ro?subject=${subject}&body=${body}`;
+        }, 600);
+      });
+    </script>
+
+    <script>
+
+      window.addEventListener("load", () => {
+        if (typeof ScrollTrigger !== "undefined") {
+          gsap.registerPlugin(ScrollTrigger);
+
+          gsap.fromTo(
+            ".info-kicker, .info-heading, .info-sub, .info-line",
+            { y: 30, opacity: 0 },
+            {
+              y: 0, opacity: 1,
+              duration: 0.8, stagger: 0.12, ease: "power3.out",
+              scrollTrigger: { trigger: ".contact-info", start: "top 85%" },
+            }
+          );
+
+          gsap.fromTo(
+            ".info-block",
+            { y: 25, opacity: 0 },
+            {
+              y: 0, opacity: 1,
+              duration: 0.6, stagger: 0.1, ease: "power2.out",
+              scrollTrigger: { trigger: ".info-grid", start: "top 90%" },
+            }
+          );
+
+          gsap.fromTo(
+            ".form-shell",
+            { x: 40, opacity: 0 },
+            {
+              x: 0, opacity: 1,
+              duration: 0.9, ease: "power3.out",
+              scrollTrigger: { trigger: ".form-shell", start: "top 85%" },
+            }
+          );
+
+          gsap.fromTo(
+            ".map-shell",
+            { scale: 0.96, opacity: 0 },
+            {
+              scale: 1, opacity: 1,
+              duration: 0.9, ease: "power3.out",
+              scrollTrigger: { trigger: ".map-section", start: "top 80%" },
+            }
+          );
+
+          gsap.fromTo(
+            ".quick-cta-inner",
+            { y: 30, opacity: 0 },
+            {
+              y: 0, opacity: 1,
+              duration: 0.8, ease: "power3.out",
+              scrollTrigger: { trigger: ".quick-cta", start: "top 90%" },
+            }
+          );
+
+          ScrollTrigger.refresh();
+        }
+      });
+    </script>
+      <script>
+      if (typeof tsParticles !== "undefined") {
+        tsParticles.load({
+          id: "tsparticles",
+          options: {
+            fpsLimit: 60,
+            particles: {
+              number: { value: 35, density: { enable: true, area: 1200 } },
+              color: { value: ["#ff0000", "#ffffff"] },
+              opacity: { value: { min: 0.08, max: 0.4 } },
+              size: { value: { min: 0.5, max: 2 } },
+              move: {
+                enable: true,
+                speed: 0.5,
+                direction: "none",
+                random: true,
+                straight: false,
+                outModes: { default: "out" }
+              },
+              links: { enable: false }
+            },
+            background: { color: "transparent" },
+            interactivity: { events: { onHover: { enable: false } } },
+            detectRetina: true
+          }
+        });
+      }
+    </script>
+      <script>
+      (function () {
+        var burger = document.querySelector(".hamburger");
+        if (!burger) return;
+        burger.addEventListener("click", function () {
+          document.body.classList.toggle("menu-open");
+        });
+        document.querySelectorAll(".nav-links a").forEach(function (a) {
+          a.addEventListener("click", function () {
+            document.body.classList.remove("menu-open");
+          });
+        });
+      })();
+    </script>
+  
+    <script>
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const planParam = params.get("plan");
+        if (!planParam) return;
+        const planNames = {
+          junior: "Plan JUNIOR (copii 6-14 ani) — 100 RON/lună",
+          starter: "Plan STARTER — 150 RON/lună",
+          standard: "Plan STANDARD — 380 RON/lună",
+          pro: "Plan PRO — 600 RON/lună",
+          private8: "Pachet 8 Private — 600 RON",
+          private12: "Pachet 12 Private — 840 RON",
+          anual: "Abonament Anual Standard — 1500 RON/an"
+        };
+        const planText = planNames[planParam] || "unul dintre planurile voastre";
+        document.addEventListener("DOMContentLoaded", function () {
+          const formShell = document.querySelector(".form-shell");
+          if (formShell) {
+            const banner = document.createElement("div");
+            banner.className = "plan-selected-banner";
+            banner.innerHTML = "<strong>📦 Plan selectat:</strong> " + planText;
+            formShell.insertBefore(banner, formShell.firstChild);
+          }
+          const mesajEl = document.getElementById("mesaj");
+          if (mesajEl) {
+            const message = "Bună!\n\nSunt interesat de: " + planText + ".\n\nVă rog să mă contactați pentru detalii și pentru a stabili împreună următorii pași.\n\nMulțumesc!";
+            mesajEl.value = message;
+            const wrapper = document.querySelector(".form-field[data-field='mesaj']");
+            if (wrapper) wrapper.classList.add("has-value");
+            const counter = document.getElementById("charCounter");
+            if (counter) counter.textContent = message.length + " / 500";
+          }
+        });
+      })();
+    </script>
+  
+    <script>
+      (function () {
+        const ta = document.getElementById("mesaj");
+        if (!ta) return;
+        function autoResize() {
+          ta.style.height = "auto";
+          ta.style.height = Math.min(ta.scrollHeight, 320) + "px";
+        }
+        ta.addEventListener("input", autoResize);
+        window.addEventListener("load", function () {
+          if (ta.value.trim() !== "") {
+            const wrapper = document.querySelector(".form-field[data-field='mesaj']");
+            if (wrapper) wrapper.classList.add("has-value");
+            autoResize();
+          }
+        });
+        window.autoResizeTextarea = autoResize;
+      })();
+    </script>
+  </body>
+</html>
