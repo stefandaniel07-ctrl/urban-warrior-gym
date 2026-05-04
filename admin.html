@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Admin Panel - Urban Warrior Gym</title>
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      body {
+        background: #050505;
+        min-height: 100vh;
+      }
+      .admin-bg-grid {
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 0, 0, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 0, 0, 0.04) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .admin-login {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        z-index: 1;
+      }
+      .admin-login.hidden { display: none; }
+      .login-card {
+        background: linear-gradient(145deg, #0e0e0e, #050505);
+        border: 1px solid rgba(255, 0, 0, 0.4);
+        border-left: 4px solid #ff0000;
+        max-width: 460px;
+        width: 100%;
+        padding: 50px 40px;
+        position: relative;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 0, 0, 0.1);
+      }
+      .login-tag {
+        display: block;
+        color: #ff0000;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-family: "Courier New", monospace;
+        margin-bottom: 10px;
+      }
+      .login-title {
+        font-size: 32px;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .login-sub {
+        color: #888;
+        font-size: 13px;
+        margin-bottom: 35px;
+      }
+      .login-field {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      .login-field input {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid #2a2a2a;
+        color: #fff;
+        font-family: "Courier New", monospace;
+        font-size: 15px;
+        padding: 14px 16px;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+      .login-field input:focus {
+        border-color: #ff0000;
+      }
+      .login-field label {
+        display: block;
+        color: #888;
+        font-size: 11px;
+        letter-spacing: 2px;
+        margin-bottom: 6px;
+        font-family: "Courier New", monospace;
+      }
+      .login-btn {
+        width: 100%;
+        background: #ff0000;
+        color: #fff;
+        border: none;
+        padding: 16px;
+        font-family: inherit;
+        font-weight: 800;
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .login-btn:hover {
+        background: #fff;
+        color: #ff0000;
+      }
+      .login-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+      .login-error {
+        background: rgba(255, 0, 0, 0.08);
+        border-left: 3px solid #ff0000;
+        padding: 10px 14px;
+        margin-bottom: 20px;
+        color: #ff5555;
+        font-size: 12px;
+        display: none;
+      }
+      .login-error.active { display: block; }
+      .login-meta {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #1a1a1a;
+        font-size: 11px;
+        color: #555;
+        font-family: "Courier New", monospace;
+        line-height: 1.7;
+      }
+      .login-meta code {
+        background: rgba(255, 0, 0, 0.1);
+        padding: 1px 5px;
+        color: #ff0000;
+      }
+
+      .admin-shell {
+        display: none;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+      }
+      .admin-shell.active { display: grid; grid-template-columns: 240px 1fr; }
+      .admin-sidebar {
+        background: linear-gradient(180deg, #0a0a0a, #050505);
+        border-right: 1px solid #1a1a1a;
+        padding: 24px 0;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+      }
+      .admin-brand {
+        padding: 0 24px 24px 24px;
+        border-bottom: 1px solid #1a1a1a;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .admin-brand img { width: 36px; height: 36px; }
+      .admin-brand-text {
+        font-size: 11px;
+        color: #ff0000;
+        letter-spacing: 3px;
+        font-weight: 800;
+        font-family: "Courier New", monospace;
+      }
+      .admin-brand-sub {
+        font-size: 9px;
+        color: #555;
+        letter-spacing: 2px;
+        margin-top: 2px;
+      }
+      .admin-nav {
+        list-style: none;
+        padding: 16px 0;
+        margin: 0;
+      }
+      .admin-nav li {
+        padding: 0;
+      }
+      .admin-nav button {
+        width: 100%;
+        background: transparent;
+        border: none;
+        color: #888;
+        text-align: left;
+        padding: 12px 24px;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: 0.2s;
+        border-left: 3px solid transparent;
+      }
+      .admin-nav button:hover {
+        background: rgba(255, 255, 255, 0.02);
+        color: #fff;
+      }
+      .admin-nav button.active {
+        background: rgba(255, 0, 0, 0.08);
+        color: #ff0000;
+        border-left-color: #ff0000;
+      }
+      .admin-nav-icon {
+        font-size: 16px;
+      }
+      .admin-logout {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        padding: 0 24px;
+      }
+      .admin-logout button {
+        width: 100%;
+        background: transparent;
+        border: 1px solid #333;
+        color: #888;
+        padding: 10px;
+        font-family: inherit;
+        font-size: 11px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .admin-logout button:hover {
+        border-color: #ff0000;
+        color: #ff0000;
+      }
+
+      .admin-main {
+        padding: 30px 40px 80px 40px;
+        max-width: 1200px;
+      }
+      .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .admin-header h1 {
+        font-size: 26px;
+        font-weight: 900;
+        text-transform: uppercase;
+        color: #fff;
+        margin: 0;
+      }
+      .admin-header-meta {
+        font-size: 12px;
+        color: #555;
+        font-family: "Courier New", monospace;
+        text-align: right;
+      }
+
+      .admin-section { display: none; }
+      .admin-section.active { display: block; }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+        margin-bottom: 30px;
+      }
+      .stat-card {
+        background: linear-gradient(145deg, #0e0e0e, #050505);
+        border: 1px solid #1a1a1a;
+        padding: 22px;
+        position: relative;
+      }
+      .stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background: #ff0000;
+      }
+      .stat-label {
+        color: #888;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-family: "Courier New", monospace;
+        margin-bottom: 10px;
+      }
+      .stat-value {
+        font-size: 36px;
+        font-weight: 900;
+        color: #fff;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .stat-trend {
+        font-size: 11px;
+        color: #ff0000;
+        font-weight: 700;
+      }
+
+      .admin-block {
+        background: linear-gradient(145deg, #0e0e0e, #050505);
+        border: 1px solid #1a1a1a;
+        padding: 24px;
+        margin-bottom: 22px;
+      }
+      .admin-block h3 {
+        color: #fff;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #1a1a1a;
+      }
+
+      .chart-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        height: 180px;
+        padding: 10px 0;
+      }
+      .chart-bar {
+        flex: 1;
+        background: linear-gradient(180deg, #ff0000, #aa0000);
+        position: relative;
+        min-height: 4px;
+        transition: 0.3s;
+      }
+      .chart-bar:hover {
+        background: linear-gradient(180deg, #ff3333, #ff0000);
+      }
+      .chart-bar-label {
+        position: absolute;
+        bottom: -22px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 10px;
+        color: #666;
+        font-family: "Courier New", monospace;
+      }
+      .chart-bar-value {
+        position: absolute;
+        top: -20px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 11px;
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .data-table th {
+        text-align: left;
+        padding: 12px;
+        background: rgba(255, 0, 0, 0.05);
+        color: #ff0000;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-family: "Courier New", monospace;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .data-table td {
+        padding: 14px 12px;
+        color: #ccc;
+        font-size: 13px;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .data-table tr:hover td {
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .data-table .badge {
+        display: inline-block;
+        background: rgba(255, 0, 0, 0.15);
+        color: #ff0000;
+        padding: 2px 8px;
+        font-size: 10px;
+        letter-spacing: 1px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .data-table .badge.read { background: rgba(255, 255, 255, 0.05); color: #888; }
+      .data-table button {
+        background: transparent;
+        border: 1px solid #333;
+        color: #888;
+        padding: 4px 10px;
+        font-family: inherit;
+        font-size: 10px;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .data-table button:hover {
+        border-color: #ff0000;
+        color: #ff0000;
+      }
+      .data-table button + button { margin-left: 6px; }
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #555;
+        font-size: 13px;
+        font-family: "Courier New", monospace;
+        letter-spacing: 1px;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .form-grid-full { grid-column: 1 / -1; }
+      .editor-field label {
+        display: block;
+        color: #888;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-family: "Courier New", monospace;
+        margin-bottom: 6px;
+      }
+      .editor-field input,
+      .editor-field textarea {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid #2a2a2a;
+        color: #fff;
+        font-family: inherit;
+        font-size: 14px;
+        padding: 10px 12px;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+      .editor-field input:focus,
+      .editor-field textarea:focus { border-color: #ff0000; }
+      .editor-actions {
+        margin-top: 22px;
+        display: flex;
+        gap: 12px;
+      }
+      .editor-btn {
+        background: #ff0000;
+        color: #fff;
+        border: none;
+        padding: 12px 24px;
+        font-family: inherit;
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .editor-btn:hover { background: #fff; color: #ff0000; }
+      .editor-btn.secondary {
+        background: transparent;
+        border: 1px solid #333;
+        color: #888;
+      }
+      .editor-btn.secondary:hover {
+        border-color: #ff0000;
+        color: #ff0000;
+        background: transparent;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #ff0000;
+        color: #fff;
+        padding: 14px 22px;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 1px;
+        z-index: 9999;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s, transform 0.3s;
+        pointer-events: none;
+      }
+      .toast.show { opacity: 1; transform: translateY(0); }
+
+      @media (max-width: 768px) {
+        .admin-shell.active { grid-template-columns: 1fr; }
+        .admin-sidebar { position: static; height: auto; }
+        .admin-main { padding: 20px; }
+        .form-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-bg-grid"></div>
+
+    <div class="admin-login active" id="loginScreen">
+      <div class="login-card">
+        <span class="login-tag">// SECURE ACCESS</span>
+        <h1 class="login-title">Admin Panel</h1>
+        <p class="login-sub">Acces restricționat C.S. Urban Warrior Gym</p>
+
+        <div class="login-error" id="loginError">Credențiale incorecte</div>
+
+        <div class="login-field">
+          <label>USERNAME</label>
+          <input type="text" id="loginUser" autocomplete="off" value="admin" />
+        </div>
+        <div class="login-field">
+          <label>PAROLĂ</label>
+          <input type="password" id="loginPass" autocomplete="off" />
+        </div>
+        <button class="login-btn" id="loginBtn" type="button">AUTENTIFICARE</button>
+
+        <div class="login-meta">
+          <strong style="color:#888">// FIRST RUN</strong><br />
+          User: <code>admin</code><br />
+          Pass: <code>warrior2026</code><br />
+          (Schimbă imediat din Securitate după login)
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-shell" id="adminShell">
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <img src="img/logo.png" alt="UWG" />
+          <div>
+            <div class="admin-brand-text">UWG ADMIN</div>
+            <div class="admin-brand-sub">v1.0 LIVE</div>
+          </div>
+        </div>
+        <ul class="admin-nav" id="adminNav">
+          <li><button class="active" data-section="stats"><span class="admin-nav-icon">📊</span>Statistici</button></li>
+          <li><button data-section="messages"><span class="admin-nav-icon">📧</span>Mesaje</button></li>
+          <li><button data-section="plans"><span class="admin-nav-icon">💳</span>Solicitări</button></li>
+          <li><button data-section="editor"><span class="admin-nav-icon">⚙️</span>Editor</button></li>
+          <li><button data-section="security"><span class="admin-nav-icon">🔒</span>Securitate</button></li>
+          <li><button data-section="backup"><span class="admin-nav-icon">📦</span>Backup</button></li>
+        </ul>
+        <div class="admin-logout">
+          <button id="logoutBtn">→ LOGOUT</button>
+        </div>
+      </aside>
+
+      <main class="admin-main">
+        <div class="admin-header">
+          <h1 id="sectionTitle">Statistici</h1>
+          <div class="admin-header-meta">
+            <div>Bun venit, <strong style="color:#fff">admin</strong></div>
+            <div id="lastLogin">Ultimul login: -</div>
+          </div>
+        </div>
+
+        <section class="admin-section active" id="section-stats">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-label">// TOTAL VIZITE</div>
+              <div class="stat-value" id="statTotalVisits">0</div>
+              <div class="stat-trend" id="statTotalTrend">+0 azi</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">// MESAJE PRIMITE</div>
+              <div class="stat-value" id="statMessages">0</div>
+              <div class="stat-trend" id="statMessagesUnread">0 necitite</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">// SOLICITĂRI PLAN</div>
+              <div class="stat-value" id="statPlans">0</div>
+              <div class="stat-trend" id="statPlansTop">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">// PAGINA TOP</div>
+              <div class="stat-value" id="statTopPage" style="font-size:22px">-</div>
+              <div class="stat-trend" id="statTopViews">0 vizite</div>
+            </div>
+          </div>
+
+          <div class="admin-block">
+            <h3>Activitate ultimele 7 zile</h3>
+            <div class="chart-bars" id="chart7Days"></div>
+          </div>
+
+          <div class="admin-block">
+            <h3>Vizite per pagină</h3>
+            <table class="data-table" id="pageViewsTable">
+              <thead>
+                <tr><th>Pagină</th><th>Vizite</th><th>%</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-section" id="section-messages">
+          <div class="admin-block">
+            <h3>Mesaje primite din formular contact</h3>
+            <table class="data-table" id="messagesTable">
+              <thead>
+                <tr><th>Data</th><th>Nume</th><th>Telefon</th><th>Email</th><th>Mesaj</th><th>Status</th><th>Acțiuni</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-section" id="section-plans">
+          <div class="admin-block">
+            <h3>Click-uri "TRIMITE MESAJ" pe planuri</h3>
+            <table class="data-table" id="plansTable">
+              <thead>
+                <tr><th>Data</th><th>Plan</th><th>Preț</th><th>Pagina referer</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-section" id="section-editor">
+          <div class="admin-block">
+            <h3>Editor Conținut Site (live)</h3>
+            <p style="color:#888;font-size:13px;margin-bottom:20px">
+              Schimbările apar imediat pe site (la următorul refresh) prin localStorage. Reset → revine la default.
+            </p>
+            <div class="form-grid">
+              <div class="editor-field">
+                <label>// TELEFON 1</label>
+                <input type="text" id="ed-tel1" />
+              </div>
+              <div class="editor-field">
+                <label>// TELEFON 2</label>
+                <input type="text" id="ed-tel2" />
+              </div>
+              <div class="editor-field form-grid-full">
+                <label>// EMAIL</label>
+                <input type="email" id="ed-email" />
+              </div>
+              <div class="editor-field form-grid-full">
+                <label>// ADRESĂ</label>
+                <input type="text" id="ed-addr" />
+              </div>
+              <div class="editor-field">
+                <label>// PROGRAM (text)</label>
+                <input type="text" id="ed-hours" />
+              </div>
+              <div class="editor-field">
+                <label>// PREȚ JUNIOR (RON/lună)</label>
+                <input type="number" id="ed-pJunior" />
+              </div>
+              <div class="editor-field">
+                <label>// PREȚ STARTER</label>
+                <input type="number" id="ed-pStarter" />
+              </div>
+              <div class="editor-field">
+                <label>// PREȚ STANDARD</label>
+                <input type="number" id="ed-pStandard" />
+              </div>
+              <div class="editor-field">
+                <label>// PREȚ PRO</label>
+                <input type="number" id="ed-pPro" />
+              </div>
+              <div class="editor-field">
+                <label>// PACHET 8 PRIVATE</label>
+                <input type="number" id="ed-p8" />
+              </div>
+              <div class="editor-field">
+                <label>// PACHET 12 PRIVATE</label>
+                <input type="number" id="ed-p12" />
+              </div>
+              <div class="editor-field">
+                <label>// ANUAL</label>
+                <input type="number" id="ed-pAnual" />
+              </div>
+            </div>
+            <div class="editor-actions">
+              <button class="editor-btn" id="saveEditorBtn">SALVEAZĂ</button>
+              <button class="editor-btn secondary" id="resetEditorBtn">RESET LA DEFAULT</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="admin-section" id="section-security">
+          <div class="admin-block">
+            <h3>Schimbă parolă</h3>
+            <div class="form-grid">
+              <div class="editor-field">
+                <label>// PAROLĂ NOUĂ</label>
+                <input type="password" id="newPass" />
+              </div>
+              <div class="editor-field">
+                <label>// CONFIRMĂ PAROLĂ NOUĂ</label>
+                <input type="password" id="newPassConfirm" />
+              </div>
+            </div>
+            <div class="editor-actions">
+              <button class="editor-btn" id="changePwdBtn">SCHIMBĂ PAROLĂ</button>
+            </div>
+          </div>
+
+          <div class="admin-block">
+            <h3>Activity log (ultimele 50 acțiuni)</h3>
+            <table class="data-table" id="activityTable">
+              <thead><tr><th>Timestamp</th><th>Eveniment</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-section" id="section-backup">
+          <div class="admin-block">
+            <h3>Export / Import date</h3>
+            <p style="color:#888;font-size:13px;margin-bottom:20px">
+              Exportă tot (mesaje, solicitări, edit-uri, log) ca JSON. Importă pentru restore.
+            </p>
+            <div class="editor-actions">
+              <button class="editor-btn" id="exportBtn">📥 EXPORT JSON</button>
+              <button class="editor-btn secondary" id="importBtn">📤 IMPORT JSON</button>
+              <button class="editor-btn secondary" id="resetAllBtn" style="border-color:#aa0000;color:#ff5555">⚠️ RESET TOT</button>
+            </div>
+            <input type="file" id="importFile" accept="application/json" style="display:none" />
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      const DEFAULT_PWD_HASH = "0c0aaba37e60c41edcf83b00e9aae3eb064e4abd6c2c2dc9089e35f5b29c98f9";
+      const STORAGE_KEYS = {
+        pwd: "uwg_admin_pwd",
+        loggedIn: "uwg_admin_session",
+        attempts: "uwg_admin_attempts",
+        lockout: "uwg_admin_lockout",
+        messages: "uwg_messages",
+        plans: "uwg_plan_clicks",
+        visits: "uwg_visits",
+        activity: "uwg_activity",
+        edits: "uwg_content_edits",
+      };
+      const DEFAULT_CONTENT = {
+        tel1: "0748145453",
+        tel2: "0766621622",
+        email: "contact@urbanwarriorgym.ro",
+        addr: "Str. Transilvaniei 24-26, Brăila, 810249",
+        hours: "Luni - Vineri: 15:45 - 20:00",
+        pJunior: 100,
+        pStarter: 150,
+        pStandard: 380,
+        pPro: 600,
+        p8: 600,
+        p12: 840,
+        pAnual: 1500,
+      };
+
+      async function sha256(text) {
+        const buf = new TextEncoder().encode(text);
+        const hash = await crypto.subtle.digest("SHA-256", buf);
+        return Array.from(new Uint8Array(hash))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      function getPwdHash() {
+        return localStorage.getItem(STORAGE_KEYS.pwd) || DEFAULT_PWD_HASH;
+      }
+
+      function isLockedOut() {
+        const lockout = parseInt(localStorage.getItem(STORAGE_KEYS.lockout) || "0", 10);
+        return lockout > Date.now();
+      }
+
+      function getRemainingLockout() {
+        const lockout = parseInt(localStorage.getItem(STORAGE_KEYS.lockout) || "0", 10);
+        return Math.max(0, Math.round((lockout - Date.now()) / 1000));
+      }
+
+      function logActivity(event) {
+        const log = JSON.parse(localStorage.getItem(STORAGE_KEYS.activity) || "[]");
+        log.unshift({ ts: Date.now(), event: event });
+        if (log.length > 50) log.length = 50;
+        localStorage.setItem(STORAGE_KEYS.activity, JSON.stringify(log));
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2400);
+      }
+
+      const loginBtn = document.getElementById("loginBtn");
+      const loginErr = document.getElementById("loginError");
+      const loginPass = document.getElementById("loginPass");
+      const loginUser = document.getElementById("loginUser");
+
+      async function attemptLogin() {
+        if (isLockedOut()) {
+          loginErr.textContent = `Locked. Mai aștepți ${getRemainingLockout()}s.`;
+          loginErr.classList.add("active");
+          return;
+        }
+
+        const u = loginUser.value.trim();
+        const p = loginPass.value;
+        if (u !== "admin") {
+          fail("Username invalid");
+          return;
+        }
+        const hash = await sha256(p);
+        if (hash !== getPwdHash()) {
+          fail("Parolă greșită");
+          return;
+        }
+
+        localStorage.setItem(STORAGE_KEYS.attempts, "0");
+        localStorage.setItem(STORAGE_KEYS.loggedIn, JSON.stringify({ ts: Date.now() }));
+        logActivity("LOGIN OK");
+        showAdmin();
+      }
+
+      function fail(msg) {
+        const attempts = parseInt(localStorage.getItem(STORAGE_KEYS.attempts) || "0", 10) + 1;
+        localStorage.setItem(STORAGE_KEYS.attempts, attempts.toString());
+        if (attempts >= 3) {
+          const lockTime = Date.now() + 10 * 60 * 1000;
+          localStorage.setItem(STORAGE_KEYS.lockout, lockTime.toString());
+          localStorage.setItem(STORAGE_KEYS.attempts, "0");
+          loginErr.textContent = "🔒 Locked 10 minute (3 încercări greșite)";
+          logActivity("LOGIN LOCKED");
+        } else {
+          loginErr.textContent = `${msg}. Mai ai ${3 - attempts} încercări.`;
+          logActivity(`LOGIN FAIL (${attempts}/3)`);
+        }
+        loginErr.classList.add("active");
+        loginPass.value = "";
+      }
+
+      loginBtn.addEventListener("click", attemptLogin);
+      loginPass.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") attemptLogin();
+      });
+
+      function showAdmin() {
+        document.getElementById("loginScreen").classList.remove("active");
+        document.getElementById("adminShell").classList.add("active");
+        const session = JSON.parse(localStorage.getItem(STORAGE_KEYS.loggedIn) || "null");
+        if (session) {
+          document.getElementById("lastLogin").textContent =
+            "Ultimul login: " + new Date(session.ts).toLocaleString("ro-RO");
+        }
+        renderAll();
+      }
+
+      const sessionData = JSON.parse(localStorage.getItem(STORAGE_KEYS.loggedIn) || "null");
+      if (sessionData && Date.now() - sessionData.ts < 60 * 60 * 1000) {
+        showAdmin();
+      }
+
+      document.querySelectorAll(".admin-nav button[data-section]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.dataset.section;
+          document.querySelectorAll(".admin-nav button").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          document.querySelectorAll(".admin-section").forEach((s) => s.classList.remove("active"));
+          document.getElementById("section-" + target).classList.add("active");
+          document.getElementById("sectionTitle").textContent = btn.textContent.trim();
+        });
+      });
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem(STORAGE_KEYS.loggedIn);
+        logActivity("LOGOUT");
+        location.reload();
+      });
+
+      function renderStats() {
+        const visits = JSON.parse(localStorage.getItem(STORAGE_KEYS.visits) || "{}");
+        const messages = JSON.parse(localStorage.getItem(STORAGE_KEYS.messages) || "[]");
+        const plans = JSON.parse(localStorage.getItem(STORAGE_KEYS.plans) || "[]");
+
+        const totalVisits = Object.values(visits).reduce((a, b) => a + b.total, 0) || 0;
+        document.getElementById("statTotalVisits").textContent = totalVisits;
+
+        const today = new Date().toISOString().slice(0, 10);
+        const todayCount = Object.values(visits).reduce((a, b) => a + (b.byDay && b.byDay[today] || 0), 0);
+        document.getElementById("statTotalTrend").textContent = `+${todayCount} azi`;
+
+        document.getElementById("statMessages").textContent = messages.length;
+        const unread = messages.filter((m) => !m.read).length;
+        document.getElementById("statMessagesUnread").textContent = `${unread} necitite`;
+
+        document.getElementById("statPlans").textContent = plans.length;
+        const planCounts = {};
+        plans.forEach((p) => { planCounts[p.plan] = (planCounts[p.plan] || 0) + 1; });
+        const top = Object.entries(planCounts).sort((a, b) => b[1] - a[1])[0];
+        document.getElementById("statPlansTop").textContent = top ? `Top: ${top[0]}` : "-";
+
+        const pageEntries = Object.entries(visits);
+        if (pageEntries.length) {
+          const sorted = pageEntries.sort((a, b) => b[1].total - a[1].total);
+          document.getElementById("statTopPage").textContent = sorted[0][0];
+          document.getElementById("statTopViews").textContent = `${sorted[0][1].total} vizite`;
+        }
+
+        const chart = document.getElementById("chart7Days");
+        chart.innerHTML = "";
+        const days = [];
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          days.push(d.toISOString().slice(0, 10));
+        }
+        const dailyTotals = days.map((d) =>
+          Object.values(visits).reduce((a, b) => a + (b.byDay && b.byDay[d] || 0), 0)
+        );
+        const maxVal = Math.max(...dailyTotals, 1);
+        days.forEach((d, i) => {
+          const bar = document.createElement("div");
+          bar.className = "chart-bar";
+          bar.style.height = `${(dailyTotals[i] / maxVal) * 100}%`;
+          bar.innerHTML = `
+            <div class="chart-bar-value">${dailyTotals[i]}</div>
+            <div class="chart-bar-label">${d.slice(5)}</div>
+          `;
+          chart.appendChild(bar);
+        });
+
+        const tbody = document.querySelector("#pageViewsTable tbody");
+        tbody.innerHTML = "";
+        if (!pageEntries.length) {
+          tbody.innerHTML = '<tr><td colspan="3" class="empty-state">Niciun vizit încă. Deschide site-ul ca să generezi date.</td></tr>';
+        } else {
+          const sortedPages = pageEntries.sort((a, b) => b[1].total - a[1].total);
+          sortedPages.forEach(([page, data]) => {
+            const pct = totalVisits ? Math.round((data.total / totalVisits) * 100) : 0;
+            tbody.innerHTML += `<tr><td><strong style="color:#fff">${page}</strong></td><td>${data.total}</td><td><span class="badge">${pct}%</span></td></tr>`;
+          });
+        }
+      }
+
+      function renderMessages() {
+        const messages = JSON.parse(localStorage.getItem(STORAGE_KEYS.messages) || "[]");
+        const tbody = document.querySelector("#messagesTable tbody");
+        tbody.innerHTML = "";
+        if (!messages.length) {
+          tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Niciun mesaj. Userii care completează formularul contact apar aici.</td></tr>';
+          return;
+        }
+        messages.forEach((m, idx) => {
+          tbody.innerHTML += `
+            <tr>
+              <td style="white-space:nowrap;color:#888;font-size:11px">${new Date(m.ts).toLocaleString("ro-RO")}</td>
+              <td><strong style="color:#fff">${m.name || "?"}</strong></td>
+              <td>${m.phone || "-"}</td>
+              <td>${m.email || "-"}</td>
+              <td style="max-width:300px">${(m.message || "").slice(0, 80)}${m.message && m.message.length > 80 ? "..." : ""}</td>
+              <td><span class="badge ${m.read ? "read" : ""}">${m.read ? "Citit" : "Nou"}</span></td>
+              <td style="white-space:nowrap">
+                <button data-act="read" data-i="${idx}">${m.read ? "Necitit" : "Citit"}</button>
+                <button data-act="del" data-i="${idx}">Șterge</button>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.querySelectorAll("button[data-act]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const i = parseInt(btn.dataset.i, 10);
+            const act = btn.dataset.act;
+            const m = JSON.parse(localStorage.getItem(STORAGE_KEYS.messages) || "[]");
+            if (act === "read") {
+              m[i].read = !m[i].read;
+            } else if (act === "del") {
+              m.splice(i, 1);
+              logActivity("MSG DELETED");
+            }
+            localStorage.setItem(STORAGE_KEYS.messages, JSON.stringify(m));
+            renderMessages();
+            renderStats();
+          });
+        });
+      }
+
+      function renderPlans() {
+        const plans = JSON.parse(localStorage.getItem(STORAGE_KEYS.plans) || "[]");
+        const tbody = document.querySelector("#plansTable tbody");
+        tbody.innerHTML = "";
+        if (!plans.length) {
+          tbody.innerHTML = '<tr><td colspan="4" class="empty-state">Niciun click pe planuri încă.</td></tr>';
+          return;
+        }
+        plans.forEach((p) => {
+          tbody.innerHTML += `
+            <tr>
+              <td style="color:#888;font-size:11px">${new Date(p.ts).toLocaleString("ro-RO")}</td>
+              <td><strong style="color:#fff">${p.plan}</strong></td>
+              <td><span class="badge">${p.price || "-"} RON</span></td>
+              <td style="color:#888">${p.referer || "-"}</td>
+            </tr>
+          `;
+        });
+      }
+
+      function renderEditor() {
+        const edits = JSON.parse(localStorage.getItem(STORAGE_KEYS.edits) || "{}");
+        const merged = { ...DEFAULT_CONTENT, ...edits };
+        Object.keys(merged).forEach((k) => {
+          const el = document.getElementById("ed-" + k);
+          if (el) el.value = merged[k];
+        });
+      }
+
+      document.getElementById("saveEditorBtn").addEventListener("click", () => {
+        const data = {};
+        Object.keys(DEFAULT_CONTENT).forEach((k) => {
+          const el = document.getElementById("ed-" + k);
+          if (el) {
+            data[k] = isNaN(DEFAULT_CONTENT[k]) ? el.value : Number(el.value);
+          }
+        });
+        localStorage.setItem(STORAGE_KEYS.edits, JSON.stringify(data));
+        logActivity("CONTENT EDITED");
+        showToast("✓ Salvat. Refresh pe orice pagină pentru a vedea.");
+      });
+
+      document.getElementById("resetEditorBtn").addEventListener("click", () => {
+        if (!confirm("Reset la default? Vei pierde edit-urile curente.")) return;
+        localStorage.removeItem(STORAGE_KEYS.edits);
+        renderEditor();
+        logActivity("CONTENT RESET");
+        showToast("✓ Reset făcut");
+      });
+
+      document.getElementById("changePwdBtn").addEventListener("click", async () => {
+        const p1 = document.getElementById("newPass").value;
+        const p2 = document.getElementById("newPassConfirm").value;
+        if (p1.length < 6) {
+          showToast("⚠️ Minim 6 caractere");
+          return;
+        }
+        if (p1 !== p2) {
+          showToast("⚠️ Parolele nu coincid");
+          return;
+        }
+        const hash = await sha256(p1);
+        localStorage.setItem(STORAGE_KEYS.pwd, hash);
+        document.getElementById("newPass").value = "";
+        document.getElementById("newPassConfirm").value = "";
+        logActivity("PASSWORD CHANGED");
+        showToast("✓ Parolă schimbată");
+      });
+
+      function renderActivity() {
+        const log = JSON.parse(localStorage.getItem(STORAGE_KEYS.activity) || "[]");
+        const tbody = document.querySelector("#activityTable tbody");
+        tbody.innerHTML = "";
+        if (!log.length) {
+          tbody.innerHTML = '<tr><td colspan="2" class="empty-state">Log gol</td></tr>';
+          return;
+        }
+        log.forEach((e) => {
+          tbody.innerHTML += `<tr><td style="color:#888;font-family:monospace;font-size:11px">${new Date(e.ts).toLocaleString("ro-RO")}</td><td>${e.event}</td></tr>`;
+        });
+      }
+
+      document.getElementById("exportBtn").addEventListener("click", () => {
+        const data = {
+          messages: JSON.parse(localStorage.getItem(STORAGE_KEYS.messages) || "[]"),
+          plans: JSON.parse(localStorage.getItem(STORAGE_KEYS.plans) || "[]"),
+          visits: JSON.parse(localStorage.getItem(STORAGE_KEYS.visits) || "{}"),
+          edits: JSON.parse(localStorage.getItem(STORAGE_KEYS.edits) || "{}"),
+          activity: JSON.parse(localStorage.getItem(STORAGE_KEYS.activity) || "[]"),
+          exported: new Date().toISOString(),
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `uwg-backup-${new Date().toISOString().slice(0, 10)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        logActivity("DATA EXPORTED");
+        showToast("✓ Backup descărcat");
+      });
+
+      document.getElementById("importBtn").addEventListener("click", () => {
+        document.getElementById("importFile").click();
+      });
+
+      document.getElementById("importFile").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          try {
+            const data = JSON.parse(ev.target.result);
+            if (data.messages) localStorage.setItem(STORAGE_KEYS.messages, JSON.stringify(data.messages));
+            if (data.plans) localStorage.setItem(STORAGE_KEYS.plans, JSON.stringify(data.plans));
+            if (data.visits) localStorage.setItem(STORAGE_KEYS.visits, JSON.stringify(data.visits));
+            if (data.edits) localStorage.setItem(STORAGE_KEYS.edits, JSON.stringify(data.edits));
+            if (data.activity) localStorage.setItem(STORAGE_KEYS.activity, JSON.stringify(data.activity));
+            logActivity("DATA IMPORTED");
+            showToast("✓ Import reușit");
+            renderAll();
+          } catch (err) {
+            showToast("⚠️ Fișier invalid");
+          }
+        };
+        reader.readAsText(file);
+      });
+
+      document.getElementById("resetAllBtn").addEventListener("click", () => {
+        if (!confirm("⚠️ ȘTERGE TOT? (mesaje, vizite, edits, log) — această acțiune nu se poate inversa.")) return;
+        if (!confirm("ESTE ULTIMA AVERTIZARE. Sigur sigur?")) return;
+        Object.values(STORAGE_KEYS).forEach((k) => {
+          if (k !== STORAGE_KEYS.pwd) localStorage.removeItem(k);
+        });
+        logActivity("FULL RESET");
+        showToast("✓ Tot șters");
+        renderAll();
+      });
+
+      function renderAll() {
+        renderStats();
+        renderMessages();
+        renderPlans();
+        renderEditor();
+        renderActivity();
+      }
+    </script>
+  </body>
+</html>

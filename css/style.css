@@ -3206,3 +3206,39 @@ main.galerie-page .horizontal-gallery-section .swiper-slide.h-card {
     font-size: 28px;
   }
 }
+
+.marquee-wrapper {
+  overflow: hidden;
+}
+.marquee-track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: marqueeScroll 38s linear infinite;
+  will-change: transform;
+}
+.marquee-track > span {
+  font-size: 40px;
+  font-weight: 900;
+  padding: 0 30px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.marquee-track > span.dot {
+  font-size: 30px;
+  opacity: 0.6;
+  padding: 0 8px;
+}
+@media (max-width: 768px) {
+  .marquee-track > span { font-size: 24px; padding: 0 18px; }
+  .marquee-track > span.dot { font-size: 20px; padding: 0 6px; }
+}
+@media (max-width: 480px) {
+  .marquee-track > span { font-size: 18px; padding: 0 12px; }
+}
+.marquee-half {
+  display: none !important;
+}
