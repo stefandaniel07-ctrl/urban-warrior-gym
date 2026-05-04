@@ -27,6 +27,7 @@
     <script src="js/gsap.min.js"></script>
     <script src="js/ScrollTrigger.min.js" defer></script>
     <script src="js/lenis.min.js"></script>
+    <script src="js/admin-access.js" defer></script>
     <script src="js/tsparticles.slim.min.js" defer></script>
     <style>
 
@@ -1134,6 +1135,12 @@
         const telefon = document.getElementById("telefon").value.trim();
         const email = document.getElementById("email").value.trim();
         const mesaj = document.getElementById("mesaj").value.trim();
+
+        if (window.UWG_ADMIN) {
+          window.UWG_ADMIN.saveMessage({
+            prenume: prenume, nume: nume, telefon: telefon, email: email, mesaj: mesaj
+          });
+        }
 
         const subject = encodeURIComponent(
           `Mesaj de pe site — ${prenume} ${nume}`

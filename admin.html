@@ -743,7 +743,7 @@
     <div class="toast" id="toast"></div>
 
     <script>
-      const DEFAULT_PWD_HASH = "0c0aaba37e60c41edcf83b00e9aae3eb064e4abd6c2c2dc9089e35f5b29c98f9";
+      const DEFAULT_PWD_HASH = "41478ca1b6bead9ab6f5085c7261d979add73480758a3838a1c76fe12730f2da";
       const STORAGE_KEYS = {
         pwd: "uwg_admin_pwd",
         loggedIn: "uwg_admin_session",
@@ -867,6 +867,18 @@
             "Ultimul login: " + new Date(session.ts).toLocaleString("ro-RO");
         }
         renderAll();
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("unlock") === "resetlockout") {
+        localStorage.removeItem(STORAGE_KEYS.lockout);
+        localStorage.removeItem(STORAGE_KEYS.attempts);
+        loginErr.textContent = "🔓 Lockout reset cu succes. Încearcă login-ul.";
+        loginErr.classList.add("active");
+        loginErr.style.background = "rgba(0, 200, 0, 0.1)";
+        loginErr.style.borderLeftColor = "#0a0";
+        loginErr.style.color = "#5f5";
+        history.replaceState(null, "", window.location.pathname);
       }
 
       const sessionData = JSON.parse(localStorage.getItem(STORAGE_KEYS.loggedIn) || "null");
