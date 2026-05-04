@@ -678,11 +678,11 @@
 
       <section class="contact-hero">
         <div class="services-header">
-          <h2 class="section-title">
+          <h2 class="section-title" data-i18n="contact.hero.title">
             CONTACT
           </h2>
         </div>
-        <p>
+        <p data-i18n="contact.hero.subtitle">
           Suntem la un mesaj distanță. Răspundem rapid la orice întrebare despre
           abonamente, antrenori sau programe.
         </p>
@@ -694,11 +694,11 @@
         <div class="contact-grid">
 
           <div class="contact-info">
-            <span class="info-kicker">// LEGĂTURA DIRECTĂ</span>
+            <span class="info-kicker" data-i18n="contact.kicker">// LEGĂTURA DIRECTĂ</span>
             <h3 class="info-heading">
-              Ne poți contacta <span class="red-text">oricând.</span>
+              <span data-i18n="contact.heading">Ne poți contacta</span> <span class="red-text" data-i18n="contact.heading.red">oricând.</span>
             </h3>
-            <p class="info-sub">
+            <p class="info-sub" data-i18n="contact.sub">
               Fie că vrei să afli prețuri, să rezervi un antrenament gratuit
               sau pur și simplu să întrebi ceva — suntem aici pentru tine. Răspundem
               de luni până vineri, în programul de antrenament.
@@ -720,11 +720,11 @@
                     />
                   </svg>
                 </div>
-                <div class="info-label">Telefon</div>
+                <div class="info-label" data-i18n="contact.label.phone">Telefon</div>
                 <div class="info-value">
                   <a href="tel:0748145453"><strong>0748 145 453</strong></a><br />
                   <a href="tel:0766621622">0766 621 622</a>
-                  <div class="small-note">Apel direct sau SMS</div>
+                  <div class="small-note" data-i18n="contact.note.phone">Apel direct sau SMS</div>
                 </div>
               </div>
 
@@ -741,12 +741,12 @@
                     />
                   </svg>
                 </div>
-                <div class="info-label">E-Mail</div>
+                <div class="info-label" data-i18n="contact.label.email">E-Mail</div>
                 <div class="info-value">
                   <a href="mailto:contact@urbanwarriorgym.ro"
                     ><strong>contact@urbanwarriorgym.ro</strong></a
                   >
-                  <div class="small-note">Răspundem în maxim 24h</div>
+                  <div class="small-note" data-i18n="contact.note.email">Răspundem în maxim 24h</div>
                 </div>
               </div>
 
@@ -763,11 +763,11 @@
                     />
                   </svg>
                 </div>
-                <div class="info-label">Program</div>
+                <div class="info-label" data-i18n="contact.label.hours">Program</div>
                 <div class="info-value">
-                  <strong>Luni - Vineri</strong><br />
+                  <strong data-i18n="contact.hours.days">Luni - Vineri</strong><br />
                   15:45 — 20:00
-                  <div class="small-note">Sâmbăta închis &nbsp;·&nbsp; Duminică închis</div>
+                  <div class="small-note" data-i18n="contact.note.closed">Sâmbăta închis &nbsp;·&nbsp; Duminică închis</div>
                 </div>
               </div>
 
@@ -784,16 +784,16 @@
                     />
                   </svg>
                 </div>
-                <div class="info-label">Adresa</div>
+                <div class="info-label" data-i18n="contact.label.address">Adresa</div>
                 <div class="info-value">
                   <strong>Str. Transilvaniei 24-26</strong><br />
                   Brăila, România, 810249
-                  <div class="small-note">Acces direct, parcare disponibilă</div>
+                  <div class="small-note" data-i18n="contact.note.address">Acces direct, parcare disponibilă</div>
                 </div>
               </div>
             </div>
             <div class="info-social">
-              <span class="info-social-label">URMĂREȘTE-NE</span>
+              <span class="info-social-label" data-i18n="contact.follow">URMĂREȘTE-NE</span>
               <div class="info-social-icons">
                 <a href="https://www.facebook.com/profile.php?id=100063555311388" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
@@ -809,8 +809,8 @@
           </div>
 
           <div class="form-shell">
-            <span class="form-tag">// FORMULAR</span>
-            <h3 class="form-title">Trimite-ne un mesaj</h3>
+            <span class="form-tag" data-i18n="contact.form.tag">// FORMULAR</span>
+            <h3 class="form-title" data-i18n="contact.form.title">Trimite-ne un mesaj</h3>
 
             <form id="contactForm" novalidate>
               <div class="form-row full" style="position:absolute;left:-9999px;top:-9999px;visibility:hidden" aria-hidden="true">
@@ -820,56 +820,56 @@
               <div class="form-row">
                 <div class="form-field" data-field="prenume">
                   <input id="prenume" name="prenume" type="text" autocomplete="given-name" required />
-                  <label for="prenume">Prenume *</label>
-                  <span class="field-error">Te rugăm să completezi prenumele.</span>
+                  <label for="prenume" data-i18n="contact.form.firstname">Prenume *</label>
+                  <span class="field-error" data-i18n="contact.form.firstname.error">Te rugăm să completezi prenumele.</span>
                 </div>
                 <div class="form-field" data-field="nume">
                   <input id="nume" name="nume" type="text" autocomplete="family-name" required />
-                  <label for="nume">Nume *</label>
-                  <span class="field-error">Te rugăm să completezi numele.</span>
+                  <label for="nume" data-i18n="contact.form.lastname">Nume *</label>
+                  <span class="field-error" data-i18n="contact.form.lastname.error">Te rugăm să completezi numele.</span>
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-field" data-field="telefon">
                   <input id="telefon" name="telefon" type="tel" autocomplete="tel" required />
-                  <label for="telefon">Număr de telefon *</label>
-                  <span class="field-error">Numărul nu pare corect.</span>
+                  <label for="telefon" data-i18n="contact.form.phone">Număr de telefon *</label>
+                  <span class="field-error" data-i18n="contact.form.phone.error">Numărul nu pare corect.</span>
                 </div>
                 <div class="form-field" data-field="email">
                   <input id="email" name="email" type="email" autocomplete="email" required />
-                  <label for="email">E-Mail *</label>
-                  <span class="field-error">Adresa de email nu e validă.</span>
+                  <label for="email" data-i18n="contact.form.email">E-Mail *</label>
+                  <span class="field-error" data-i18n="contact.form.email.error">Adresa de email nu e validă.</span>
                 </div>
               </div>
 
               <div class="form-row full">
                 <div class="form-field" data-field="mesaj">
                   <textarea id="mesaj" name="mesaj" rows="5" maxlength="500" required></textarea>
-                  <label for="mesaj">Mesajul tău *</label>
+                  <label for="mesaj" data-i18n="contact.form.message">Mesajul tău *</label>
                   <span class="char-counter" id="charCounter">0 / 500</span>
-                  <span class="field-error">Te rugăm să scrii un mesaj.</span>
+                  <span class="field-error" data-i18n="contact.form.message.error">Te rugăm să scrii un mesaj.</span>
                 </div>
               </div>
 
               <div class="form-gdpr">
                 <input id="gdpr" name="gdpr" type="checkbox" required />
-                <label for="gdpr">
+                <label for="gdpr" data-i18n="contact.form.gdpr">
                   Sunt de acord ca datele mele să fie folosite pentru
-                  procesarea solicitării. <strong>Nu trimitem spam.</strong>
+                  procesarea solicitării. Nu trimitem spam.
                 </label>
               </div>
 
               <button type="submit" class="form-submit">
-                Trimite mesajul
+                <span data-i18n="contact.form.submit">Trimite mesajul</span>
                 <span class="form-submit-arrow">→</span>
               </button>
 
               <div class="form-success" id="formSuccess">
-                <h4>Mesaj pregătit ✓</h4>
-                <p>
+                <h4 data-i18n="contact.form.success.title">Mesaj pregătit ✓</h4>
+                <p data-i18n="contact.form.success.text">
                   Se va deschide aplicația ta de email cu mesajul precompletat
-                  către <strong>contact@urbanwarriorgym.ro</strong>. Trimite-l
+                  către contact@urbanwarriorgym.ro. Trimite-l
                   de acolo și îți răspundem rapid.
                 </p>
               </div>
@@ -883,7 +883,7 @@
       <section class="map-section">
         <div class="services-header">
           <h2 class="section-title">
-            UNDE NE <span class="red-text">GĂSEȘTI</span>
+            <span data-i18n="contact.map.title">UNDE NE</span> <span class="red-text" data-i18n="contact.map.title.red">GĂSEȘTI</span>
           </h2>
         </div>
         <div class="map-shell">
@@ -892,11 +892,11 @@
                 <svg viewBox="0 0 24 24" fill="currentColor" class="map-pin-icon"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                 <strong>Str. Transilvaniei 24-26</strong>
                 <span class="map-place">Brăila, 810249</span>
-                <span class="map-load-hint">Apasă pentru harta interactivă</span>
+                <span class="map-load-hint" data-i18n="footer.map.hint">Apasă pentru harta interactivă</span>
               </div>
             </div>
           <div class="map-floating-card">
-            <h4>// LOCAȚIA NOASTRĂ</h4>
+            <h4 data-i18n="contact.map.label">// LOCAȚIA NOASTRĂ</h4>
             <p>
               Str. Transilvaniei 24-26<br />
               Brăila, 810249
@@ -908,10 +908,10 @@
       <section class="quick-cta">
         <div class="quick-cta-inner">
           <div>
-            <h3>Vrei să ne cunoști în persoană?</h3>
-            <p>Rezervă o ședință de probă — gratuită pentru toți noii membri.</p>
+            <h3 data-i18n="contact.cta.title">Vrei să ne cunoști în persoană?</h3>
+            <p data-i18n="contact.cta.subtitle">Rezervă o ședință de probă — gratuită pentru toți noii membri.</p>
           </div>
-          <a href="abonamente.html" class="btn-cta">VEZI ABONAMENTE</a>
+          <a href="abonamente.html" class="btn-cta" data-i18n="contact.cta.button">VEZI ABONAMENTE</a>
         </div>
       </section>
     </main>
@@ -989,7 +989,7 @@
                 <svg viewBox="0 0 24 24" fill="currentColor" class="map-pin-icon"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                 <strong>Str. Transilvaniei 24-26</strong>
                 <span class="map-place">Brăila, 810249</span>
-                <span class="map-load-hint">Apasă pentru harta interactivă</span>
+                <span class="map-load-hint" data-i18n="footer.map.hint">Apasă pentru harta interactivă</span>
               </div>
             </div>
           </div>
