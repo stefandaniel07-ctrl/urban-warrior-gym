@@ -616,12 +616,6 @@ html.lenis body {
   z-index: -1;
 }
 
-.tech-plus,
-.tp-1,
-.tech-coords {
-  display: none !important;
-}
-
 .about-section {
   padding: 100px 10% 30px 10%;
   background-color: transparent;
@@ -1548,98 +1542,6 @@ img {
   filter: grayscale(0%);
 }
 
-.horizontal-gallery-section {
-  width: 100%;
-  height: 100vh;
-  min-height: 800px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  position: relative;
-
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.horizontal-wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.horizontal-container {
-  display: flex;
-  gap: 50px;
-  padding-left: 5vw;
-  width: max-content;
-  height: 600px;
-
-  touch-action: none;
-  cursor: grab;
-  user-select: none;
-}
-
-.horizontal-container:active {
-  cursor: grabbing;
-}
-
-.h-card {
-  width: 400px;
-  height: 600px;
-  position: relative;
-
-  background-color: #000 !important;
-
-  flex-shrink: 0;
-  flex-grow: 0;
-
-  border: 1px solid #333;
-  transition: transform 0.3s ease;
-  overflow: hidden;
-}
-
-.h-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 0.5s ease;
-  pointer-events: none;
-  object-position: center top;
-}
-
-.h-card:hover {
-  transform: scale(1.02);
-  border-color: #ff0000;
-  z-index: 2;
-}
-
-.h-card:hover img {
-  filter: grayscale(0%);
-}
-
-.h-text {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 50px;
-  font-weight: 900;
-  color: rgba(255, 255, 255, 0.1);
-  line-height: 1;
-  pointer-events: none;
-  transition: 0.5s;
-  z-index: 5;
-}
-
-.h-card:hover .h-text {
-  color: #ff0000;
-  transform: translateY(-10px);
-  text-shadow: 0 10px 20px black;
-}
-
 #tsparticles {
   position: fixed;
   top: 0;
@@ -1815,7 +1717,6 @@ body.menu-open .hamburger span:nth-child(3) {
   body.menu-open { overflow: hidden; }
 }
 
-
 @media (max-width: 768px) {
   .navbar {
     display: flex !important;
@@ -1836,23 +1737,10 @@ body.menu-open .hamburger span:nth-child(3) {
   height: 3px !important;
 }
 @media (max-width: 768px) {
-  .horizontal-gallery-section {
-    height: 600px !important;
-    margin: 0 0 50px 0 !important;
-    -webkit-overflow-scrolling: touch;
-  }
-  .horizontal-container {
-    height: 540px !important;
-    gap: 18px !important;
-    padding: 0 7vw !important;
-  }
-  .h-card {
-    width: 85vw !important;
-    height: 540px !important;
-  }
-  .h-text {
-    font-size: 36px !important;
-  }
+  
+  
+  
+  
   .gallery-grid {
     grid-template-columns: 1fr !important;
     gap: 6px !important;
@@ -1911,26 +1799,10 @@ body.menu-open .hamburger span:nth-child(3) {
     height: 100%;
     display: block;
   }
-  .horizontal-gallery-section {
-    overflow-x: scroll !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    touch-action: pan-x !important;
-    scroll-behavior: auto !important;
-    cursor: default !important;
-  }
-  .horizontal-wrapper {
-    width: max-content !important;
-    height: 100% !important;
-  }
-  .horizontal-container {
-    width: max-content !important;
-    flex-shrink: 0 !important;
-  }
-  .h-card {
-    flex-shrink: 0 !important;
-    flex-grow: 0 !important;
-  }
+  
+  
+  
+  
   .gallery-item {
     aspect-ratio: auto !important;
     height: auto !important;
@@ -2045,7 +1917,6 @@ body.menu-open .hamburger span:nth-child(3) {
   }
 }
 
-
 @media (max-width: 768px) {
   nav.navbar {
     background-color: rgba(8, 8, 8, 0.95) !important;
@@ -2148,42 +2019,10 @@ body.menu-open .hamburger span:nth-child(3) {
     justify-content: center !important;
   }
 
-  .horizontal-gallery-section {
-    height: 600px !important;
-    overflow: hidden !important;
-    margin: 0 0 50px 0 !important;
-    padding: 0 !important;
-    cursor: default !important;
-  }
-  .horizontal-gallery-section .swiper-wrapper {
-    height: 100% !important;
-    align-items: center !important;
-  }
-  .horizontal-gallery-section .swiper-slide {
-    width: 80vw !important;
-    height: 540px !important;
-    flex-shrink: 0 !important;
-  }
-  .horizontal-gallery-section .h-text {
-    font-size: 36px !important;
-  }
-}
-
-.horizontal-gallery-section.swiper {
-  width: 100%;
-  height: 680px;
-  overflow: hidden;
-  margin: 20px 0 80px 0;
-  padding: 0 5vw;
-}
-.horizontal-gallery-section .swiper-wrapper {
-  height: 100%;
-  align-items: center;
-}
-.horizontal-gallery-section .swiper-slide {
-  width: 400px;
-  height: 600px;
-  flex-shrink: 0;
+  
+  
+  
+  
 }
 
 @media (max-width: 768px) {
@@ -2658,13 +2497,8 @@ body.modal-open {
 }
 
 @media (max-width: 768px) {
-  .horizontal-gallery-section {
-    margin: 8px 0 24px 0 !important;
-    height: 540px !important;
-  }
-  .horizontal-gallery-section .swiper-slide {
-    height: 480px !important;
-  }
+  
+  
   .gallery-container {
     padding: 16px 0 50px 0 !important;
   }
@@ -2700,13 +2534,8 @@ main.galerie-page {
     margin-top: 4px !important;
     font-size: 13px !important;
   }
-  main.galerie-page .horizontal-gallery-section {
-    margin: 4px 0 6px 0 !important;
-    height: 500px !important;
-  }
-  main.galerie-page .horizontal-gallery-section .swiper-slide {
-    height: 460px !important;
-  }
+  
+  
   main.galerie-page .gallery-container {
     padding: 0 0 24px 0 !important;
   }
@@ -2732,23 +2561,9 @@ main.galerie-page {
     gap: 4px !important;
     margin: 0 !important;
   }
-  main.galerie-page .horizontal-gallery-section {
-    margin: 0 !important;
-  }
+  
   main.galerie-page .services-header {
     margin: 0 0 4px 0 !important;
-  }
-}
-
-@media (max-width: 768px) {
-  main.galerie-page .horizontal-gallery-section .swiper-wrapper {
-    gap: 14px !important;
-  }
-  main.galerie-page .horizontal-gallery-section .swiper-slide:first-child {
-    margin-left: 16px !important;
-  }
-  main.galerie-page .horizontal-gallery-section .swiper-slide:last-child {
-    margin-right: 16px !important;
   }
 }
 
@@ -2763,11 +2578,6 @@ main.galerie-page {
   position: relative;
 }
 
-.h-card > picture > img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-}
 .gallery-item > picture > img {
   width: 100% !important;
   height: 100% !important;
@@ -2793,49 +2603,10 @@ main.galerie-page {
 }
 
 @media (max-width: 768px) {
-  main.galerie-page .horizontal-gallery-section {
-    height: 460px !important;
-  }
-  main.galerie-page .horizontal-gallery-section .swiper-slide {
-    height: 420px !important;
-  }
-  main.galerie-page .horizontal-gallery-section .h-card {
-    width: 80vw !important;
-    height: 420px !important;
-  }
-  main.galerie-page .h-text {
-    font-size: 32px !important;
-  }
-}
-
-@media (max-width: 768px) {
-  main.galerie-page .horizontal-gallery-section {
-    height: auto !important;
-    min-height: 0 !important;
-    margin: 0 !important;
-    padding: 8px 0 0 0 !important;
-    overflow: hidden !important;
-    display: block !important;
-  }
-  main.galerie-page .horizontal-gallery-section .swiper-wrapper {
-    height: auto !important;
-    align-items: center !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    gap: 14px !important;
-    box-sizing: border-box !important;
-  }
-  main.galerie-page .horizontal-gallery-section .swiper-slide {
-    height: 400px !important;
-    width: 80vw !important;
-    flex-shrink: 0 !important;
-    margin: 0 !important;
-  }
-  main.galerie-page .horizontal-gallery-section .h-card {
-    width: 100% !important;
-    height: 100% !important;
-    margin: 0 !important;
-  }
+  
+  
+  
+  
   main.galerie-page .gallery-container {
     padding: 8px 0 24px 0 !important;
     margin: 0 !important;
@@ -2843,38 +2614,10 @@ main.galerie-page {
 }
 
 @media (max-width: 768px) {
-  main.galerie-page .horizontal-gallery-section {
-    padding: 14px 0 14px 0 !important;
-  }
-  main.galerie-page .horizontal-gallery-section .swiper-slide,
-  main.galerie-page .horizontal-gallery-section .swiper-slide:first-child,
-  main.galerie-page .horizontal-gallery-section .swiper-slide:last-child,
-  main.galerie-page .horizontal-gallery-section .swiper-slide.h-card {
-    width: 80vw !important;
-    min-width: 80vw !important;
-    max-width: 80vw !important;
-    height: 400px !important;
-    min-height: 400px !important;
-    max-height: 400px !important;
-    flex-shrink: 0 !important;
-    flex-grow: 0 !important;
-    flex-basis: 80vw !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    align-self: center !important;
-  }
-  main.galerie-page .horizontal-gallery-section .h-card > picture {
-    width: 100% !important;
-    height: 100% !important;
-    display: block !important;
-  }
-  main.galerie-page .horizontal-gallery-section .h-card > picture > img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center 30% !important;
-    display: block !important;
-  }
+  
+  
+  
+  
   main.galerie-page .gallery-container {
     padding: 0 0 24px 0 !important;
   }
@@ -2893,22 +2636,6 @@ main.galerie-page {
     object-fit: contain !important;
     max-height: 80vh !important;
   }
-}
-
-@media (max-width: 768px) {
-  main.galerie-page section.horizontal-gallery-section.swiper .swiper-wrapper > .swiper-slide:first-of-type {
-    margin-left: 16px !important;
-  }
-  main.galerie-page section.horizontal-gallery-section.swiper .swiper-wrapper > .swiper-slide:last-of-type {
-    margin-right: 16px !important;
-  }
-}
-
-main.galerie-page section.horizontal-gallery-section.swiper .swiper-wrapper > .swiper-slide:first-of-type {
-  margin-left: 30px;
-}
-main.galerie-page section.horizontal-gallery-section.swiper .swiper-wrapper > .swiper-slide:last-of-type {
-  margin-right: 30px;
 }
 
 .map-placeholder {
@@ -2984,26 +2711,6 @@ main.galerie-page section.horizontal-gallery-section.swiper .swiper-wrapper > .s
   z-index: 2;
 }
 
-.swiper-slide.swiper-slide-spacer {
-  width: 16px !important;
-  flex: 0 0 16px !important;
-  min-width: 16px !important;
-  max-width: 16px !important;
-  height: 1px !important;
-  background: transparent !important;
-  pointer-events: none !important;
-  border: none !important;
-  margin: 0 !important;
-}
-@media (min-width: 769px) {
-  .swiper-slide.swiper-slide-spacer {
-    width: 30px !important;
-    flex: 0 0 30px !important;
-    min-width: 30px !important;
-    max-width: 30px !important;
-  }
-}
-
 .marquee-track {
   display: flex;
   width: max-content;
@@ -3040,51 +2747,11 @@ main.galerie-page section.horizontal-gallery-section.swiper .swiper-wrapper > .s
   .marquee-half span { font-size: 18px; padding: 0 12px; }
 }
 
-@media (max-width: 768px) {
-  main.galerie-page .horizontal-gallery-section .swiper-slide.swiper-slide-spacer,
-  main.galerie-page section.horizontal-gallery-section.swiper .swiper-wrapper > .swiper-slide.swiper-slide-spacer {
-    width: 16px !important;
-    min-width: 16px !important;
-    max-width: 16px !important;
-    flex: 0 0 16px !important;
-    flex-basis: 16px !important;
-    height: 1px !important;
-    min-height: 0 !important;
-    max-height: 1px !important;
-    align-self: center !important;
-    background: transparent !important;
-    border: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    pointer-events: none !important;
-  }
-}
-
-.horizontal-gallery-section .swiper-slide.swiper-slide-spacer {
-  width: 30px !important;
-  min-width: 30px !important;
-  max-width: 30px !important;
-  flex: 0 0 30px !important;
-  flex-basis: 30px !important;
-  height: 1px !important;
-  background: transparent !important;
-  border: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  pointer-events: none !important;
-}
-
 main.galerie-page .services-header {
   margin-bottom: 18px !important;
   padding-top: 6px !important;
 }
-main.galerie-page .horizontal-gallery-section.swiper {
-  margin: 0 0 40px 0 !important;
-  height: 620px !important;
-}
-main.galerie-page .horizontal-gallery-section .swiper-slide.h-card {
-  height: 580px !important;
-}
+
 @media (max-width: 768px) {
   main.galerie-page .services-header {
     margin-bottom: 4px !important;
@@ -3242,7 +2909,6 @@ main.galerie-page .horizontal-gallery-section .swiper-slide.h-card {
 .marquee-half {
   display: none !important;
 }
-
 
 /* ==========================================================================
    PROGRAM (SCHEDULE) PAGE
